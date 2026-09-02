@@ -1,0 +1,65 @@
+<svg viewBox="0 0 160 160" width="160" height="160" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Cyan to Royal Blue Ring Gradient -->
+    <linearGradient id="ring-grad" x1="10" y1="20" x2="150" y2="140" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="50%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+
+    <!-- Deep Navy Body Gradient -->
+    <linearGradient id="body-grad" x1="30" y1="20" x2="130" y2="130" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+
+    <!-- Briefcase Gold Accent / Navy Gradient -->
+    <linearGradient id="case-grad" x1="100" y1="20" x2="140" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e3a8a"/>
+    </linearGradient>
+
+    <!-- Soft Glow Filter -->
+    <filter id="glow" x="0" y="0" width="160" height="160" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Glowing Outer Orbit Ring (Light Blue Cyan Gradient) -->
+  <ellipse cx="78" cy="82" rx="68" ry="42" stroke="url(#ring-grad)" stroke-width="8" stroke-linecap="round" fill="none" transform="rotate(-28 78 82)" filter="url(#glow)"/>
+
+  <!-- Executive Head -->
+  <circle cx="78" cy="32" r="14" fill="url(#body-grad)"/>
+
+  <!-- Executive Torso / Suit -->
+  <path d="M62 50 L94 50 L88 80 L66 80 Z" fill="url(#body-grad)"/>
+  
+  <!-- Tie Accent (Electric Cyan) -->
+  <path d="M75 50 L81 50 L79 68 L77 68 Z" fill="#38bdf8"/>
+
+  <!-- Left Arm Extended Backwards -->
+  <path d="M64 52 Q44 62 30 65" stroke="url(#body-grad)" stroke-width="10" stroke-linecap="round" fill="none"/>
+
+  <!-- Right Arm Forward Holding Briefcase -->
+  <path d="M90 52 L112 36" stroke="url(#body-grad)" stroke-width="10" stroke-linecap="round" fill="none"/>
+
+  <!-- Briefcase -->
+  <g transform="rotate(22 112 36)">
+    <rect x="106" y="20" width="36" height="26" rx="4" fill="url(#case-grad)"/>
+    <rect x="106" y="20" width="36" height="26" rx="4" stroke="#38bdf8" stroke-width="1.5" fill="none" opacity="0.6"/>
+    <!-- Handle -->
+    <path d="M117 20 V14 Q117 10 124 10 Q131 10 131 14 V20" stroke="#1e293b" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+    <!-- Latch -->
+    <rect x="121" y="28" width="6" height="4" rx="1" fill="#38bdf8"/>
+  </g>
+
+  <!-- Legs in Full Power Stride -->
+  <!-- Left Leg Forward -->
+  <path d="M68 78 Q42 94 28 110" stroke="url(#body-grad)" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <ellipse cx="25" cy="111" rx="9" ry="5" fill="#0f172a"/>
+
+  <!-- Right Leg Backwards -->
+  <path d="M86 78 Q106 94 126 98" stroke="url(#body-grad)" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <ellipse cx="127" cy="98" rx="9" ry="5" fill="#0f172a"/>
+</svg>
