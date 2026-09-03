@@ -32,5 +32,39 @@
     "status": "New",
     "savedAt": "2026-09-03T18:17:25.320Z",
     "mode": "fallback_disk_storage"
+  },
+  {
+    "id": "app_1788460708207",
+    "fullName": "krishna kumar1",
+    "email": "ramjeekumaryadav558@gmail.com",
+    "phone": "08404827541",
+    "cityState": "lucknow",
+    "age": 18,
+    "hasDevice": true,
+    "preferredWorkType": "Work From Home",
+    "preferredRole": "Chat Support Executive",
+    "experienceLevel": "Fresher",
+    "languages": "Hindi, English",
+    "additionalInformation": "",
+    "status": "New",
+    "savedAt": "2026-09-03T18:38:28.208Z",
+    "mode": "fallback_disk_storage"
+  },
+  {
+    "id": "app_1788461113339",
+    "fullName": "krishna kumar2",
+    "email": "ramjeekumaryadav558@gmail.com",
+    "phone": "08404827541",
+    "cityState": "lucknow",
+    "age": 18,
+    "hasDevice": true,
+    "preferredWorkType": "Work From Home",
+    "preferredRole": "Data Entry Executive",
+    "experienceLevel": "Fresher",
+    "languages": "Hindi, English",
+    "additionalInformation": "njj",
+    "status": "New",
+    "savedAt": "2026-09-03T18:45:13.389Z",
+    "mode": "fallback_disk_storage"
   }
 ]
