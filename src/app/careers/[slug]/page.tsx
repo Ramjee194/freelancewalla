@@ -40,8 +40,45 @@ export default async function RoleDetailsPage({ params }: { params: Promise<{ sl
     notFound();
   }
 
+  const jobPostingLd = {
+    '@context': 'https://schema.org',
+    '@type': 'JobPosting',
+    title: role.title,
+    description: role.description,
+    identifier: {
+      '@type': 'PropertyValue',
+      name: 'FreelanceWalla',
+      value: role.slug,
+    },
+    datePosted: '2026-01-01',
+    validThrough: '2027-12-31',
+    employmentType: Array.isArray(role.workType) ? role.workType.map((t: string) => t.toUpperCase().replace(/\s+/g, '_')) : 'FULL_TIME',
+    hiringOrganization: {
+      '@type': 'Organization',
+      name: 'FreelanceWalla',
+      sameAs: 'https://freelancewalla.in',
+      logo: 'https://freelancewalla.in/images/brand_logo.svg',
+    },
+    jobLocation: {
+      '@type': 'Place',
+      address: {
+        '@type': 'PostalAddress',
+        addressCountry: 'IN',
+      },
+    },
+    applicantLocationRequirements: {
+      '@type': 'Country',
+      name: 'India',
+    },
+    jobLocationType: 'TELECOMMUTE',
+  };
+
   return (
     <div className="space-y-12 py-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jobPostingLd) }}
+      />
       
       {/* HEADER BAR */}
       <section className="bg-slate-900 text-white py-12 border-b border-slate-800">

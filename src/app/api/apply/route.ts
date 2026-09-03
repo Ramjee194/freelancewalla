@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import connectToDatabase from '@/lib/db';
 import Application from '@/lib/models/Application';
+import { saveFallbackApplication } from '@/lib/fallbackStore';
 import { sendApplicationEmails } from '@/lib/mailer';
 
 export async function POST(req: NextRequest) {
@@ -57,9 +58,46 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'You must agree to the Terms & Conditions before submitting.' }, { status: 400 });
     }
 
-    await connectToDatabase();
+    const conn = await connectToDatabase();
+    let applicationId = 'app_' + Date.now();
 
-    const newApplication = await Application.create({
+    if (conn) {
+      const newApplication = await Application.create({
+        fullName: fullName.trim(),
+        email: email.trim().toLowerCase(),
+        phone: phone.trim(),
+        cityState: cityState.trim(),
+        age: numAge,
+        hasDevice,
+        preferredWorkType,
+        preferredRole,
+        experienceLevel,
+        languages: languages.trim(),
+        additionalInformation: additionalInformation ? additionalInformation.trim() : '',
+        status: 'New',
+      });
+      applicationId = newApplication._id.toString();
+    } else {
+      console.warn('MongoDB unavailable (bad auth/offline). Saving application to local disk fallback storage for:', fullName.trim());
+      saveFallbackApplication({
+        id: applicationId,
+        fullName: fullName.trim(),
+        email: email.trim().toLowerCase(),
+        phone: phone.trim(),
+        cityState: cityState.trim(),
+        age: numAge,
+        hasDevice,
+        preferredWorkType,
+        preferredRole,
+        experienceLevel,
+        languages: languages.trim(),
+        additionalInformation: additionalInformation ? additionalInformation.trim() : '',
+        status: 'New',
+      });
+    }
+
+    // Fire dual notification emails asynchronously (Candidate + Admin)
+    sendApplicationEmails({
       fullName: fullName.trim(),
       email: email.trim().toLowerCase(),
       phone: phone.trim(),
@@ -72,30 +110,13 @@ export async function POST(req: NextRequest) {
       languages: languages.trim(),
       additionalInformation: additionalInformation ? additionalInformation.trim() : '',
       status: 'New',
-    });
-
-    // Fire dual notification emails asynchronously
-    sendApplicationEmails({
-      _id: newApplication._id.toString(),
-      fullName: newApplication.fullName,
-      email: newApplication.email,
-      phone: newApplication.phone,
-      cityState: newApplication.cityState,
-      age: newApplication.age,
-      hasDevice: newApplication.hasDevice,
-      preferredWorkType: newApplication.preferredWorkType,
-      preferredRole: newApplication.preferredRole,
-      experienceLevel: newApplication.experienceLevel,
-      languages: newApplication.languages,
-      additionalInformation: newApplication.additionalInformation,
-      status: newApplication.status,
-    }).catch((err) => console.error('Failed sending background application emails:', err));
+    }).catch((err) => console.error('Failed sending application emails:', err));
 
     return NextResponse.json(
       {
         success: true,
         message: 'Application Submitted Successfully.',
-        applicationId: newApplication._id,
+        applicationId,
       },
       { status: 201 }
     );

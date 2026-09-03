@@ -34,7 +34,10 @@ export async function connectToDatabase(): Promise<typeof mongoose | null> {
   if (!cached.promise) {
     const opts = {
       serverSelectionTimeoutMS: 3000, // Fast timeout if auth or network fails
+      bufferCommands: false,
     };
+
+    mongoose.set('bufferCommands', false);
 
     cached.promise = mongoose
       .connect(MONGODB_URI, opts)
@@ -42,14 +45,16 @@ export async function connectToDatabase(): Promise<typeof mongoose | null> {
         return mongooseInstance;
       })
       .catch((err) => {
-        console.warn('MongoDB connection unavailable. Using fallback data:', err.message);
+        console.warn('MongoDB connection unavailable:', err.message);
+        cached.promise = null;
         return null;
       });
   }
 
   try {
     cached.conn = await cached.promise;
-    if ((mongoose.connection.readyState as number) !== 1) {
+    if (!cached.conn || (mongoose.connection.readyState as number) !== 1) {
+      cached.promise = null;
       return null;
     }
   } catch (e) {

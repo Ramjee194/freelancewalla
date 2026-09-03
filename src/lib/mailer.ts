@@ -99,11 +99,11 @@ export async function sendContactInquiryEmails(inquiry: IContactInquiry) {
 }
 
 /**
- * Sends dual notifications for Job Applications
+ * Sends dual notifications for Job Applications (Candidate + Director/HR Admin)
  */
-export async function sendApplicationEmails(application: IApplication) {
+export async function sendApplicationEmails(application: Partial<IApplication>) {
   try {
-    // 1. Email to the Candidate / Applicant
+    // 1. Confirmation Email to Candidate / Applicant
     const applicantMailOptions = {
       from: `"FreelanceWalla Recruitment" <${user}>`,
       to: application.email,
@@ -119,11 +119,11 @@ export async function sendApplicationEmails(application: IApplication) {
             <p>Thank you for submitting your application to <strong>FreelanceWalla</strong> for the position of <strong>${application.preferredRole}</strong>.</p>
             
             <div style="background-color: #f8fafc; border-left: 4px solid #16a34a; padding: 16px; margin: 20px 0; border-radius: 4px;">
-              <h3 style="margin: 0 0 10px; font-size: 15px; color: #14532d;">Application Status & Details</h3>
-              <p style="margin: 4px 0;"><strong>Application ID:</strong> ${application._id || 'Submitted'}</p>
+              <h3 style="margin: 0 0 10px; font-size: 15px; color: #14532d;">Application Details</h3>
               <p style="margin: 4px 0;"><strong>Role Applied:</strong> ${application.preferredRole}</p>
               <p style="margin: 4px 0;"><strong>Work Type:</strong> ${application.preferredWorkType}</p>
               <p style="margin: 4px 0;"><strong>Experience Level:</strong> ${application.experienceLevel}</p>
+              <p style="margin: 4px 0;"><strong>Location:</strong> ${application.cityState}</p>
             </div>
 
             <div style="background-color: #fffbe6; border: 1px solid #ffe58f; padding: 12px; border-radius: 6px; font-size: 13px; color: #856404; margin-bottom: 20px;">
@@ -143,7 +143,7 @@ export async function sendApplicationEmails(application: IApplication) {
       `,
     };
 
-    // 2. Email to the Director / HR Admin
+    // 2. Alert Email to Director / HR Admin
     const directorMailOptions = {
       from: `"FreelanceWalla Portal" <${user}>`,
       to: directorEmail,
@@ -177,11 +177,14 @@ export async function sendApplicationEmails(application: IApplication) {
       `,
     };
 
+    console.log(`[Mailer] Sending job application notification emails for ${application.fullName}...`);
     await Promise.all([
       transporter.sendMail(applicantMailOptions),
       transporter.sendMail(directorMailOptions),
     ]);
+    console.log(`[Mailer] Application emails sent successfully for ${application.fullName}!`);
   } catch (error) {
-    console.error('Error sending application emails via Nodemailer:', error);
+    console.error('[Mailer] Error sending application emails via Nodemailer:', error);
   }
 }
+

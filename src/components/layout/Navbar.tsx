@@ -55,7 +55,7 @@ export default function Navbar() {
       <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-2xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
-            
+
             {/* Official Brand Logo */}
             <Logo variant="light" size="md" />
 
@@ -67,11 +67,10 @@ export default function Navbar() {
                   <Link
                     key={link.name}
                     href={link.href}
-                    className={`px-3.5 py-2 rounded-lg text-sm font-semibold transition-all ${
-                      active
+                    className={`px-3.5 py-2 rounded-lg text-sm font-semibold transition-all ${active
                         ? 'text-blue-950 bg-blue-50/80 font-bold border-b-2 border-blue-900'
                         : 'text-slate-600 hover:text-slate-950 hover:bg-slate-50'
-                    }`}
+                      }`}
                   >
                     {link.name}
                   </Link>
@@ -93,7 +92,7 @@ export default function Navbar() {
                 className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-xs font-bold text-white bg-blue-900 hover:bg-blue-800 transition-all shadow-xs hover:shadow-md"
               >
                 <PhoneCall className="w-4 h-4" />
-                Get a Quote
+                Get Started
               </Link>
             </div>
 
@@ -114,7 +113,7 @@ export default function Navbar() {
         {/* Mobile Menu Drawer */}
         {mobileMenuOpen && (
           <div className="lg:hidden fixed inset-0 top-28 bg-slate-950/50 z-40 backdrop-blur-xs" onClick={() => setMobileMenuOpen(false)}>
-            <div 
+            <div
               className="bg-white border-b border-slate-200 px-4 pt-3 pb-6 space-y-3 shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
@@ -126,11 +125,10 @@ export default function Navbar() {
                       key={link.name}
                       href={link.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className={`block px-4 py-3 rounded-lg text-base font-semibold transition-colors ${
-                        active
+                      className={`block px-4 py-3 rounded-lg text-base font-semibold transition-colors ${active
                           ? 'text-blue-900 bg-blue-50 font-bold border-l-4 border-blue-900'
                           : 'text-slate-700 hover:bg-slate-50'
-                      }`}
+                        }`}
                     >
                       {link.name}
                     </Link>
@@ -152,7 +150,7 @@ export default function Navbar() {
                   onClick={() => setMobileMenuOpen(false)}
                   className="w-full text-center px-4 py-3 rounded-lg text-sm font-bold text-white bg-blue-900 hover:bg-blue-800 flex items-center justify-center gap-2 shadow-xs"
                 >
-                  Get a Free Quote
+                  Get Started
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>

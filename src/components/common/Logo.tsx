@@ -56,20 +56,12 @@ export default function Logo({
               Walla
             </span>
 
-            {/* .IN Badge */}
-            <span className={`px-1.5 py-0.5 rounded-md text-[10px] font-black font-mono tracking-wider ml-0.5 border ${
-              isDark
-                ? 'bg-blue-900/60 border-blue-600/60 text-blue-300'
-                : 'bg-blue-50 border-blue-200 text-blue-700'
-            }`}>
-              .IN
-            </span>
+
           </div>
 
           {/* Premium Sub-tagline */}
-          <span className={`text-[9px] font-bold uppercase tracking-[0.22em] mt-1 block font-mono ${
-            isDark ? 'text-slate-400' : 'text-slate-500'
-          }`}>
+          <span className={`text-[9px] font-bold uppercase tracking-[0.22em] mt-1 block font-mono ${isDark ? 'text-slate-400' : 'text-slate-500'
+            }`}>
             Outsourcing & Support Platform
           </span>
         </div>

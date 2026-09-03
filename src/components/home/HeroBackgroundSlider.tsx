@@ -5,30 +5,34 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShieldCheck, ArrowRight, CheckCircle2, ChevronLeft, ChevronRight } from 'lucide-react';
 
-const heroSlides = [
+interface HeroSlide {
+  image: string;
+  title: string;
+  subtitle: string;
+  badge?: string;
+}
+
+const heroSlides: HeroSlide[] = [
   {
     image: '/images/hero_bpo_team.png',
     title: 'Reliable Freelance & BPO Services for Growing Businesses',
     subtitle: 'FreelanceWalla connects businesses with reliable support for sales, telecalling, customer service, chat, email, data entry and back-office operations.',
-    badge: 'Verified Indian BPO & Support Platform',
+    badge: 'Verified  & Freelance Services',
   },
   {
     image: '/images/bpo_workspace.png',
     title: 'Dedicated Teams Trained on Your Business Process',
     subtitle: 'Adherence to call scripts, response guidelines, and operational SLAs to maintain professional customer communication.',
-    badge: 'Scale Support Workload On-Demand',
   },
   {
     image: '/images/bpo_support_call.png',
     title: 'Empathetic Customer Support & Live Chat Management',
     subtitle: 'Resolve inbound queries, reduce ticket response time, and increase customer satisfaction across call, chat, and email channels.',
-    badge: '24/7 Multi-Channel Helpdesk Support',
   },
   {
     image: '/images/bpo_data_office.png',
     title: 'Accurate Data Entry & Administrative Back-Office Support',
     subtitle: 'Organize spreadsheets, update CRM records, handle document processing, and audit order records with high accuracy.',
-    badge: 'High Accuracy Record Keeping',
   },
 ];
 
@@ -43,12 +47,11 @@ export default function HeroBackgroundSlider() {
     return () => clearInterval(timer);
   }, []);
 
-  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-  const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
+
 
   return (
     <div className="relative min-h-[85vh] lg:min-h-[90vh] flex items-center justify-center overflow-hidden bg-slate-950 text-white">
-      
+
       {/* Automatic Fullscreen Background Image Carousel */}
       <AnimatePresence mode="wait">
         <motion.div
@@ -73,18 +76,20 @@ export default function HeroBackgroundSlider() {
 
       {/* CENTERED CONTENT OVERLAY */}
       <div className="relative z-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 text-center flex flex-col items-center justify-center space-y-6">
-        
+
         {/* Animated Badge */}
-        <motion.div
-          key={`badge-${currentSlide}`}
-          initial={{ opacity: 0, y: -15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-900/80 border border-blue-600/60 text-blue-200 text-xs font-bold tracking-wide backdrop-blur-md shadow-lg"
-        >
-          <ShieldCheck className="w-4 h-4 text-blue-400" />
-          {heroSlides[currentSlide].badge}
-        </motion.div>
+        {heroSlides[currentSlide].badge && (
+          <motion.div
+            key={`badge-${currentSlide}`}
+            initial={{ opacity: 0, y: -15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-900/80 border border-blue-600/60 text-blue-200 text-xs font-bold tracking-wide backdrop-blur-md shadow-lg"
+          >
+            <ShieldCheck className="w-4 h-4 text-blue-400" />
+            {heroSlides[currentSlide].badge}
+          </motion.div>
+        )}
 
         {/* Center-Aligned Title */}
         <motion.h1
@@ -153,37 +158,7 @@ export default function HeroBackgroundSlider() {
 
       </div>
 
-      {/* Centered Slide Controls */}
-      <div className="absolute bottom-6 z-30 flex items-center justify-center gap-4">
-        <button
-          onClick={prevSlide}
-          className="p-2 rounded-full bg-slate-900/80 border border-slate-700 text-white hover:bg-blue-600 transition-colors backdrop-blur-md"
-          aria-label="Previous Slide"
-        >
-          <ChevronLeft className="w-4 h-4" />
-        </button>
 
-        <div className="flex items-center gap-2">
-          {heroSlides.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => setCurrentSlide(idx)}
-              className={`h-2.5 rounded-full transition-all duration-500 ${
-                currentSlide === idx ? 'w-8 bg-blue-500' : 'w-2.5 bg-slate-600 hover:bg-slate-400'
-              }`}
-              aria-label={`Slide ${idx + 1}`}
-            />
-          ))}
-        </div>
-
-        <button
-          onClick={nextSlide}
-          className="p-2 rounded-full bg-slate-900/80 border border-slate-700 text-white hover:bg-blue-600 transition-colors backdrop-blur-md"
-          aria-label="Next Slide"
-        >
-          <ChevronRight className="w-4 h-4" />
-        </button>
-      </div>
 
     </div>
   );

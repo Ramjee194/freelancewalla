@@ -25,9 +25,26 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Message content is required.' }, { status: 400 });
     }
 
-    await connectToDatabase();
+    const conn = await connectToDatabase();
+    let inquiryId = 'inq_' + Date.now();
 
-    const newInquiry = await ContactInquiry.create({
+    if (conn) {
+      const newInquiry = await ContactInquiry.create({
+        fullName: fullName.trim(),
+        email: email.trim().toLowerCase(),
+        phone: phone.trim(),
+        companyName: companyName ? companyName.trim() : '',
+        serviceRequired: serviceRequired.trim(),
+        expectedRequirement: expectedRequirement ? expectedRequirement.trim() : '',
+        message: message.trim(),
+        status: 'New',
+      });
+      inquiryId = newInquiry._id.toString();
+    } else {
+      console.warn('MongoDB unavailable. Contact inquiry received in fallback mode for:', fullName.trim());
+    }
+
+    sendContactInquiryEmails({
       fullName: fullName.trim(),
       email: email.trim().toLowerCase(),
       phone: phone.trim(),
@@ -36,25 +53,13 @@ export async function POST(req: NextRequest) {
       expectedRequirement: expectedRequirement ? expectedRequirement.trim() : '',
       message: message.trim(),
       status: 'New',
-    });
-
-    // Fire dual notification emails asynchronously
-    sendContactInquiryEmails({
-      fullName: newInquiry.fullName,
-      email: newInquiry.email,
-      phone: newInquiry.phone,
-      companyName: newInquiry.companyName,
-      serviceRequired: newInquiry.serviceRequired,
-      expectedRequirement: newInquiry.expectedRequirement,
-      message: newInquiry.message,
-      status: newInquiry.status,
     }).catch((err) => console.error('Failed sending background contact emails:', err));
 
     return NextResponse.json(
       {
         success: true,
         message: 'Thank you. Your enquiry has been received. Our team will review your request and contact you within 24 hours.',
-        inquiryId: newInquiry._id,
+        inquiryId,
       },
       { status: 201 }
     );
