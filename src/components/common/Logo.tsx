@@ -1,10 +1,11 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface LogoProps {
   variant?: 'light' | 'dark';
   size?: 'sm' | 'md' | 'lg';
-  showText?: boolean;
   className?: string;
+  showText?: boolean;
 }
 
 export default function Logo({
@@ -13,56 +14,63 @@ export default function Logo({
   showText = true,
   className = '',
 }: LogoProps) {
-  const emblemHeights = {
-    sm: 'h-8 sm:h-9',
-    md: 'h-10 sm:h-12',
-    lg: 'h-13 sm:h-16',
+  // Dimensions for the icon
+  const dimensions: Record<string, { height: number; width: number }> = {
+    sm: { height: 38, width: 38 },
+    md: { height: 46, width: 46 },
+    lg: { height: 58, width: 58 },
   };
 
-  const textSizes = {
-    sm: 'text-lg sm:text-xl',
-    md: 'text-xl sm:text-2xl',
-    lg: 'text-2xl sm:text-3xl',
-  };
-
-  const isDark = variant === 'dark';
+  const { height, width } = dimensions[size] || dimensions.md;
 
   return (
     <Link
       href="/"
-      className={`inline-flex items-center gap-3 group font-sans tracking-tight focus:outline-hidden ${className}`}
-      aria-label="FreelanceWalla Home"
+      className={`inline-flex items-center gap-2.5 focus:outline-none group select-none ${className}`}
+      aria-label="FreelanceWalla – Connecting Talent with Opportunities"
     >
-      {/* ULTRA-PREMIUM BRAND EMBLEM */}
-      <div className="relative shrink-0 flex items-center justify-center">
-        <img
-          src="/images/brand_logo.svg"
+      {/* ── Brand SVG Emblem ── */}
+      <div
+        className={`relative shrink-0 rounded-xl overflow-hidden transition-all duration-300 group-hover:scale-105 ${
+          variant === 'dark'
+            ? 'bg-[#064E3B] p-1 ring-1 ring-[#f8e7c9]/30 shadow-md'
+            : 'bg-white shadow-sm ring-1 ring-[#064E3B]/10 p-0.5'
+        }`}
+        style={{ width: `${width}px`, height: `${height}px` }}
+      >
+        <Image
+          src="/icon.svg"
           alt="FreelanceWalla Emblem"
-          className={`${emblemHeights[size]} w-auto object-contain shrink-0 group-hover:scale-105 transition-transform duration-300 drop-shadow-md`}
+          width={width}
+          height={height}
+          className="w-full h-full object-contain"
+          priority
+          unoptimized
         />
       </div>
 
-      {/* ULTRA-PREMIUM TYPOGRAPHY & BRANDING */}
+      {/* ── Wordmark & Tagline ── */}
       {showText && (
-        <div className="flex flex-col justify-center select-none">
-          <div className="flex items-center gap-1 leading-none">
-            {/* Freelance */}
-            <span className={`font-black ${textSizes[size]} tracking-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>
+        <div className="flex flex-col justify-center leading-none">
+          <span
+            className={`font-black tracking-tight ${
+              size === 'lg' ? 'text-2xl' : size === 'sm' ? 'text-lg' : 'text-xl'
+            }`}
+          >
+            <span className={variant === 'dark' ? 'text-white' : 'text-[#064E3B]'}>
               Freelance
             </span>
-
-            {/* Walla (Gradient Text) */}
-            <span className="font-black text-xl sm:text-2xl lg:text-3xl tracking-tight bg-gradient-to-r from-blue-600 via-sky-500 to-blue-500 bg-clip-text text-transparent drop-shadow-2xs">
+            <span className={variant === 'dark' ? 'text-[#f8e7c9]' : 'text-[#064E3B]'}>
               Walla
             </span>
-
-
-          </div>
-
-          {/* Premium Sub-tagline */}
-          <span className={`text-[9px] font-bold uppercase tracking-[0.22em] mt-1 block font-mono ${isDark ? 'text-slate-400' : 'text-slate-500'
-            }`}>
-            Outsourcing & Support Platform
+            <span className="inline-block w-2 h-2 rounded-full bg-[#f8e7c9] border border-[#064E3B]/20 ml-0.5 align-baseline"></span>
+          </span>
+          <span
+            className={`text-[8.5px] font-bold uppercase tracking-[0.14em] mt-0.5 ${
+              variant === 'dark' ? 'text-[#f8e7c9]/80' : 'text-[#064E3B]/70'
+            }`}
+          >
+            Connecting Talent with Opportunities
           </span>
         </div>
       )}

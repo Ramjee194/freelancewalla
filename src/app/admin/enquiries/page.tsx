@@ -56,7 +56,7 @@ export default function AdminEnquiriesPage() {
 
         <main className="flex-1 space-y-6">
           <div>
-            <h1 className="text-2xl font-extrabold text-slate-900">Client Enquiries Manager</h1>
+            <h1 className="text-2xl font-extrabold text-[#064E3B]">Client Enquiries Manager</h1>
             <p className="text-xs text-slate-500">View incoming BPO client proposals and service requests.</p>
           </div>
 
@@ -74,7 +74,7 @@ export default function AdminEnquiriesPage() {
                 <div key={enq._id} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-2xs space-y-4">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-100">
                     <div>
-                      <span className="text-xs font-bold px-2.5 py-0.5 rounded bg-blue-50 text-blue-900 mr-2">
+                      <span className="text-xs font-bold px-2.5 py-0.5 rounded bg-[#e6f4f0] text-[#064E3B] mr-2">
                         {enq.serviceRequired}
                       </span>
                       {enq.companyName && (
@@ -106,7 +106,7 @@ export default function AdminEnquiriesPage() {
                       <div className="font-bold text-slate-900 text-sm">{enq.fullName}</div>
                       <div className="text-slate-500 flex items-center gap-1.5">
                         <Mail className="w-3.5 h-3.5 text-slate-400" />
-                        <a href={`mailto:${enq.email}`} className="text-blue-600 hover:underline">{enq.email}</a>
+                        <a href={`mailto:${enq.email}`} className="text-[#064E3B] font-medium hover:underline">{enq.email}</a>
                       </div>
                       <div className="text-slate-500 flex items-center gap-1.5">
                         <Phone className="w-3.5 h-3.5 text-slate-400" />

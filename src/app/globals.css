@@ -2,10 +2,15 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #0f172a;
-  --primary-navy: #091e42;
-  --accent-blue: #1d4ed8;
-  --accent-cyan: #0284c7;
+  --foreground: #092019;
+  --primary-emerald: #064E3B;
+  --emerald-dark: #04382a;
+  --emerald-light: #0d6e54;
+  --emerald-subtle: #e6f4f0;
+  --accent-champagne: #f8e7c9;
+  --champagne-hover: #edd6ab;
+  --champagne-dark: #e5cc9c;
+  --champagne-gold: #c69446;
 }
 
 body {
@@ -16,19 +21,68 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Custom Emerald & Champagne Utilities */
+.bg-emerald-brand {
+  background-color: #064E3B;
+}
+
+.bg-emerald-dark {
+  background-color: #04382a;
+}
+
+.bg-emerald-light {
+  background-color: #0d6e54;
+}
+
+.bg-emerald-subtle {
+  background-color: #e6f4f0;
+}
+
+.text-emerald-brand {
+  color: #064E3B;
+}
+
+.text-emerald-light {
+  color: #0d6e54;
+}
+
+.border-emerald-brand {
+  border-color: #064E3B;
+}
+
+.bg-champagne-brand {
+  background-color: #f8e7c9;
+}
+
+.bg-champagne-subtle {
+  background-color: #fdf8ee;
+}
+
+.text-champagne-brand {
+  color: #f8e7c9;
+}
+
+.text-champagne-dark {
+  color: #c69446;
+}
+
+.border-champagne-brand {
+  border-color: #f8e7c9;
+}
+
 /* Custom Grid Pattern Background */
 .bg-grid-pattern {
   background-size: 40px 40px;
   background-image: 
-    linear-gradient(to right, rgba(15, 23, 42, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
+    linear-gradient(to right, rgba(6, 78, 59, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(6, 78, 59, 0.05) 1px, transparent 1px);
 }
 
 .bg-grid-pattern-dark {
   background-size: 32px 32px;
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    linear-gradient(to right, rgba(248, 231, 201, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(248, 231, 201, 0.08) 1px, transparent 1px);
 }
 
 /* Custom Animations */
@@ -78,12 +132,13 @@ body {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #f0f7f4;
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #064E3B;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #04382a;
 }
+

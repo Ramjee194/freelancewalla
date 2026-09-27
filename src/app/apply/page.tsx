@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { CheckCircle2, AlertCircle, Send, ShieldAlert, ArrowLeft, Briefcase } from 'lucide-react';
+import { CheckCircle2, AlertCircle, Send, ShieldAlert, ArrowLeft, Briefcase, Smartphone, Laptop, Tablet, Wifi } from 'lucide-react';
 
 function ApplyFormContent() {
   const searchParams = useSearchParams();
@@ -36,6 +36,7 @@ function ApplyFormContent() {
     cityState: '',
     age: '',
     hasDevice: true,
+    devicesAvailable: ['Mobile (Smartphone)', 'Laptop / PC', 'Wi-Fi / Broadband'],
     preferredWorkType: 'Work From Home',
     preferredRole: preselectedRole || 'Sales Telecalling Executive',
     experienceLevel: 'Fresher',
@@ -71,10 +72,20 @@ function ApplyFormContent() {
     }
 
     try {
+      const equipmentSummary = `Available Equipment: ${
+        formData.devicesAvailable.length > 0 ? formData.devicesAvailable.join(', ') : 'None'
+      }. `;
+
+      const payload = {
+        ...formData,
+        hasDevice: formData.devicesAvailable.length > 0,
+        additionalInformation: equipmentSummary + (formData.additionalInformation || '').trim(),
+      };
+
       const res = await fetch('/api/apply', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
 
       const data = await res.json();
@@ -109,11 +120,11 @@ function ApplyFormContent() {
 
         {/* Selected Role Highlight Banner */}
         {preselectedRole && (
-          <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 flex items-center gap-3 text-blue-900 text-sm font-semibold">
-            <Briefcase className="w-5 h-5 text-blue-700 shrink-0" />
+          <div className="bg-[#e6f4f0] border border-[#064E3B]/20 rounded-xl p-4 flex items-center gap-3 text-[#064E3B] text-sm font-semibold">
+            <Briefcase className="w-5 h-5 text-[#064E3B] shrink-0" />
             <div>
               <span>Applying for Position: </span>
-              <span className="font-extrabold text-blue-950 underline underline-offset-2">{formData.preferredRole}</span>
+              <span className="font-extrabold text-[#04382a] underline underline-offset-2">{formData.preferredRole}</span>
             </div>
           </div>
         )}
@@ -148,7 +159,7 @@ function ApplyFormContent() {
                   placeholder="e.g. Anjali Sharma"
                   value={formData.fullName}
                   onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-blue-600 focus:outline-hidden"
+                  className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-[#064E3B] focus:border-[#064E3B] focus:outline-hidden"
                 />
               </div>
 
@@ -160,7 +171,7 @@ function ApplyFormContent() {
                   placeholder="e.g. anjali@gmail.com"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-blue-600 focus:outline-hidden"
+                  className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-[#064E3B] focus:border-[#064E3B] focus:outline-hidden"
                 />
               </div>
             </div>
@@ -174,7 +185,7 @@ function ApplyFormContent() {
                   placeholder="e.g. 9876543210"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-blue-600 focus:outline-hidden"
+                  className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-[#064E3B] focus:border-[#064E3B] focus:outline-hidden"
                 />
               </div>
 
@@ -186,7 +197,7 @@ function ApplyFormContent() {
                   placeholder="e.g. Jaipur, Rajasthan"
                   value={formData.cityState}
                   onChange={(e) => setFormData({ ...formData, cityState: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-blue-600 focus:outline-hidden"
+                  className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-[#064E3B] focus:border-[#064E3B] focus:outline-hidden"
                 />
               </div>
 
@@ -200,37 +211,64 @@ function ApplyFormContent() {
                   placeholder="e.g. 22"
                   value={formData.age}
                   onChange={(e) => setFormData({ ...formData, age: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-blue-600 focus:outline-hidden"
+                  className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-[#064E3B] focus:border-[#064E3B] focus:outline-hidden"
                 />
               </div>
             </div>
 
-            <div className="space-y-1.5">
-              <label className="text-xs font-bold text-slate-700">
-                Do you have a smartphone or laptop with internet access? *
+            <div className="space-y-3">
+              <label className="text-xs font-bold text-slate-700 block">
+                Do you have Mobile (Smartphone), Laptop/PC, Tablet or Wi-Fi Connection? *
               </label>
-              <div className="flex gap-6 pt-1">
-                <label className="inline-flex items-center gap-2 text-sm text-slate-700 font-medium cursor-pointer">
-                  <input
-                    type="radio"
-                    name="hasDevice"
-                    checked={formData.hasDevice === true}
-                    onChange={() => setFormData({ ...formData, hasDevice: true })}
-                    className="text-blue-600 focus:ring-blue-600"
-                  />
-                  Yes, I have a device & stable internet
-                </label>
-                <label className="inline-flex items-center gap-2 text-sm text-slate-700 font-medium cursor-pointer">
-                  <input
-                    type="radio"
-                    name="hasDevice"
-                    checked={formData.hasDevice === false}
-                    onChange={() => setFormData({ ...formData, hasDevice: false })}
-                    className="text-blue-600 focus:ring-blue-600"
-                  />
-                  No
-                </label>
+              <p className="text-[11px] text-slate-500">
+                Select all equipment and connectivity options available for your daily work:
+              </p>
+
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                {[
+                  { id: 'mobile', label: 'Mobile (Smartphone)', icon: Smartphone },
+                  { id: 'laptop', label: 'Laptop / PC', icon: Laptop },
+                  { id: 'tablet', label: 'Tablet / iPad', icon: Tablet },
+                  { id: 'wifi', label: 'Wi-Fi / Broadband', icon: Wifi },
+                ].map((item) => {
+                  const Icon = item.icon;
+                  const isChecked = formData.devicesAvailable.includes(item.label);
+                  return (
+                    <label
+                      key={item.id}
+                      className={`flex items-center gap-2.5 p-3 rounded-xl border text-xs font-semibold cursor-pointer transition-all ${
+                        isChecked
+                          ? 'border-[#064E3B] bg-[#e6f4f0] text-[#064E3B] shadow-2xs'
+                          : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300'
+                      }`}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={isChecked}
+                        onChange={(e) => {
+                          const updated = e.target.checked
+                            ? [...formData.devicesAvailable, item.label]
+                            : formData.devicesAvailable.filter((d) => d !== item.label);
+                          setFormData({
+                            ...formData,
+                            devicesAvailable: updated,
+                            hasDevice: updated.length > 0,
+                          });
+                        }}
+                        className="rounded text-[#064E3B] focus:ring-[#064E3B]"
+                      />
+                      <Icon className="w-4 h-4 shrink-0 text-[#064E3B]" />
+                      <span>{item.label}</span>
+                    </label>
+                  );
+                })}
               </div>
+
+              {formData.devicesAvailable.length === 0 && (
+                <p className="text-xs text-rose-600 font-semibold pt-1">
+                  * Please select at least one device or internet option to proceed.
+                </p>
+              )}
             </div>
           </div>
 
@@ -246,7 +284,7 @@ function ApplyFormContent() {
                 <select
                   value={formData.preferredWorkType}
                   onChange={(e) => setFormData({ ...formData, preferredWorkType: e.target.value as any })}
-                  className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm bg-white focus:ring-2 focus:ring-blue-600 focus:outline-hidden"
+                  className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm bg-white focus:ring-2 focus:ring-[#064E3B] focus:border-[#064E3B] focus:outline-hidden"
                 >
                   <option value="Work From Home">Work From Home</option>
                   <option value="Part-Time">Part-Time</option>
@@ -259,7 +297,7 @@ function ApplyFormContent() {
                 <select
                   value={formData.preferredRole}
                   onChange={(e) => setFormData({ ...formData, preferredRole: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm bg-white focus:ring-2 focus:ring-blue-600 focus:outline-hidden font-semibold text-blue-900"
+                  className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm bg-white focus:ring-2 focus:ring-[#064E3B] focus:border-[#064E3B] focus:outline-hidden font-semibold text-[#064E3B]"
                 >
                   {roleOptions.map((role) => (
                     <option key={role} value={role}>
@@ -276,7 +314,7 @@ function ApplyFormContent() {
                 <select
                   value={formData.experienceLevel}
                   onChange={(e) => setFormData({ ...formData, experienceLevel: e.target.value as any })}
-                  className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm bg-white focus:ring-2 focus:ring-blue-600 focus:outline-hidden"
+                  className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm bg-white focus:ring-2 focus:ring-[#064E3B] focus:border-[#064E3B] focus:outline-hidden"
                 >
                   <option value="Fresher">Fresher (No prior experience)</option>
                   <option value="Less than 1 year">Less than 1 year</option>
@@ -293,7 +331,7 @@ function ApplyFormContent() {
                   placeholder="e.g. Hindi, English, Marathi"
                   value={formData.languages}
                   onChange={(e) => setFormData({ ...formData, languages: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-blue-600 focus:outline-hidden"
+                  className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-[#064E3B] focus:border-[#064E3B] focus:outline-hidden"
                 />
               </div>
             </div>
@@ -305,7 +343,7 @@ function ApplyFormContent() {
                 placeholder="Mention any past telecalling experience, preferred call shift hours, or typing speed..."
                 value={formData.additionalInformation}
                 onChange={(e) => setFormData({ ...formData, additionalInformation: e.target.value })}
-                className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-blue-600 focus:outline-hidden"
+                className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-[#064E3B] focus:border-[#064E3B] focus:outline-hidden"
               />
             </div>
           </div>
@@ -318,10 +356,10 @@ function ApplyFormContent() {
                 required
                 checked={formData.agreeTerms}
                 onChange={(e) => setFormData({ ...formData, agreeTerms: e.target.checked })}
-                className="mt-1 text-blue-600 rounded focus:ring-blue-600"
+                className="mt-1 text-[#064E3B] rounded focus:ring-[#064E3B]"
               />
               <span className="text-xs text-slate-600 leading-relaxed">
-                I agree to the <Link href="/terms" className="text-blue-600 underline">Terms and Conditions</Link> and confirm that all information provided in this application is accurate and true.
+                I agree to the <Link href="/terms" className="text-[#064E3B] underline font-medium">Terms and Conditions</Link> and confirm that all information provided in this application is accurate and true.
               </span>
             </label>
           </div>
@@ -329,13 +367,13 @@ function ApplyFormContent() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3.5 px-6 rounded-lg text-sm font-semibold text-white bg-blue-900 hover:bg-blue-800 transition-colors shadow-xs flex items-center justify-center gap-2 disabled:opacity-60"
+            className="w-full py-3.5 px-6 rounded-lg text-sm font-bold text-[#f8e7c9] bg-[#064E3B] hover:bg-[#04382a] transition-colors shadow-xs flex items-center justify-center gap-2 disabled:opacity-60 border border-[#f8e7c9]/20"
           >
             {loading ? (
               <span>Submitting Application...</span>
             ) : (
               <>
-                <Send className="w-4 h-4" />
+                <Send className="w-4 h-4 text-[#f8e7c9]" />
                 Apply Online Now for {formData.preferredRole}
               </>
             )}
@@ -345,8 +383,8 @@ function ApplyFormContent() {
 
       </div>
 
-      <div className="bg-amber-50 border border-amber-200 p-5 rounded-xl text-amber-950 text-xs flex items-start gap-3">
-        <ShieldAlert className="w-5 h-5 text-amber-700 shrink-0 mt-0.5" />
+      <div className="bg-[#fffbeb] border border-[#fde68a] p-5 rounded-xl text-[#78350f] text-xs flex items-start gap-3">
+        <ShieldAlert className="w-5 h-5 text-[#b45309] shrink-0 mt-0.5" />
         <div>
           <strong>Transparency Notice:</strong> FreelanceWalla never asks for registration fees or payment for job applications. Never share bank PINs or passwords.
         </div>

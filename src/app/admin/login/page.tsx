@@ -41,10 +41,10 @@ export default function AdminLoginPage() {
       <div className="w-full max-w-md bg-white p-8 rounded-2xl border border-slate-200 shadow-md space-y-6">
         
         <div className="text-center space-y-2">
-          <div className="w-12 h-12 rounded-full bg-blue-900 text-white mx-auto flex items-center justify-center">
+          <div className="w-12 h-12 rounded-full bg-[#064E3B] text-[#f8e7c9] mx-auto flex items-center justify-center shadow-xs">
             <Lock className="w-6 h-6" />
           </div>
-          <h1 className="text-2xl font-extrabold text-slate-900">Admin Portal Login</h1>
+          <h1 className="text-2xl font-extrabold text-[#064E3B]">Admin Portal Login</h1>
           <p className="text-xs text-slate-500">
             Enter the admin secret credential key to access management dashboard.
           </p>
@@ -66,21 +66,21 @@ export default function AdminLoginPage() {
               placeholder="Enter admin password..."
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-blue-600 focus:outline-hidden"
+              className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-[#064E3B] focus:border-[#064E3B] focus:outline-hidden"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 rounded-lg text-sm font-semibold text-white bg-blue-900 hover:bg-blue-800 transition-colors shadow-xs"
+            className="w-full py-3 rounded-lg text-sm font-semibold text-[#f8e7c9] bg-[#064E3B] hover:bg-[#04382a] transition-colors shadow-xs"
           >
             {loading ? 'Authenticating...' : 'Access Admin Dashboard'}
           </button>
         </form>
 
         <div className="pt-2 text-center text-xs text-slate-400 flex items-center justify-center gap-1">
-          <ShieldCheck className="w-3.5 h-3.5 text-blue-500" />
+          <ShieldCheck className="w-3.5 h-3.5 text-[#064E3B]" />
           Secure Protected Endpoint
         </div>
 

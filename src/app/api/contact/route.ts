@@ -44,16 +44,21 @@ export async function POST(req: NextRequest) {
       console.warn('MongoDB unavailable. Contact inquiry received in fallback mode for:', fullName.trim());
     }
 
-    sendContactInquiryEmails({
-      fullName: fullName.trim(),
-      email: email.trim().toLowerCase(),
-      phone: phone.trim(),
-      companyName: companyName ? companyName.trim() : '',
-      serviceRequired: serviceRequired.trim(),
-      expectedRequirement: expectedRequirement ? expectedRequirement.trim() : '',
-      message: message.trim(),
-      status: 'New',
-    }).catch((err) => console.error('Failed sending background contact emails:', err));
+    // Await dual notification emails so serverless production runtimes do not terminate early
+    try {
+      await sendContactInquiryEmails({
+        fullName: fullName.trim(),
+        email: email.trim().toLowerCase(),
+        phone: phone.trim(),
+        companyName: companyName ? companyName.trim() : '',
+        serviceRequired: serviceRequired.trim(),
+        expectedRequirement: expectedRequirement ? expectedRequirement.trim() : '',
+        message: message.trim(),
+        status: 'New',
+      });
+    } catch (mailErr) {
+      console.error('Production Email Sending Error (Contact Route):', mailErr);
+    }
 
     return NextResponse.json(
       {

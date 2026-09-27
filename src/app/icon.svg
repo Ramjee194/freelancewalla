@@ -1,54 +1,64 @@
-<svg viewBox="0 0 160 160" width="160" height="160" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 450" fill="none" width="100%" height="100%">
   <defs>
-    <linearGradient id="ring-grad-fav" x1="10" y1="20" x2="150" y2="140" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#38bdf8"/>
-      <stop offset="50%" stop-color="#0284c7"/>
-      <stop offset="100%" stop-color="#2563eb"/>
-    </linearGradient>
-
-    <linearGradient id="body-grad-fav" x1="30" y1="20" x2="130" y2="130" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#1e293b"/>
-      <stop offset="100%" stop-color="#0f172a"/>
-    </linearGradient>
-
-    <linearGradient id="case-grad-fav" x1="100" y1="20" x2="140" y2="60" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#0f172a"/>
-      <stop offset="100%" stop-color="#1e3a8a"/>
+    <linearGradient id="fwOrangeGrad" x1="160" y1="200" x2="380" y2="400" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FF7A00" />
+      <stop offset="100%" stop-color="#FF5000" />
     </linearGradient>
   </defs>
 
-  <!-- Background Shield for Favicon clarity -->
-  <rect width="160" height="160" rx="36" fill="#0f172a"/>
+  <!-- Clean rounded background badge for favicon visibility -->
+  <rect width="450" height="450" rx="90" fill="#FFFFFF" />
 
-  <!-- Glowing Outer Orbit Ring -->
-  <ellipse cx="78" cy="82" rx="64" ry="40" stroke="url(#ring-grad-fav)" stroke-width="9" stroke-linecap="round" fill="none" transform="rotate(-28 78 82)"/>
+  <g transform="translate(15, 10) scale(0.93)">
+    <!-- ── NAVY BLUE 'F' ── -->
+    <path
+      d="M 175 70
+         C 245 70 305 70 318 70
+         C 305 112 268 126 218 126
+         L 172 126
+         C 160 165 149 200 140 234
+         L 242 234
+         C 232 272 198 288 152 288
+         L 126 288
+         C 106 352 84 410 70 435
+         C 56 460 30 446 30 422
+         C 30 404 36 378 46 340
+         C 72 235 106 122 134 88
+         C 146 75 158 70 175 70 Z"
+      fill="#0A1D3F"
+    />
 
-  <!-- Executive Head -->
-  <circle cx="78" cy="32" r="14" fill="#ffffff"/>
+    <!-- ── VIBRANT ORANGE 'W' ── -->
+    <path
+      d="M 152 274
+         L 194 406
+         C 200 422 212 422 218 406
+         L 262 292
+         L 304 406
+         C 310 422 322 420 328 402
+         L 374 252
+         C 378 238 368 228 354 234
+         C 344 238 338 250 334 266
+         L 314 348
+         L 276 248
+         C 272 236 258 236 254 248
+         L 214 348
+         L 180 260
+         C 174 246 160 248 152 274 Z"
+      fill="url(#fwOrangeGrad)"
+    />
 
-  <!-- Executive Torso / Suit -->
-  <path d="M62 50 L94 50 L88 80 L66 80 Z" fill="#ffffff"/>
-  
-  <!-- Tie Accent (Electric Cyan) -->
-  <path d="M75 50 L81 50 L79 68 L77 68 Z" fill="#38bdf8"/>
+    <!-- ── CELEBRATING FIGURE HEAD ── -->
+    <circle cx="312" cy="184" r="26" fill="url(#fwOrangeGrad)" />
 
-  <!-- Left Arm Extended Backwards -->
-  <path d="M64 52 Q44 62 30 65" stroke="#ffffff" stroke-width="10" stroke-linecap="round" fill="none"/>
-
-  <!-- Right Arm Forward Holding Briefcase -->
-  <path d="M90 52 L112 36" stroke="#ffffff" stroke-width="10" stroke-linecap="round" fill="none"/>
-
-  <!-- Briefcase -->
-  <g transform="rotate(22 112 36)">
-    <rect x="106" y="20" width="36" height="26" rx="4" fill="#38bdf8"/>
-    <!-- Handle -->
-    <path d="M117 20 V14 Q117 10 124 10 Q131 10 131 14 V20" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+    <!-- ── CELEBRATING FIGURE ARM / SWOOSH ── -->
+    <path
+      d="M 292 220
+         C 318 216 348 196 382 144
+         C 388 134 398 142 392 154
+         C 362 212 322 246 284 242
+         C 276 240 280 222 292 220 Z"
+      fill="url(#fwOrangeGrad)"
+    />
   </g>
-
-  <!-- Legs in Full Power Stride -->
-  <path d="M68 78 Q42 94 28 110" stroke="#ffffff" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <ellipse cx="25" cy="111" rx="9" ry="5" fill="#ffffff"/>
-
-  <path d="M86 78 Q106 94 126 98" stroke="#ffffff" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <ellipse cx="127" cy="98" rx="9" ry="5" fill="#ffffff"/>
 </svg>

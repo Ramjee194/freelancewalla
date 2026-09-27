@@ -149,12 +149,12 @@ export default function AdminRolesPage() {
         <main className="flex-1 space-y-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-extrabold text-slate-900">Job Vacancies Manager</h1>
+              <h1 className="text-2xl font-extrabold text-[#064E3B]">Job Vacancies Manager</h1>
               <p className="text-xs text-slate-500">Create, edit, or toggle active job role vacancies.</p>
             </div>
             <button
               onClick={handleOpenAddModal}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-blue-900 text-white text-xs font-semibold hover:bg-blue-800 transition-colors shadow-xs"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#064E3B] text-[#f8e7c9] text-xs font-semibold hover:bg-[#04382a] transition-colors shadow-xs"
             >
               <Plus className="w-4 h-4" />
               Add New Role
@@ -175,7 +175,7 @@ export default function AdminRolesPage() {
                 <div key={role._id} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-2xs space-y-4 flex flex-col justify-between">
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold px-2.5 py-0.5 rounded bg-blue-50 text-blue-900">{role.category}</span>
+                      <span className="text-xs font-bold px-2.5 py-0.5 rounded bg-[#e6f4f0] text-[#064E3B]">{role.category}</span>
                       <span className={`text-xs font-bold px-2 py-0.5 rounded ${role.isActive ? 'bg-emerald-50 text-emerald-700' : 'bg-slate-100 text-slate-500'}`}>
                         {role.isActive ? 'Active' : 'Inactive'}
                       </span>
@@ -211,7 +211,7 @@ export default function AdminRolesPage() {
             <div className="fixed inset-0 bg-slate-900/50 z-50 flex items-center justify-center p-4 backdrop-blur-xs">
               <div className="bg-white rounded-2xl max-w-2xl w-full p-6 sm:p-8 space-y-5 max-h-[90vh] overflow-y-auto shadow-2xl">
                 <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-                  <h2 className="text-lg font-bold text-slate-900">
+                  <h2 className="text-lg font-bold text-[#064E3B]">
                     {editingRole ? 'Edit Job Role' : 'Create New Job Role'}
                   </h2>
                   <button onClick={() => setShowModal(false)} className="text-slate-400 hover:text-slate-600">
@@ -228,7 +228,7 @@ export default function AdminRolesPage() {
                         required
                         value={formData.title}
                         onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                        className="w-full p-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-600"
+                        className="w-full p-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-[#064E3B]"
                       />
                     </div>
                     <div className="space-y-1">
@@ -236,7 +236,7 @@ export default function AdminRolesPage() {
                       <select
                         value={formData.category}
                         onChange={(e) => setFormData({ ...formData, category: e.target.value as any })}
-                        className="w-full p-2.5 rounded-lg border border-slate-300 bg-white focus:ring-2 focus:ring-blue-600"
+                        className="w-full p-2.5 rounded-lg border border-slate-300 bg-white focus:ring-2 focus:ring-[#064E3B]"
                       >
                         {categoriesList.map((c) => (
                           <option key={c} value={c}>{c}</option>
@@ -308,7 +308,7 @@ export default function AdminRolesPage() {
                         type="checkbox"
                         checked={formData.isActive}
                         onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
-                        className="rounded text-blue-600"
+                        className="rounded text-[#064E3B] focus:ring-[#064E3B]"
                       />
                       Active & Visible on Careers Page
                     </label>
@@ -324,7 +324,7 @@ export default function AdminRolesPage() {
                     </button>
                     <button
                       type="submit"
-                      className="px-5 py-2 rounded-lg bg-blue-900 font-semibold text-white hover:bg-blue-800"
+                      className="px-5 py-2 rounded-lg bg-[#064E3B] font-semibold text-[#f8e7c9] hover:bg-[#04382a]"
                     >
                       Save Role
                     </button>

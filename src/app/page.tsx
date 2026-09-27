@@ -153,7 +153,7 @@ export default async function HomePage() {
       {/* SERVICE OVERVIEW WITH FRAMER MOTION STAGGER */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <FadeIn className="text-center max-w-2xl mx-auto mb-12 space-y-3">
-          <span className="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
+          <span className="text-xs font-bold uppercase tracking-wider text-[#064E3B] bg-[#e6f4f0] border border-[#064E3B]/10 px-3 py-1 rounded-full">
             Core Operational Capabilities
           </span>
           <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
@@ -169,20 +169,20 @@ export default async function HomePage() {
             const IconComponent = service.icon;
             return (
               <StaggerItem key={service.title}>
-                <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-2xs hover:shadow-xl hover:border-blue-300 transition-all duration-300 flex flex-col justify-between group relative overflow-hidden h-full">
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-slate-200 group-hover:bg-blue-600 transition-colors" />
+                <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-2xs hover:shadow-xl hover:border-[#064E3B]/40 transition-all duration-300 flex flex-col justify-between group relative overflow-hidden h-full">
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-slate-200 group-hover:bg-[#064E3B] transition-colors" />
 
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                      <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-900 flex items-center justify-center group-hover:bg-blue-900 group-hover:text-white transition-colors shadow-2xs">
+                      <div className="w-12 h-12 rounded-xl bg-[#e6f4f0] text-[#064E3B] flex items-center justify-center group-hover:bg-[#064E3B] group-hover:text-[#f8e7c9] transition-colors shadow-2xs">
                         <IconComponent className="w-6 h-6" />
                       </div>
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-100 text-slate-600">
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#f8e7c9] text-[#064E3B] border border-[#f8e7c9]">
                         {service.tag}
                       </span>
                     </div>
 
-                    <h3 className="text-lg font-bold text-slate-900 group-hover:text-blue-900 transition-colors">
+                    <h3 className="text-lg font-bold text-slate-900 group-hover:text-[#064E3B] transition-colors">
                       {service.title}
                     </h3>
                     <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
@@ -193,10 +193,10 @@ export default async function HomePage() {
                   <div className="pt-6">
                     <Link
                       href={service.href}
-                      className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-900 hover:text-blue-700"
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-[#064E3B] hover:text-[#04382a]"
                     >
                       Explore Service
-                      <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-[#064E3B]" />
                     </Link>
                   </div>
                 </div>
@@ -211,7 +211,9 @@ export default async function HomePage() {
       <section className="bg-slate-100 py-16 border-y border-slate-200 bg-grid-pattern">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn className="text-center max-w-xl mx-auto mb-12 space-y-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-blue-900">Operational Onboarding</span>
+            <span className="text-xs font-bold uppercase tracking-wider text-[#064E3B] bg-[#e6f4f0] border border-[#064E3B]/10 px-3 py-1 rounded-full">
+              Operational Onboarding
+            </span>
             <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
               Simple Process. Clear Communication.
             </h2>
@@ -223,13 +225,13 @@ export default async function HomePage() {
           <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
             {steps.map((step) => (
               <StaggerItem key={step.number}>
-                <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-2xs relative flex flex-col justify-between group hover:border-blue-300 transition-colors h-full">
+                <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-2xs relative flex flex-col justify-between group hover:border-[#064E3B]/40 transition-colors h-full">
                   <div>
                     <div className="flex items-center justify-between mb-4">
-                      <span className="w-10 h-10 rounded-xl bg-blue-900 text-white font-extrabold text-sm flex items-center justify-center shadow-xs">
+                      <span className="w-10 h-10 rounded-xl bg-[#064E3B] text-[#f8e7c9] font-extrabold text-sm flex items-center justify-center shadow-xs">
                         {step.number}
                       </span>
-                      <span className="w-2 h-2 rounded-full bg-blue-600" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-[#f8e7c9] border border-[#064E3B]" />
                     </div>
                     <h3 className="font-bold text-slate-900 text-base mb-2">{step.title}</h3>
                     <p className="text-xs text-slate-600 leading-relaxed">{step.desc}</p>
@@ -257,7 +259,7 @@ export default async function HomePage() {
           {benefits.map((benefit, idx) => (
             <StaggerItem key={idx}>
               <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-2xs hover:shadow-md transition-all space-y-3 h-full">
-                <div className="w-8 h-8 rounded-full bg-blue-50 text-blue-900 flex items-center justify-center font-bold text-sm">
+                <div className="w-8 h-8 rounded-full bg-[#e6f4f0] text-[#064E3B] flex items-center justify-center font-bold text-sm border border-[#064E3B]/20">
                   ✓
                 </div>
                 <h3 className="text-base font-bold text-slate-900">{benefit.title}</h3>
@@ -270,49 +272,49 @@ export default async function HomePage() {
 
 
       {/* CLIENT EXPERIENCE */}
-      <section className="bg-slate-950 text-white py-16 border-y border-slate-800">
+      <section className="bg-[#04382a] text-white py-16 border-y border-[#f8e7c9]/15">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn className="text-center max-w-xl mx-auto mb-12 space-y-2">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
               What Our Clients Can Expect
             </h2>
-            <p className="text-blue-200 text-sm">
+            <p className="text-[#f8e7c9] text-sm">
               Focusing on measurable everyday operational improvements.
             </p>
           </FadeIn>
 
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <StaggerItem>
-              <div className="bg-slate-900/80 p-8 rounded-2xl border border-slate-800 space-y-4 h-full">
-                <div className="w-12 h-12 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center">
-                  <Clock className="w-6 h-6" />
+              <div className="bg-[#064E3B]/90 p-8 rounded-2xl border border-[#f8e7c9]/20 space-y-4 h-full shadow-lg">
+                <div className="w-12 h-12 rounded-xl bg-[#f8e7c9]/20 text-[#f8e7c9] flex items-center justify-center border border-[#f8e7c9]/30">
+                  <Clock className="w-6 h-6 text-[#f8e7c9]" />
                 </div>
                 <h3 className="text-xl font-bold text-white">Faster Response</h3>
-                <p className="text-sm text-slate-300 leading-relaxed">
+                <p className="text-sm text-[#f8e7c9]/90 leading-relaxed">
                   Dedicated support channels reduce lead response times and resolve customer email tickets faster.
                 </p>
               </div>
             </StaggerItem>
 
             <StaggerItem>
-              <div className="bg-slate-900/80 p-8 rounded-2xl border border-slate-800 space-y-4 h-full">
-                <div className="w-12 h-12 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center">
-                  <MessageCircle className="w-6 h-6" />
+              <div className="bg-[#064E3B]/90 p-8 rounded-2xl border border-[#f8e7c9]/20 space-y-4 h-full shadow-lg">
+                <div className="w-12 h-12 rounded-xl bg-[#f8e7c9]/20 text-[#f8e7c9] flex items-center justify-center border border-[#f8e7c9]/30">
+                  <MessageCircle className="w-6 h-6 text-[#f8e7c9]" />
                 </div>
                 <h3 className="text-xl font-bold text-white">Consistent Customer Communication</h3>
-                <p className="text-sm text-slate-300 leading-relaxed">
+                <p className="text-sm text-[#f8e7c9]/90 leading-relaxed">
                   Adherence to pre-defined script guidelines ensures professional tone across calls, chats, and messages.
                 </p>
               </div>
             </StaggerItem>
 
             <StaggerItem>
-              <div className="bg-slate-900/80 p-8 rounded-2xl border border-slate-800 space-y-4 h-full">
-                <div className="w-12 h-12 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center">
-                  <TrendingUp className="w-6 h-6" />
+              <div className="bg-[#064E3B]/90 p-8 rounded-2xl border border-[#f8e7c9]/20 space-y-4 h-full shadow-lg">
+                <div className="w-12 h-12 rounded-xl bg-[#f8e7c9]/20 text-[#f8e7c9] flex items-center justify-center border border-[#f8e7c9]/30">
+                  <TrendingUp className="w-6 h-6 text-[#f8e7c9]" />
                 </div>
                 <h3 className="text-xl font-bold text-white">Reduced Operational Workload</h3>
-                <p className="text-sm text-slate-300 leading-relaxed">
+                <p className="text-sm text-[#f8e7c9]/90 leading-relaxed">
                   Offload routine telecalling, data entry, and inbox organization so leadership stays focused on business growth.
                 </p>
               </div>
@@ -329,24 +331,26 @@ export default async function HomePage() {
 
 
       {/* EMPLOYEE EXPERIENCE WITH WORKSPACE PHOTO */}
-      <section className="bg-slate-900 text-white py-16">
+      <section className="bg-[#04382a] text-white py-16 border-t border-[#f8e7c9]/15">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             
             <FadeIn className="lg:col-span-7 space-y-6">
-              <span className="text-xs uppercase font-bold tracking-wider text-blue-400">Work With Us</span>
+              <span className="text-xs uppercase font-bold tracking-wider text-[#f8e7c9] bg-[#f8e7c9]/15 px-3 py-1 rounded-full border border-[#f8e7c9]/30">
+                Work With Us
+              </span>
               <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
                 Built With People in Mind
               </h2>
-              <p className="text-slate-300 text-base leading-relaxed">
+              <p className="text-[#f8e7c9]/90 text-base leading-relaxed">
                 FreelanceWalla also provides flexible work opportunities for people looking to build experience in sales, customer support, telecalling, chat support, email support and data-entry operations.
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                 {employeeCards.map((card, idx) => (
-                  <div key={idx} className="bg-slate-800/80 p-4 rounded-xl border border-slate-700 space-y-1">
-                    <h3 className="font-bold text-white text-sm">{card.title}</h3>
-                    <p className="text-xs text-slate-300 leading-relaxed">{card.desc}</p>
+                  <div key={idx} className="bg-[#064E3B]/90 p-4 rounded-xl border border-[#f8e7c9]/20 space-y-1">
+                    <h3 className="font-bold text-[#f8e7c9] text-sm">{card.title}</h3>
+                    <p className="text-xs text-[#f8e7c9]/80 leading-relaxed">{card.desc}</p>
                   </div>
                 ))}
               </div>
@@ -354,16 +358,16 @@ export default async function HomePage() {
               <div className="pt-2">
                 <Link
                   href="/careers/roles"
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-white bg-blue-600 hover:bg-blue-500 transition-colors shadow-md"
+                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-[#064E3B] bg-[#f8e7c9] hover:bg-[#edd4a6] transition-colors shadow-md border border-[#f8e7c9]"
                 >
                   Explore Available Roles
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-4 h-4 text-[#064E3B]" />
                 </Link>
               </div>
             </FadeIn>
 
             <FadeIn delay={0.2} className="lg:col-span-5 flex justify-center">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl border-2 border-slate-700">
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl border-2 border-[#f8e7c9]/30">
                 <img
                   src="/images/bpo_workspace.png"
                   alt="FreelanceWalla Customer Support Operations Workspace"
@@ -388,18 +392,18 @@ export default async function HomePage() {
               Explore open positions for telecalling, customer support, chat, email, and data entry.
             </p>
           </div>
-          <Link href="/careers/roles" className="text-xs font-bold text-blue-900 hover:text-blue-700 flex items-center gap-1">
-            View All Vacancies <ArrowRight className="w-4 h-4" />
+          <Link href="/careers/roles" className="text-xs font-bold text-[#064E3B] hover:text-[#04382a] flex items-center gap-1">
+            View All Vacancies <ArrowRight className="w-4 h-4 text-[#064E3B]" />
           </Link>
         </FadeIn>
 
         <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {roles.map((role: any, index: number) => (
             <StaggerItem key={role._id || index}>
-              <div className="bg-white p-6 sm:p-7 rounded-2xl border border-slate-200 shadow-2xs hover:border-blue-300 hover:shadow-md transition-all space-y-4 flex flex-col justify-between h-full">
+              <div className="bg-white p-6 sm:p-7 rounded-2xl border border-slate-200 shadow-2xs hover:border-[#064E3B]/40 hover:shadow-md transition-all space-y-4 flex flex-col justify-between h-full">
                 <div className="space-y-3">
                   <div className="flex items-center justify-between gap-2">
-                    <span className="text-xs font-bold px-2.5 py-1 rounded-md bg-blue-50 text-blue-900">
+                    <span className="text-xs font-bold px-2.5 py-1 rounded-md bg-[#e6f4f0] text-[#064E3B] border border-[#064E3B]/10">
                       {role.category}
                     </span>
                     <span className="text-xs font-medium text-slate-500">{role.workMode}</span>
@@ -409,7 +413,7 @@ export default async function HomePage() {
                   
                   <div className="flex flex-wrap gap-2 text-xs text-slate-500 pt-1">
                     {role.workType?.map((wt: string) => (
-                      <span key={wt} className="px-2 py-0.5 bg-slate-100 rounded-md text-slate-700 text-[11px]">
+                      <span key={wt} className="px-2 py-0.5 bg-[#f8e7c9] rounded-md text-[#064E3B] font-medium text-[11px]">
                         {wt}
                       </span>
                     ))}
@@ -419,13 +423,13 @@ export default async function HomePage() {
                 <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-3">
                   <Link
                     href={`/careers/${role.slug}`}
-                    className="text-xs font-bold text-slate-700 hover:text-blue-900"
+                    className="text-xs font-bold text-slate-700 hover:text-[#064E3B]"
                   >
                     View Details
                   </Link>
                   <Link
                     href={`/apply?role=${encodeURIComponent(role.title)}`}
-                    className="px-4 py-2 rounded-lg text-xs font-semibold text-white bg-blue-900 hover:bg-blue-800 transition-colors"
+                    className="px-4 py-2 rounded-lg text-xs font-semibold text-[#f8e7c9] bg-[#064E3B] hover:bg-[#04382a] transition-colors"
                   >
                     Apply Now
                   </Link>

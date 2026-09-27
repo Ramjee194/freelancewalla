@@ -35,7 +35,7 @@ export default function FeedbackSlider({ reviews }: FeedbackSliderProps) {
       {/* HEADER BAR */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 text-center md:text-left">
         <div className="space-y-2">
-          <span className="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
+          <span className="text-xs font-bold uppercase tracking-wider text-[#064E3B] bg-[#e6f4f0] border border-[#064E3B]/10 px-3 py-1 rounded-full">
             Client & Partner Experiences
           </span>
           <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
@@ -49,18 +49,18 @@ export default function FeedbackSlider({ reviews }: FeedbackSliderProps) {
         <div className="flex items-center justify-center md:justify-end gap-3">
           <Link
             href="/reviews"
-            className="text-xs font-bold text-blue-900 hover:text-blue-700 flex items-center gap-1 mr-2"
+            className="text-xs font-bold text-[#064E3B] hover:text-[#04382a] flex items-center gap-1 mr-2"
           >
-            View All Reviews <ArrowRight className="w-4 h-4" />
+            View All Reviews <ArrowRight className="w-4 h-4 text-[#064E3B]" />
           </Link>
         </div>
       </div>
 
       {/* ONE-BY-ONE CAROUSEL CONTAINER */}
       <div className="relative max-w-3xl mx-auto">
-        <div className="relative bg-white rounded-3xl p-8 sm:p-12 border border-slate-200 shadow-xl overflow-hidden min-h-[260px] flex flex-col justify-between">
+        <div className="relative bg-white rounded-3xl p-8 sm:p-12 border border-[#064E3B]/15 shadow-xl overflow-hidden min-h-[260px] flex flex-col justify-between">
           
-          <Quote className="w-24 h-24 text-blue-50 absolute -top-4 -right-4 pointer-events-none" />
+          <Quote className="w-24 h-24 text-[#e6f4f0] absolute -top-4 -right-4 pointer-events-none" />
 
           <AnimatePresence mode="wait">
             <motion.div
@@ -74,15 +74,15 @@ export default function FeedbackSlider({ reviews }: FeedbackSliderProps) {
               
               {/* Badge & Rating Stars */}
               <div className="flex flex-wrap items-center justify-between gap-3">
-                <span className="text-xs font-bold px-3 py-1 rounded-full bg-blue-50 text-blue-900 border border-blue-100">
+                <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#e6f4f0] text-[#064E3B] border border-[#064E3B]/20">
                   {currentReview.isSample ? 'Sample Review' : `${currentReview.reviewType} FEEDBACK`}
                 </span>
-                <div className="flex text-amber-400 text-base">
+                <div className="flex text-[#c69446] text-base">
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Star
                       key={i}
                       className={`w-5 h-5 ${
-                        i < currentReview.rating ? 'fill-amber-400 text-amber-400' : 'text-slate-200'
+                        i < currentReview.rating ? 'fill-[#c69446] text-[#c69446]' : 'text-slate-200'
                       }`}
                     />
                   ))}
@@ -97,10 +97,10 @@ export default function FeedbackSlider({ reviews }: FeedbackSliderProps) {
               {/* Reviewer Details */}
               <div className="pt-6 border-t border-slate-100 flex items-center justify-between">
                 <div>
-                  <h4 className="font-extrabold text-slate-900 text-base sm:text-lg">{currentReview.name}</h4>
+                  <h4 className="font-extrabold text-[#064E3B] text-base sm:text-lg">{currentReview.name}</h4>
                   <p className="text-xs sm:text-sm text-slate-500 font-medium">{currentReview.roleOrCompany}</p>
                 </div>
-                <span className="text-xs font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-lg">
+                <span className="text-xs font-bold text-[#064E3B] bg-[#f8e7c9] px-3 py-1 rounded-lg border border-[#f8e7c9]">
                   {currentIndex + 1} of {reviews.length}
                 </span>
               </div>
@@ -111,7 +111,7 @@ export default function FeedbackSlider({ reviews }: FeedbackSliderProps) {
           {/* Side Nav Arrows */}
           <button
             onClick={prevSlide}
-            className="absolute left-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-slate-900 text-white hover:bg-blue-600 transition-all shadow-lg z-20"
+            className="absolute left-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-[#064E3B] text-[#f8e7c9] hover:bg-[#04382a] transition-all shadow-lg z-20 border border-[#f8e7c9]/30"
             aria-label="Previous Review"
           >
             <ChevronLeft className="w-5 h-5" />
@@ -119,7 +119,7 @@ export default function FeedbackSlider({ reviews }: FeedbackSliderProps) {
 
           <button
             onClick={nextSlide}
-            className="absolute right-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-slate-900 text-white hover:bg-blue-600 transition-all shadow-lg z-20"
+            className="absolute right-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-[#064E3B] text-[#f8e7c9] hover:bg-[#04382a] transition-all shadow-lg z-20 border border-[#f8e7c9]/30"
             aria-label="Next Review"
           >
             <ChevronRight className="w-5 h-5" />
@@ -134,7 +134,7 @@ export default function FeedbackSlider({ reviews }: FeedbackSliderProps) {
               key={idx}
               onClick={() => setCurrentIndex(idx)}
               className={`h-2.5 rounded-full transition-all duration-500 ${
-                currentIndex === idx ? 'w-8 bg-blue-900' : 'w-2.5 bg-slate-300 hover:bg-slate-400'
+                currentIndex === idx ? 'w-8 bg-[#064E3B]' : 'w-2.5 bg-slate-300 hover:bg-[#064E3B]/40'
               }`}
               aria-label={`Go to slide ${idx + 1}`}
             />

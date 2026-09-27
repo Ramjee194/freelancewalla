@@ -1,4 +1,4 @@
-import Metadata from 'next';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
   MessageSquare,
@@ -15,10 +15,18 @@ import JobRole from '@/lib/models/JobRole';
 import { seedDatabase } from '@/lib/seed';
 import { FadeIn, StaggerContainer, StaggerItem, PageMotion } from '@/components/common/MotionWrapper';
 
-export const metadata = {
-  title: 'Careers & Work Opportunities | FreelanceWalla',
+export const metadata: Metadata = {
+  title: 'Careers & Remote Work Opportunities | FreelanceWalla Jobs',
   description:
-    'Explore flexible part-time, full-time and work-from-home opportunities in telecalling, customer support, chat, email, and data entry with FreelanceWalla.',
+    'Explore flexible part-time, full-time and work-from-home opportunities in telecalling, customer support, chat support, email handling, and data entry with FreelanceWalla in India.',
+  alternates: {
+    canonical: 'https://freelancewalla.in/careers',
+  },
+  openGraph: {
+    title: 'Careers & Work Opportunities | FreelanceWalla India',
+    description: 'Apply online for remote telecalling, customer support, and data entry jobs across India. Zero registration charges.',
+    url: 'https://freelancewalla.in/careers',
+  },
 };
 
 async function getFeaturedRoles() {
@@ -94,32 +102,34 @@ export default async function CareersPage() {
     <PageMotion className="space-y-16 py-12">
       
       {/* HEADER SECTION WITH FULLSCREEN BACKGROUND IMAGE OVERLAY */}
-      <section className="relative bg-slate-950 text-white py-20 border-b border-slate-800 overflow-hidden">
+      <section className="relative bg-[#04382a] text-white py-20 border-b border-[#f8e7c9]/15 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
             src="/images/bpo_data_office.png"
             alt="FreelanceWalla Careers"
             className="w-full h-full object-cover object-center opacity-25"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#04382a] via-[#04382a]/85 to-transparent" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn className="max-w-3xl space-y-4">
-            <span className="text-xs uppercase font-bold tracking-wider text-blue-400">Careers & Remote Work</span>
+            <span className="text-xs uppercase font-bold tracking-wider text-[#f8e7c9] bg-[#f8e7c9]/15 px-3 py-1 rounded-full border border-[#f8e7c9]/30">
+              Careers & Remote Work
+            </span>
             <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
               Find Flexible Work Opportunities With FreelanceWalla
             </h1>
-            <p className="text-lg text-slate-300 leading-relaxed">
+            <p className="text-lg text-[#f8e7c9]/90 leading-relaxed">
               Looking for part-time, full-time or work-from-home opportunities? Explore available roles and apply online. Requirements vary by role.
             </p>
             <div className="pt-2">
               <Link
                 href="/careers/roles"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold transition-colors shadow-lg"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#f8e7c9] hover:bg-[#edd4a6] text-[#064E3B] font-bold transition-colors shadow-lg border border-[#f8e7c9]"
               >
                 View Available Roles
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 text-[#064E3B]" />
               </Link>
             </div>
           </FadeIn>
@@ -133,7 +143,7 @@ export default async function CareersPage() {
             <h2 className="text-2xl font-extrabold text-slate-900">Featured Openings</h2>
             <p className="text-sm text-slate-600">Current active roles open for application.</p>
           </div>
-          <Link href="/careers/roles" className="text-xs font-bold text-blue-900 hover:text-blue-700">
+          <Link href="/careers/roles" className="text-xs font-bold text-[#064E3B] hover:text-[#04382a]">
             View All Openings →
           </Link>
         </FadeIn>
@@ -141,20 +151,20 @@ export default async function CareersPage() {
         <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {roles.map((role: any) => (
             <StaggerItem key={role._id}>
-              <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-2xs space-y-4 h-full flex flex-col justify-between">
+              <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-2xs space-y-4 h-full flex flex-col justify-between hover:border-[#064E3B]/40 transition-colors">
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold px-2.5 py-1 rounded bg-blue-50 text-blue-900">{role.category}</span>
+                    <span className="text-xs font-bold px-2.5 py-1 rounded bg-[#e6f4f0] text-[#064E3B] border border-[#064E3B]/10">{role.category}</span>
                     <span className="text-xs text-slate-500">{role.workMode}</span>
                   </div>
                   <h3 className="text-lg font-bold text-slate-900">{role.title}</h3>
                   <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">{role.description}</p>
                 </div>
                 <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
-                  <Link href={`/careers/${role.slug}`} className="text-xs font-semibold text-slate-700 hover:text-blue-900">
+                  <Link href={`/careers/${role.slug}`} className="text-xs font-semibold text-slate-700 hover:text-[#064E3B]">
                     Read Responsibilities & Requirements
                   </Link>
-                  <Link href={`/apply?role=${encodeURIComponent(role.title)}`} className="px-3.5 py-1.5 bg-blue-900 text-white rounded-lg text-xs font-semibold hover:bg-blue-800">
+                  <Link href={`/apply?role=${encodeURIComponent(role.title)}`} className="px-3.5 py-1.5 bg-[#064E3B] text-[#f8e7c9] rounded-lg text-xs font-semibold hover:bg-[#04382a] border border-[#f8e7c9]/20">
                     Apply Online
                   </Link>
                 </div>
@@ -165,7 +175,7 @@ export default async function CareersPage() {
       </section>
 
       {/* REQUIREMENTS SECTION */}
-      <section className="bg-slate-100 py-16 border-y border-slate-200">
+      <section className="bg-slate-100 py-16 border-y border-slate-200 bg-grid-pattern">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn className="text-center max-w-xl mx-auto mb-12 space-y-2">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">What You May Need</h2>
@@ -178,8 +188,8 @@ export default async function CareersPage() {
               return (
                 <StaggerItem key={req.title}>
                   <div className="bg-white p-6 rounded-2xl border border-slate-200 text-center space-y-3 h-full">
-                    <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-900 mx-auto flex items-center justify-center">
-                      <IconComp className="w-6 h-6" />
+                    <div className="w-12 h-12 rounded-xl bg-[#e6f4f0] text-[#064E3B] mx-auto flex items-center justify-center border border-[#064E3B]/10">
+                      <IconComp className="w-6 h-6 text-[#064E3B]" />
                     </div>
                     <h3 className="font-bold text-slate-900 text-base">{req.title}</h3>
                     <p className="text-xs text-slate-600 leading-relaxed">{req.desc}</p>
@@ -202,7 +212,7 @@ export default async function CareersPage() {
           {appSteps.map((s) => (
             <StaggerItem key={s.step}>
               <div className="bg-white p-6 rounded-2xl border border-slate-200 space-y-2 h-full">
-                <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">{s.step}</span>
+                <span className="text-xs font-bold text-[#064E3B] uppercase tracking-wider">{s.step}</span>
                 <h3 className="font-bold text-slate-900 text-base">{s.title}</h3>
                 <p className="text-xs text-slate-600 leading-relaxed">{s.desc}</p>
               </div>
@@ -213,22 +223,22 @@ export default async function CareersPage() {
 
       {/* TRUST & SAFETY DISCLAIMER */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <FadeIn className="bg-amber-50 border border-amber-200 rounded-2xl p-6 sm:p-8 space-y-4">
-          <div className="flex items-center gap-3 text-amber-900">
-            <ShieldAlert className="w-6 h-6 text-amber-700 shrink-0" />
+        <FadeIn className="bg-[#fffbeb] border border-[#fde68a] rounded-2xl p-6 sm:p-8 space-y-4">
+          <div className="flex items-center gap-3 text-[#92400e]">
+            <ShieldAlert className="w-6 h-6 text-[#b45309] shrink-0" />
             <h3 className="text-lg font-bold">Important Information for Applicants</h3>
           </div>
-          <ul className="space-y-2.5 text-xs sm:text-sm text-amber-950">
+          <ul className="space-y-2.5 text-xs sm:text-sm text-[#78350f]">
             <li className="flex items-start gap-2">
-              <span className="font-bold text-amber-700">•</span>
+              <span className="font-bold text-[#b45309]">•</span>
               <span><strong>No Employment Guarantee:</strong> FreelanceWalla does not guarantee employment simply because an application is submitted. Selection depends on role requirements and the screening process.</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="font-bold text-amber-700">•</span>
+              <span className="font-bold text-[#b45309]">•</span>
               <span><strong>Credential Safety:</strong> Never share passwords, OTPs, bank PINs or other confidential credentials during the application process.</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="font-bold text-amber-700">•</span>
+              <span className="font-bold text-[#b45309]">•</span>
               <span><strong>Confirm Terms:</strong> Any role-specific compensation, working hours and responsibilities should be confirmed before accepting an opportunity.</span>
             </li>
           </ul>
@@ -247,7 +257,7 @@ export default async function CareersPage() {
             <StaggerItem key={idx}>
               <div className="bg-white p-6 rounded-2xl border border-slate-200 space-y-2">
                 <h3 className="font-bold text-slate-900 text-base flex items-center gap-2">
-                  <HelpCircle className="w-4 h-4 text-blue-600 shrink-0" />
+                  <HelpCircle className="w-4 h-4 text-[#064E3B] shrink-0" />
                   {faq.q}
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-600 leading-relaxed pl-6">{faq.a}</p>

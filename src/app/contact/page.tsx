@@ -2,8 +2,8 @@
 
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { Mail, PhoneCall, CheckCircle2, AlertCircle, Send, Clock, ShieldCheck } from 'lucide-react';
-import { PageMotion, FadeIn } from '@/components/common/MotionWrapper';
+import { Mail, PhoneCall, CheckCircle2, AlertCircle, Send, Clock, ShieldCheck, MapPin } from 'lucide-react';
+import { PageMotion } from '@/components/common/MotionWrapper';
 
 function ContactFormContent() {
   const searchParams = useSearchParams();
@@ -83,7 +83,9 @@ function ContactFormContent() {
       {/* Left Info Column */}
       <div className="lg:col-span-5 space-y-8">
         <div className="space-y-4">
-          <span className="text-xs uppercase font-bold tracking-wider text-blue-900">Get In Touch</span>
+          <span className="text-xs uppercase font-bold tracking-wider text-[#064E3B] bg-[#e6f4f0] border border-[#064E3B]/10 px-3 py-1 rounded-full">
+            Get In Touch
+          </span>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
             Let's Discuss Your Requirement
           </h1>
@@ -94,12 +96,35 @@ function ContactFormContent() {
 
         <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-2xs space-y-6">
           <div className="flex items-start gap-4">
-            <div className="w-10 h-10 rounded-lg bg-blue-50 text-blue-900 flex items-center justify-center shrink-0">
-              <Mail className="w-5 h-5" />
+            <div className="w-10 h-10 rounded-lg bg-[#e6f4f0] text-[#064E3B] flex items-center justify-center shrink-0 border border-[#064E3B]/10">
+              <MapPin className="w-5 h-5 text-[#064E3B]" />
+            </div>
+            <div>
+              <h3 className="font-bold text-slate-900 text-sm">Corporate Office</h3>
+              <p className="text-sm font-medium text-slate-800 leading-snug mt-0.5">
+                DLF Phase 3, Cyber City
+              </p>
+              <p className="text-xs text-slate-500">
+                Gurugram (Gurgaon), Haryana – 122002, India
+              </p>
+              <a
+                href="https://maps.google.com/?q=DLF+Phase+3+Cyber+City+Gurgaon+Haryana+122002"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-xs text-[#064E3B] font-bold hover:underline mt-1.5"
+              >
+                View on Google Maps →
+              </a>
+            </div>
+          </div>
+
+          <div className="flex items-start gap-4 pt-4 border-t border-slate-100">
+            <div className="w-10 h-10 rounded-lg bg-[#e6f4f0] text-[#064E3B] flex items-center justify-center shrink-0 border border-[#064E3B]/10">
+              <Mail className="w-5 h-5 text-[#064E3B]" />
             </div>
             <div>
               <h3 className="font-bold text-slate-900 text-sm">Direct Email</h3>
-              <a href="mailto:info@freelancewalla.in" className="text-blue-600 font-semibold text-sm hover:underline">
+              <a href="mailto:info@freelancewalla.in" className="text-[#064E3B] font-semibold text-sm hover:underline">
                 info@freelancewalla.in
               </a>
               <p className="text-xs text-slate-500 mt-0.5">Send us detailed scope requirements anytime.</p>
@@ -107,8 +132,8 @@ function ContactFormContent() {
           </div>
 
           <div className="flex items-start gap-4 pt-4 border-t border-slate-100">
-            <div className="w-10 h-10 rounded-lg bg-blue-50 text-blue-900 flex items-center justify-center shrink-0">
-              <Clock className="w-5 h-5" />
+            <div className="w-10 h-10 rounded-lg bg-[#e6f4f0] text-[#064E3B] flex items-center justify-center shrink-0 border border-[#064E3B]/10">
+              <Clock className="w-5 h-5 text-[#064E3B]" />
             </div>
             <div>
               <h3 className="font-bold text-slate-900 text-sm">Response Time</h3>
@@ -118,8 +143,8 @@ function ContactFormContent() {
           </div>
 
           <div className="flex items-start gap-4 pt-4 border-t border-slate-100">
-            <div className="w-10 h-10 rounded-lg bg-blue-50 text-blue-900 flex items-center justify-center shrink-0">
-              <ShieldCheck className="w-5 h-5" />
+            <div className="w-10 h-10 rounded-lg bg-[#e6f4f0] text-[#064E3B] flex items-center justify-center shrink-0 border border-[#064E3B]/10">
+              <ShieldCheck className="w-5 h-5 text-[#064E3B]" />
             </div>
             <div>
               <h3 className="font-bold text-slate-900 text-sm">Privacy Assured</h3>
@@ -140,11 +165,11 @@ function ContactFormContent() {
           </div>
 
           {successMsg && (
-            <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-900 text-sm flex items-start gap-3">
-              <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
+            <div className="p-4 bg-[#e6f4f0] border border-[#064E3B]/30 rounded-xl text-[#04382a] text-sm flex items-start gap-3">
+              <CheckCircle2 className="w-5 h-5 text-[#064E3B] shrink-0 mt-0.5" />
               <div>
-                <strong>Enquiry Received!</strong>
-                <p className="text-xs mt-1 text-emerald-800">{successMsg}</p>
+                <strong className="text-[#064E3B]">Enquiry Received!</strong>
+                <p className="text-xs mt-1 text-[#04382a]">{successMsg}</p>
               </div>
             </div>
           )}
@@ -170,7 +195,7 @@ function ContactFormContent() {
                   placeholder="e.g. Rajesh Kumar"
                   value={formData.fullName}
                   onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-blue-600 focus:outline-hidden"
+                  className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-[#064E3B] focus:border-[#064E3B] focus:outline-hidden"
                 />
               </div>
 
@@ -182,7 +207,7 @@ function ContactFormContent() {
                   placeholder="e.g. rajesh@company.com"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-blue-600 focus:outline-hidden"
+                  className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-[#064E3B] focus:border-[#064E3B] focus:outline-hidden"
                 />
               </div>
             </div>
@@ -196,7 +221,7 @@ function ContactFormContent() {
                   placeholder="e.g. +91 9876543210"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-blue-600 focus:outline-hidden"
+                  className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-[#064E3B] focus:border-[#064E3B] focus:outline-hidden"
                 />
               </div>
 
@@ -207,7 +232,7 @@ function ContactFormContent() {
                   placeholder="e.g. TechSolutions Pvt Ltd"
                   value={formData.companyName}
                   onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-blue-600 focus:outline-hidden"
+                  className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-[#064E3B] focus:border-[#064E3B] focus:outline-hidden"
                 />
               </div>
             </div>
@@ -218,7 +243,7 @@ function ContactFormContent() {
                 <select
                   value={formData.serviceRequired}
                   onChange={(e) => setFormData({ ...formData, serviceRequired: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm bg-white focus:ring-2 focus:ring-blue-600 focus:outline-hidden"
+                  className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm bg-white focus:ring-2 focus:ring-[#064E3B] focus:border-[#064E3B] focus:outline-hidden"
                 >
                   {servicesList.map((srv) => (
                     <option key={srv} value={srv}>
@@ -235,7 +260,7 @@ function ContactFormContent() {
                   placeholder="e.g. 2 Telecallers / 50 calls daily"
                   value={formData.expectedRequirement}
                   onChange={(e) => setFormData({ ...formData, expectedRequirement: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-blue-600 focus:outline-hidden"
+                  className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-[#064E3B] focus:border-[#064E3B] focus:outline-hidden"
                 />
               </div>
             </div>
@@ -248,20 +273,20 @@ function ContactFormContent() {
                 placeholder="Describe your process, preferred calling timings, language requirements, or any specific questions..."
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-blue-600 focus:outline-hidden"
+                className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-[#064E3B] focus:border-[#064E3B] focus:outline-hidden"
               />
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3.5 px-6 rounded-lg text-sm font-semibold text-white bg-blue-900 hover:bg-blue-800 transition-colors shadow-xs flex items-center justify-center gap-2 disabled:opacity-60"
+              className="w-full py-3.5 px-6 rounded-lg text-sm font-bold text-[#f8e7c9] bg-[#064E3B] hover:bg-[#04382a] transition-colors shadow-xs flex items-center justify-center gap-2 disabled:opacity-60 border border-[#f8e7c9]/30"
             >
               {loading ? (
                 <span>Submitting Enquiry...</span>
               ) : (
                 <>
-                  <Send className="w-4 h-4" />
+                  <Send className="w-4 h-4 text-[#f8e7c9]" />
                   Send Enquiry
                 </>
               )}

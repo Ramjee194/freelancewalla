@@ -96,21 +96,25 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // Fire dual notification emails asynchronously (Candidate + Admin)
-    sendApplicationEmails({
-      fullName: fullName.trim(),
-      email: email.trim().toLowerCase(),
-      phone: phone.trim(),
-      cityState: cityState.trim(),
-      age: numAge,
-      hasDevice,
-      preferredWorkType,
-      preferredRole,
-      experienceLevel,
-      languages: languages.trim(),
-      additionalInformation: additionalInformation ? additionalInformation.trim() : '',
-      status: 'New',
-    }).catch((err) => console.error('Failed sending application emails:', err));
+    // Await dual notification emails so serverless production runtimes do not terminate early
+    try {
+      await sendApplicationEmails({
+        fullName: fullName.trim(),
+        email: email.trim().toLowerCase(),
+        phone: phone.trim(),
+        cityState: cityState.trim(),
+        age: numAge,
+        hasDevice,
+        preferredWorkType,
+        preferredRole,
+        experienceLevel,
+        languages: languages.trim(),
+        additionalInformation: additionalInformation ? additionalInformation.trim() : '',
+        status: 'New',
+      });
+    } catch (mailErr) {
+      console.error('Production Email Sending Error (Apply Route):', mailErr);
+    }
 
     return NextResponse.json(
       {

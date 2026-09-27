@@ -34,7 +34,7 @@ export default async function AdminDashboardPage() {
   ]);
 
   const stats = [
-    { name: 'New Applications', count: newAppsCount, href: '/admin/applications?status=New', color: 'bg-blue-50 text-blue-900 border-blue-200', icon: Users },
+    { name: 'New Applications', count: newAppsCount, href: '/admin/applications?status=New', color: 'bg-[#e6f4f0] text-[#064E3B] border-emerald-200', icon: Users },
     { name: 'Applications Under Review', count: underReviewAppsCount, href: '/admin/applications?status=Under Review', color: 'bg-amber-50 text-amber-900 border-amber-200', icon: FileText },
     { name: 'Active Job Roles', count: activeRolesCount, href: '/admin/roles', color: 'bg-emerald-50 text-emerald-900 border-emerald-200', icon: Briefcase },
     { name: 'New Client Enquiries', count: newEnquiriesCount, href: '/admin/enquiries', color: 'bg-purple-50 text-purple-900 border-purple-200', icon: Mail },
@@ -49,7 +49,7 @@ export default async function AdminDashboardPage() {
 
         <main className="flex-1 space-y-8">
           <div className="space-y-1">
-            <h1 className="text-2xl font-extrabold text-slate-900">Dashboard Overview</h1>
+            <h1 className="text-2xl font-extrabold text-[#064E3B]">Dashboard Overview</h1>
             <p className="text-xs text-slate-500">Live operational stats for applications, roles, and client inquiries.</p>
           </div>
 

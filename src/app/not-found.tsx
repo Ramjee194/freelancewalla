@@ -1,11 +1,11 @@
 import Link from 'next/link';
-import { Home, ArrowLeft } from 'lucide-react';
+import { Home } from 'lucide-react';
 
 export default function NotFound() {
   return (
     <div className="min-h-[70vh] flex items-center justify-center px-4 py-16 text-center space-y-6">
       <div className="max-w-md space-y-4">
-        <span className="text-6xl font-extrabold text-blue-900 block">404</span>
+        <span className="text-6xl font-extrabold text-[#064E3B] block">404</span>
         <h1 className="text-2xl font-bold text-slate-900">Page Not Found</h1>
         <p className="text-sm text-slate-600 leading-relaxed">
           The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
@@ -13,7 +13,7 @@ export default function NotFound() {
         <div className="pt-4 flex justify-center gap-3">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold text-white bg-blue-900 hover:bg-blue-800 transition-colors"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold text-[#f8e7c9] bg-[#064E3B] hover:bg-[#04382a] transition-colors shadow-xs"
           >
             <Home className="w-4 h-4" />
             Back to Homepage

@@ -1,4 +1,4 @@
-import Metadata from 'next';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
   PhoneCall,
@@ -17,12 +17,20 @@ import connectToDatabase from '@/lib/db';
 import Service from '@/lib/models/Service';
 import { seedDatabase } from '@/lib/seed';
 import { defaultServices } from '@/lib/constants';
-import { FadeIn, StaggerContainer, StaggerItem, PageMotion } from '@/components/common/MotionWrapper';
+import { FadeIn, PageMotion } from '@/components/common/MotionWrapper';
 
-export const metadata = {
-  title: 'BPO & Freelance Services | FreelanceWalla',
+export const metadata: Metadata = {
+  title: 'BPO & Freelance Services | Sales, Telecalling & Customer Support',
   description:
-    'Explore FreelanceWalla operational services including sales telecalling, customer support, live chat, email management, data entry, lead generation, and back-office support.',
+    'Explore FreelanceWalla operational services including sales telecalling, 24/7 customer support, live chat management, email support, data entry, lead generation, and back-office operations in India.',
+  alternates: {
+    canonical: 'https://freelancewalla.in/services',
+  },
+  openGraph: {
+    title: 'BPO & Freelance Services | FreelanceWalla India',
+    description: 'Outsource sales telecalling, customer support, live chat, email management, data entry, and lead generation to trained remote teams.',
+    url: 'https://freelancewalla.in/services',
+  },
 };
 
 async function getServices() {
@@ -58,23 +66,25 @@ export default async function ServicesPage() {
     <PageMotion className="space-y-16 py-12">
       
       {/* HEADER SECTION WITH BACKGROUND IMAGE & OVERLAY */}
-      <section className="relative bg-slate-950 text-white py-20 border-b border-slate-800 overflow-hidden">
+      <section className="relative bg-[#04382a] text-white py-20 border-b border-[#f8e7c9]/15 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
             src="/images/bpo_support_call.png"
             alt="FreelanceWalla BPO Services"
-            className="w-full h-full object-cover object-center opacity-30"
+            className="w-full h-full object-cover object-center opacity-25"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#04382a] via-[#04382a]/85 to-transparent" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn className="max-w-3xl space-y-4">
-            <span className="text-xs uppercase font-bold tracking-wider text-blue-400">Services & Operational Support</span>
+            <span className="text-xs uppercase font-bold tracking-wider text-[#f8e7c9] bg-[#f8e7c9]/15 px-3 py-1 rounded-full border border-[#f8e7c9]/30">
+              Services & Operational Support
+            </span>
             <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
               Business Services That Support Your Growth
             </h1>
-            <p className="text-lg text-slate-300 leading-relaxed">
+            <p className="text-lg text-[#f8e7c9]/90 leading-relaxed">
               We provide structured support teams for sales telecalling, customer support, chat, email management, data entry, lead generation, and administrative back-office work.
             </p>
           </FadeIn>
@@ -88,7 +98,7 @@ export default async function ServicesPage() {
             <a
               key={s.slug}
               href={`#${s.slug}`}
-              className="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-blue-50 hover:text-blue-900 transition-colors"
+              className="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-[#e6f4f0] text-[#064E3B] hover:bg-[#064E3B] hover:text-[#f8e7c9] transition-colors border border-[#064E3B]/10"
             >
               {s.title}
             </a>
@@ -111,8 +121,8 @@ export default async function ServicesPage() {
                 {/* Header */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-100">
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-blue-900 text-white flex items-center justify-center shrink-0">
-                      <IconComponent className="w-6 h-6" />
+                    <div className="w-12 h-12 rounded-xl bg-[#064E3B] text-[#f8e7c9] flex items-center justify-center shrink-0 shadow-sm border border-[#f8e7c9]/30">
+                      <IconComponent className="w-6 h-6 text-[#f8e7c9]" />
                     </div>
                     <div>
                       <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">{service.title}</h2>
@@ -121,10 +131,10 @@ export default async function ServicesPage() {
                   </div>
                   <Link
                     href={`/contact?service=${encodeURIComponent(service.title)}`}
-                    className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-blue-900 text-white text-sm font-semibold hover:bg-blue-800 transition-colors shrink-0"
+                    className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-[#064E3B] text-[#f8e7c9] text-sm font-semibold hover:bg-[#04382a] transition-colors shrink-0 border border-[#f8e7c9]/30 shadow-sm"
                   >
                     Discuss Your Requirement
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowRight className="w-4 h-4 text-[#f8e7c9]" />
                   </Link>
                 </div>
 
@@ -135,20 +145,20 @@ export default async function ServicesPage() {
 
                 {/* Problem vs Solution */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="bg-amber-50/70 border border-amber-200/80 rounded-xl p-5 space-y-2">
-                    <div className="flex items-center gap-2 text-amber-900 font-bold text-sm">
-                      <AlertCircle className="w-4 h-4 text-amber-700" />
+                  <div className="bg-[#fffbeb] border border-[#fde68a] rounded-xl p-5 space-y-2">
+                    <div className="flex items-center gap-2 text-[#92400e] font-bold text-sm">
+                      <AlertCircle className="w-4 h-4 text-[#b45309]" />
                       The Challenge You Face
                     </div>
-                    <p className="text-xs sm:text-sm text-amber-950 leading-relaxed">{service.problem}</p>
+                    <p className="text-xs sm:text-sm text-[#78350f] leading-relaxed">{service.problem}</p>
                   </div>
 
-                  <div className="bg-blue-50/70 border border-blue-200/80 rounded-xl p-5 space-y-2">
-                    <div className="flex items-center gap-2 text-blue-900 font-bold text-sm">
-                      <CheckCircle2 className="w-4 h-4 text-blue-700" />
+                  <div className="bg-[#e6f4f0] border border-[#064E3B]/20 rounded-xl p-5 space-y-2">
+                    <div className="flex items-center gap-2 text-[#064E3B] font-bold text-sm">
+                      <CheckCircle2 className="w-4 h-4 text-[#064E3B]" />
                       Our Operational Solution
                     </div>
-                    <p className="text-xs sm:text-sm text-blue-950 leading-relaxed">{service.solution}</p>
+                    <p className="text-xs sm:text-sm text-[#04382a] leading-relaxed">{service.solution}</p>
                   </div>
                 </div>
 
@@ -159,7 +169,7 @@ export default async function ServicesPage() {
                     <ul className="space-y-2">
                       {service.whatWeHandle?.map((item: string, idx: number) => (
                         <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700">
-                          <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+                          <CheckCircle2 className="w-4 h-4 text-[#064E3B] shrink-0 mt-0.5" />
                           <span>{item}</span>
                         </li>
                       ))}
@@ -171,7 +181,7 @@ export default async function ServicesPage() {
                     <ul className="space-y-2">
                       {service.whoItIsFor?.map((item: string, idx: number) => (
                         <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700">
-                          <span className="w-2 h-2 rounded-full bg-blue-600 shrink-0 mt-1.5" />
+                          <span className="w-2 h-2 rounded-full bg-[#064E3B] shrink-0 mt-1.5" />
                           <span>{item}</span>
                         </li>
                       ))}
@@ -183,14 +193,14 @@ export default async function ServicesPage() {
                 <div className="pt-6 border-t border-slate-100 flex items-center justify-between">
                   <div className="flex flex-wrap gap-2">
                     {service.features?.map((feat: string) => (
-                      <span key={feat} className="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 text-xs font-medium">
+                      <span key={feat} className="px-2.5 py-1 rounded-md bg-[#f8e7c9] text-[#064E3B] text-xs font-semibold border border-[#f8e7c9]">
                         {feat}
                       </span>
                     ))}
                   </div>
                   <Link
                     href={`/contact?service=${encodeURIComponent(service.title)}`}
-                    className="text-xs font-bold text-blue-900 hover:text-blue-700 underline underline-offset-4"
+                    className="text-xs font-bold text-[#064E3B] hover:text-[#04382a] underline underline-offset-4"
                   >
                     Get Quote for {service.title} →
                   </Link>
@@ -204,18 +214,18 @@ export default async function ServicesPage() {
 
       {/* BOTTOM CTA */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <FadeIn className="bg-slate-900 rounded-2xl p-8 sm:p-12 text-white text-center space-y-4 shadow-xl">
-          <h2 className="text-2xl sm:text-3xl font-extrabold">Need a Custom Operational Setup?</h2>
-          <p className="text-slate-300 max-w-xl mx-auto text-sm leading-relaxed">
+        <FadeIn className="bg-[#04382a] rounded-2xl p-8 sm:p-12 text-white text-center space-y-4 shadow-xl border border-[#f8e7c9]/20">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-white">Need a Custom Operational Setup?</h2>
+          <p className="text-[#f8e7c9]/90 max-w-xl mx-auto text-sm leading-relaxed">
             Tell us about your team size, expected call/ticket volume, and process requirements. We will organize a practical quote for your business.
           </p>
           <div>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-500 transition-colors shadow-sm"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg bg-[#f8e7c9] text-[#064E3B] font-bold hover:bg-[#edd4a6] transition-colors shadow-md border border-[#f8e7c9]"
             >
               Submit Your Requirement
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-4 h-4 text-[#064E3B]" />
             </Link>
           </div>
         </FadeIn>

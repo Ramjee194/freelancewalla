@@ -26,15 +26,15 @@ export default function AdminSidebar() {
   };
 
   return (
-    <aside className="w-full lg:w-64 bg-slate-900 text-slate-300 p-6 rounded-2xl space-y-8 shrink-0 border border-slate-800">
+    <aside className="w-full lg:w-64 bg-[#064E3B] text-white p-6 rounded-2xl space-y-8 shrink-0 border border-[#04382a] shadow-lg">
       <div className="space-y-1">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center font-bold text-white text-sm">
+          <div className="w-8 h-8 rounded-lg bg-[#f8e7c9] flex items-center justify-center font-bold text-[#064E3B] text-sm shadow-xs">
             FW
           </div>
           <span className="font-extrabold text-lg text-white">Admin Portal</span>
         </div>
-        <p className="text-[11px] text-slate-400">FreelanceWalla Management</p>
+        <p className="text-[11px] text-[#f8e7c9]/80">FreelanceWalla Management</p>
       </div>
 
       <nav className="space-y-1.5">
@@ -47,8 +47,8 @@ export default function AdminSidebar() {
               href={item.href}
               className={`flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                 isActive
-                  ? 'bg-blue-600 text-white font-semibold'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                  ? 'bg-[#f8e7c9] text-[#064E3B] font-bold shadow-xs'
+                  : 'text-emerald-100/80 hover:text-white hover:bg-[#04382a]'
               }`}
             >
               <Icon className="w-4 h-4" />
@@ -58,17 +58,17 @@ export default function AdminSidebar() {
         })}
       </nav>
 
-      <div className="pt-6 border-t border-slate-800 space-y-3">
+      <div className="pt-6 border-t border-[#04382a] space-y-3">
         <Link
           href="/"
-          className="flex items-center gap-2 text-xs font-semibold text-slate-400 hover:text-white transition-colors"
+          className="flex items-center gap-2 text-xs font-semibold text-[#f8e7c9]/90 hover:text-white transition-colors"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           Back to Public Website
         </Link>
         <button
           onClick={handleLogout}
-          className="w-full flex items-center gap-2 text-xs font-semibold text-rose-400 hover:text-rose-300 transition-colors pt-2"
+          className="w-full flex items-center gap-2 text-xs font-semibold text-rose-300 hover:text-rose-200 transition-colors pt-2"
         >
           <LogOut className="w-3.5 h-3.5" />
           Logout Admin Session

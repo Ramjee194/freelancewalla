@@ -39,14 +39,14 @@ export default function ReviewsPage() {
     <div className="space-y-12 py-12">
       
       {/* HEADER */}
-      <section className="bg-slate-900 text-white py-14 border-b border-slate-800">
+      <section className="bg-[#064E3B] text-white py-14 border-b border-[#04382a]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl space-y-3">
-            <span className="text-xs uppercase font-bold tracking-wider text-blue-400">Feedback & Experiences</span>
+            <span className="text-xs uppercase font-bold tracking-wider text-[#f8e7c9]">Feedback & Experiences</span>
             <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
               Client & Employee Experiences
             </h1>
-            <p className="text-lg text-slate-300">
+            <p className="text-lg text-[#f8e7c9]/90">
               Read transparent feedback from business clients using our support services and team members working on flexible projects.
             </p>
           </div>
@@ -62,7 +62,7 @@ export default function ReviewsPage() {
               onClick={() => setActiveTab('CLIENT')}
               className={`pb-4 px-6 font-bold text-sm sm:text-base border-b-2 transition-all ${
                 activeTab === 'CLIENT'
-                  ? 'border-blue-900 text-blue-900'
+                  ? 'border-[#064E3B] text-[#064E3B]'
                   : 'border-transparent text-slate-500 hover:text-slate-800'
               }`}
             >
@@ -72,7 +72,7 @@ export default function ReviewsPage() {
               onClick={() => setActiveTab('EMPLOYEE')}
               className={`pb-4 px-6 font-bold text-sm sm:text-base border-b-2 transition-all ${
                 activeTab === 'EMPLOYEE'
-                  ? 'border-blue-900 text-blue-900'
+                  ? 'border-[#064E3B] text-[#064E3B]'
                   : 'border-transparent text-slate-500 hover:text-slate-800'
               }`}
             >
@@ -93,7 +93,7 @@ export default function ReviewsPage() {
           </div>
         ) : currentList.length === 0 ? (
           <div className="bg-white border border-slate-200 rounded-2xl p-12 text-center max-w-md mx-auto space-y-3">
-            <div className="w-12 h-12 rounded-full bg-slate-100 text-slate-500 mx-auto flex items-center justify-center">
+            <div className="w-12 h-12 rounded-full bg-[#e6f4f0] text-[#064E3B] mx-auto flex items-center justify-center">
               <MessageSquare className="w-6 h-6" />
             </div>
             <p className="text-slate-700 font-semibold">
@@ -111,15 +111,15 @@ export default function ReviewsPage() {
               >
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-bold px-2.5 py-1 rounded bg-blue-50 text-blue-900">
+                    <span className="text-[11px] font-bold px-2.5 py-1 rounded bg-[#e6f4f0] text-[#064E3B]">
                       {rev.isSample ? 'Sample Review' : `${activeTab} FEEDBACK`}
                     </span>
-                    <div className="flex text-amber-400 text-sm">
+                    <div className="flex text-[#c69446] text-sm">
                       {Array.from({ length: 5 }).map((_, i) => (
                         <Star
                           key={i}
                           className={`w-4 h-4 ${
-                            i < rev.rating ? 'fill-amber-400 text-amber-400' : 'text-slate-200'
+                            i < rev.rating ? 'fill-[#c69446] text-[#c69446]' : 'text-slate-200'
                           }`}
                         />
                       ))}
@@ -133,7 +133,7 @@ export default function ReviewsPage() {
 
                 <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-full bg-slate-100 text-slate-700 flex items-center justify-center font-bold">
+                    <div className="w-8 h-8 rounded-full bg-[#e6f4f0] text-[#064E3B] flex items-center justify-center font-bold">
                       {activeTab === 'CLIENT' ? <Building2 className="w-4 h-4" /> : <User className="w-4 h-4" />}
                     </div>
                     <div>

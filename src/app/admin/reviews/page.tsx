@@ -112,12 +112,12 @@ export default function AdminReviewsPage() {
         <main className="flex-1 space-y-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-extrabold text-slate-900">Reviews & Testimonials Manager</h1>
+              <h1 className="text-2xl font-extrabold text-[#064E3B]">Reviews & Testimonials Manager</h1>
               <p className="text-xs text-slate-500">Publish or unpublish client and candidate reviews.</p>
             </div>
             <button
               onClick={handleOpenAdd}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-blue-900 text-white text-xs font-semibold hover:bg-blue-800 transition-colors shadow-xs"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#064E3B] text-[#f8e7c9] text-xs font-semibold hover:bg-[#04382a] transition-colors shadow-xs"
             >
               <Plus className="w-4 h-4" /> Add Review
             </button>
@@ -137,7 +137,7 @@ export default function AdminReviewsPage() {
                 <div key={rev._id} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-2xs space-y-4 flex flex-col justify-between">
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold px-2.5 py-0.5 rounded bg-blue-50 text-blue-900">
+                      <span className="text-xs font-bold px-2.5 py-0.5 rounded bg-[#e6f4f0] text-[#064E3B]">
                         {rev.reviewType} REVIEW {rev.isSample ? '(Sample)' : ''}
                       </span>
                       <span className={`text-xs font-bold px-2 py-0.5 rounded ${rev.isPublished ? 'bg-emerald-50 text-emerald-700' : 'bg-slate-100 text-slate-500'}`}>
@@ -153,7 +153,7 @@ export default function AdminReviewsPage() {
                   </div>
 
                   <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
-                    <div className="flex text-amber-400">
+                    <div className="flex text-[#c69446]">
                       {'★'.repeat(rev.rating)}{'☆'.repeat(5 - rev.rating)}
                     </div>
                     <div className="flex items-center gap-2">
@@ -175,7 +175,7 @@ export default function AdminReviewsPage() {
             <div className="fixed inset-0 bg-slate-900/50 z-50 flex items-center justify-center p-4 backdrop-blur-xs">
               <div className="bg-white rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-2xl">
                 <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-                  <h2 className="text-base font-bold text-slate-900">
+                  <h2 className="text-base font-bold text-[#064E3B]">
                     {editingReview ? 'Edit Review' : 'Add New Review'}
                   </h2>
                   <button onClick={() => setShowModal(false)} className="text-slate-400 hover:text-slate-600">
@@ -253,7 +253,7 @@ export default function AdminReviewsPage() {
                         type="checkbox"
                         checked={formData.isSample}
                         onChange={(e) => setFormData({ ...formData, isSample: e.target.checked })}
-                        className="rounded text-blue-600"
+                        className="rounded text-[#064E3B] focus:ring-[#064E3B]"
                       />
                       Mark as Sample Review
                     </label>
@@ -263,7 +263,7 @@ export default function AdminReviewsPage() {
                         type="checkbox"
                         checked={formData.isPublished}
                         onChange={(e) => setFormData({ ...formData, isPublished: e.target.checked })}
-                        className="rounded text-blue-600"
+                        className="rounded text-[#064E3B] focus:ring-[#064E3B]"
                       />
                       Publish on Website
                     </label>
@@ -279,7 +279,7 @@ export default function AdminReviewsPage() {
                     </button>
                     <button
                       type="submit"
-                      className="px-5 py-2 rounded-lg bg-blue-900 font-semibold text-white hover:bg-blue-800"
+                      className="px-5 py-2 rounded-lg bg-[#064E3B] font-semibold text-[#f8e7c9] hover:bg-[#04382a]"
                     >
                       Save Review
                     </button>

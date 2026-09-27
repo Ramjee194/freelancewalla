@@ -72,14 +72,16 @@ export default function AvailableRolesPage() {
     <div className="space-y-12 py-12">
       
       {/* HEADER */}
-      <section className="bg-slate-900 text-white py-14 border-b border-slate-800">
+      <section className="bg-[#04382a] text-white py-14 border-b border-[#f8e7c9]/15">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl space-y-3">
-            <span className="text-xs uppercase font-bold tracking-wider text-blue-400">Available Work Vacancies</span>
+            <span className="text-xs uppercase font-bold tracking-wider text-[#f8e7c9] bg-[#f8e7c9]/15 px-3 py-1 rounded-full border border-[#f8e7c9]/30">
+              Available Work Vacancies
+            </span>
             <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
               Current Work Opportunities
             </h1>
-            <p className="text-lg text-slate-300">
+            <p className="text-lg text-[#f8e7c9]/90">
               Browse open freelance, BPO, and remote support positions. Filter by work mode or category to find suitable roles.
             </p>
           </div>
@@ -100,7 +102,7 @@ export default function AvailableRolesPage() {
                 placeholder="Search roles by title, keyword, or skills..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-11 pr-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-hidden focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                className="w-full pl-11 pr-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-hidden focus:ring-2 focus:ring-[#064E3B] focus:border-[#064E3B]"
               />
               {searchQuery && (
                 <button
@@ -117,7 +119,7 @@ export default function AvailableRolesPage() {
               <select
                 value={selectedWorkType}
                 onChange={(e) => setSelectedWorkType(e.target.value)}
-                className="w-full py-2.5 px-3 rounded-lg border border-slate-300 text-sm bg-white text-slate-700 focus:outline-hidden focus:ring-2 focus:ring-blue-600"
+                className="w-full py-2.5 px-3 rounded-lg border border-slate-300 text-sm bg-white text-slate-700 focus:outline-hidden focus:ring-2 focus:ring-[#064E3B]"
               >
                 <option value="ALL">All Work Types</option>
                 {workTypes.filter((wt) => wt !== 'ALL').map((wt) => (
@@ -133,7 +135,7 @@ export default function AvailableRolesPage() {
           {/* Category Filter Pills */}
           <div className="space-y-2">
             <label className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
-              <Filter className="w-3.5 h-3.5" />
+              <Filter className="w-3.5 h-3.5 text-[#064E3B]" />
               Category Filter
             </label>
             <div className="flex flex-wrap gap-2">
@@ -143,8 +145,8 @@ export default function AvailableRolesPage() {
                   onClick={() => setSelectedCategory(cat)}
                   className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
                     selectedCategory === cat
-                      ? 'bg-blue-900 text-white'
-                      : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                      ? 'bg-[#064E3B] text-[#f8e7c9] border border-[#f8e7c9]/30'
+                      : 'bg-[#e6f4f0] text-[#064E3B] hover:bg-[#064E3B] hover:text-[#f8e7c9]'
                   }`}
                 >
                   {cat === 'ALL' ? 'All Categories' : cat}
@@ -168,8 +170,8 @@ export default function AvailableRolesPage() {
         ) : filteredRoles.length === 0 ? (
           /* EMPTY STATE */
           <div className="bg-white border border-slate-200 rounded-2xl p-12 text-center max-w-lg mx-auto space-y-4 shadow-2xs">
-            <div className="w-12 h-12 rounded-full bg-slate-100 text-slate-500 mx-auto flex items-center justify-center">
-              <Briefcase className="w-6 h-6" />
+            <div className="w-12 h-12 rounded-full bg-[#e6f4f0] text-[#064E3B] mx-auto flex items-center justify-center">
+              <Briefcase className="w-6 h-6 text-[#064E3B]" />
             </div>
             <h3 className="text-lg font-bold text-slate-900">No Matching Roles Found</h3>
             <p className="text-sm text-slate-600 leading-relaxed">
@@ -178,10 +180,10 @@ export default function AvailableRolesPage() {
             <div className="pt-2">
               <Link
                 href="/apply"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-xs font-semibold text-white bg-blue-900 hover:bg-blue-800"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-xs font-semibold text-[#f8e7c9] bg-[#064E3B] hover:bg-[#04382a] border border-[#f8e7c9]/20"
               >
                 Submit General Application
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 text-[#f8e7c9]" />
               </Link>
             </div>
           </div>
@@ -191,11 +193,11 @@ export default function AvailableRolesPage() {
             {filteredRoles.map((role) => (
               <div
                 key={role._id || role.slug}
-                className="bg-white p-6 sm:p-7 rounded-2xl border border-slate-200 shadow-2xs hover:shadow-md hover:border-blue-200 transition-all flex flex-col justify-between space-y-5"
+                className="bg-white p-6 sm:p-7 rounded-2xl border border-slate-200 shadow-2xs hover:shadow-md hover:border-[#064E3B]/40 transition-all flex flex-col justify-between space-y-5"
               >
                 <div className="space-y-4">
                   <div className="flex flex-wrap items-center justify-between gap-2">
-                    <span className="text-xs font-bold px-2.5 py-1 rounded bg-blue-50 text-blue-900 border border-blue-100">
+                    <span className="text-xs font-bold px-2.5 py-1 rounded bg-[#e6f4f0] text-[#064E3B] border border-[#064E3B]/10">
                       {role.category}
                     </span>
                     <span className="text-xs font-medium text-slate-500 flex items-center gap-1">
@@ -212,12 +214,12 @@ export default function AvailableRolesPage() {
 
                   {/* Requirements Highlights */}
                   {role.requirements && role.requirements.length > 0 && (
-                    <div className="bg-slate-50 p-3 rounded-lg border border-slate-100 space-y-1">
-                      <span className="text-[11px] font-bold uppercase text-slate-500 block">Key Requirements:</span>
+                    <div className="bg-[#e6f4f0]/50 p-3 rounded-lg border border-[#064E3B]/10 space-y-1">
+                      <span className="text-[11px] font-bold uppercase text-[#064E3B] block">Key Requirements:</span>
                       <ul className="text-xs text-slate-700 space-y-1">
                         {role.requirements.slice(0, 2).map((req, idx) => (
                           <li key={idx} className="flex items-center gap-1.5 truncate">
-                            <span className="text-blue-600 font-bold">•</span>
+                            <span className="text-[#064E3B] font-bold">•</span>
                             <span className="truncate">{req}</span>
                           </li>
                         ))}
@@ -227,7 +229,7 @@ export default function AvailableRolesPage() {
 
                   <div className="flex flex-wrap gap-2">
                     {role.workType?.map((wt) => (
-                      <span key={wt} className="px-2 py-0.5 rounded text-[11px] font-medium bg-slate-100 text-slate-700">
+                      <span key={wt} className="px-2 py-0.5 rounded text-[11px] font-medium bg-[#f8e7c9] text-[#064E3B] border border-[#f8e7c9]">
                         {wt}
                       </span>
                     ))}
@@ -237,13 +239,13 @@ export default function AvailableRolesPage() {
                 <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-3">
                   <Link
                     href={`/careers/${role.slug}`}
-                    className="text-xs font-bold text-slate-700 hover:text-blue-900"
+                    className="text-xs font-bold text-slate-700 hover:text-[#064E3B]"
                   >
                     View Details
                   </Link>
                   <Link
                     href={`/apply?role=${encodeURIComponent(role.title)}`}
-                    className="px-4 py-2 rounded-lg text-xs font-semibold text-white bg-blue-900 hover:bg-blue-800 transition-colors shadow-xs"
+                    className="px-4 py-2 rounded-lg text-xs font-semibold text-[#f8e7c9] bg-[#064E3B] hover:bg-[#04382a] transition-colors shadow-xs border border-[#f8e7c9]/20"
                   >
                     Apply Now
                   </Link>

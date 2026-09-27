@@ -72,7 +72,7 @@ export default function AdminApplicationsPage() {
         <main className="flex-1 space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <h1 className="text-2xl font-extrabold text-slate-900">Applications Manager</h1>
+              <h1 className="text-2xl font-extrabold text-[#064E3B]">Applications Manager</h1>
               <p className="text-xs text-slate-500">Review candidate details and update selection status.</p>
             </div>
             
@@ -131,7 +131,7 @@ export default function AdminApplicationsPage() {
 
                       {/* Role & Work Type */}
                       <td className="p-4 space-y-1">
-                        <div className="font-bold text-blue-900">{app.preferredRole}</div>
+                        <div className="font-bold text-[#064E3B]">{app.preferredRole}</div>
                         <span className="inline-block px-2 py-0.5 rounded bg-slate-100 font-medium text-slate-700">
                           {app.preferredWorkType}
                         </span>
@@ -152,7 +152,7 @@ export default function AdminApplicationsPage() {
                           onChange={(e) => handleStatusChange(app._id!, e.target.value)}
                           className={`px-3 py-1.5 rounded-lg border text-xs font-bold focus:outline-hidden ${
                             app.status === 'New'
-                              ? 'bg-blue-50 text-blue-900 border-blue-200'
+                              ? 'bg-[#e6f4f0] text-[#064E3B] border-emerald-200'
                               : app.status === 'Under Review'
                               ? 'bg-amber-50 text-amber-900 border-amber-200'
                               : app.status === 'Shortlisted' || app.status === 'Onboarding'

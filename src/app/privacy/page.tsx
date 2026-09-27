@@ -1,8 +1,19 @@
-import Metadata from 'next';
+import type { Metadata } from 'next';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Privacy Policy | FreelanceWalla',
   description: 'Privacy Policy outlining data protection practices for applicants and business clients at FreelanceWalla.',
+  alternates: {
+    canonical: 'https://freelancewalla.in/privacy',
+  },
+  openGraph: {
+    title: 'Privacy Policy | FreelanceWalla',
+    description: 'Privacy Policy outlining data protection practices for applicants and business clients at FreelanceWalla.',
+    url: 'https://freelancewalla.in/privacy',
+    siteName: 'FreelanceWalla',
+    locale: 'en_IN',
+    type: 'website',
+  },
 };
 
 export default function PrivacyPage() {
@@ -10,13 +21,13 @@ export default function PrivacyPage() {
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
       
       <div className="space-y-3 pb-6 border-b border-slate-200">
-        <h1 className="text-3xl font-extrabold text-slate-900">Privacy Policy</h1>
+        <h1 className="text-3xl font-extrabold text-[#064E3B]">Privacy Policy</h1>
         <p className="text-sm text-slate-500">Last updated: September 2026</p>
       </div>
 
       <div className="prose prose-slate max-w-none text-slate-700 text-sm sm:text-base space-y-6 leading-relaxed">
         <section className="space-y-2">
-          <h2 className="text-lg font-bold text-slate-900">1. Information We Collect</h2>
+          <h2 className="text-lg font-bold text-[#064E3B]">1. Information We Collect</h2>
           <p>
             When you interact with FreelanceWalla via our website (freelancewalla.in), we collect personal details provided voluntarily through forms:
           </p>
@@ -27,7 +38,7 @@ export default function PrivacyPage() {
         </section>
 
         <section className="space-y-2">
-          <h2 className="text-lg font-bold text-slate-900">2. How We Use Your Data</h2>
+          <h2 className="text-lg font-bold text-[#064E3B]">2. How We Use Your Data</h2>
           <p>
             Collected data is utilized strictly for business and recruitment operational purposes:
           </p>
@@ -39,16 +50,16 @@ export default function PrivacyPage() {
         </section>
 
         <section className="space-y-2">
-          <h2 className="text-lg font-bold text-slate-900">3. Data Protection & Sharing</h2>
+          <h2 className="text-lg font-bold text-[#064E3B]">3. Data Protection & Sharing</h2>
           <p>
             We do not sell, rent, or trade your personal information to third-party marketers. Data is stored securely in our database and accessed only by authorized recruitment and operations managers.
           </p>
         </section>
 
         <section className="space-y-2">
-          <h2 className="text-lg font-bold text-slate-900">4. Contact Us</h2>
+          <h2 className="text-lg font-bold text-[#064E3B]">4. Contact Us</h2>
           <p>
-            If you have questions about your personal data or wish to request data updates, please contact us at: <a href="mailto:info@freelancewalla.in" className="text-blue-600 font-semibold underline">info@freelancewalla.in</a>.
+            If you have questions about your personal data or wish to request data updates, please contact us at: <a href="mailto:info@freelancewalla.in" className="text-[#064E3B] font-semibold underline hover:text-[#04382a]">info@freelancewalla.in</a>.
           </p>
         </section>
       </div>

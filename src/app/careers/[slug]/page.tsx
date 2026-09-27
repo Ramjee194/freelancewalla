@@ -29,6 +29,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: `${role.title} | Careers at FreelanceWalla`,
     description: role.description,
+    alternates: {
+      canonical: `https://freelancewalla.in/careers/${slug}`,
+    },
+    openGraph: {
+      title: `${role.title} | Remote Work FreelanceWalla`,
+      description: role.description,
+      url: `https://freelancewalla.in/careers/${slug}`,
+    },
   };
 }
 
@@ -57,12 +65,16 @@ export default async function RoleDetailsPage({ params }: { params: Promise<{ sl
       '@type': 'Organization',
       name: 'FreelanceWalla',
       sameAs: 'https://freelancewalla.in',
-      logo: 'https://freelancewalla.in/images/brand_logo.svg',
+      logo: 'https://freelancewalla.in/logo.png',
     },
     jobLocation: {
       '@type': 'Place',
       address: {
         '@type': 'PostalAddress',
+        streetAddress: 'DLF Phase 3, Cyber City',
+        addressLocality: 'Gurugram',
+        addressRegion: 'Haryana',
+        postalCode: '122002',
         addressCountry: 'IN',
       },
     },
@@ -81,34 +93,34 @@ export default async function RoleDetailsPage({ params }: { params: Promise<{ sl
       />
       
       {/* HEADER BAR */}
-      <section className="bg-slate-900 text-white py-12 border-b border-slate-800">
+      <section className="bg-[#04382a] text-white py-12 border-b border-[#f8e7c9]/15">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
           <Link
             href="/careers/roles"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-white transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#f8e7c9]/80 hover:text-white transition-colors"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="w-4 h-4 text-[#f8e7c9]" />
             Back to Available Roles
           </Link>
 
           <div className="flex flex-wrap items-center gap-2 pt-2">
-            <span className="text-xs font-bold px-2.5 py-1 rounded bg-blue-900 text-blue-300 border border-blue-700">
+            <span className="text-xs font-bold px-2.5 py-1 rounded bg-[#064E3B] text-[#f8e7c9] border border-[#f8e7c9]/30">
               {role.category}
             </span>
-            <span className="text-xs text-slate-400 font-medium">{role.workMode}</span>
+            <span className="text-xs text-[#f8e7c9]/80 font-medium">{role.workMode}</span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
             {role.title}
           </h1>
 
-          <div className="flex flex-wrap gap-4 text-xs text-slate-300 pt-1">
+          <div className="flex flex-wrap gap-4 text-xs text-[#f8e7c9]/90 pt-1">
             <span className="flex items-center gap-1">
-              <Briefcase className="w-4 h-4 text-blue-400" />
+              <Briefcase className="w-4 h-4 text-[#f8e7c9]" />
               Work Type: {Array.isArray(role.workType) ? role.workType.join(', ') : role.workType}
             </span>
             <span className="flex items-center gap-1">
-              <MapPin className="w-4 h-4 text-blue-400" />
+              <MapPin className="w-4 h-4 text-[#f8e7c9]" />
               Location: {role.location}
             </span>
           </div>
@@ -127,7 +139,7 @@ export default async function RoleDetailsPage({ params }: { params: Promise<{ sl
               {role.description}
             </p>
             {role.isSalaryVisible && role.salaryText && (
-              <div className="mt-2 p-3 bg-blue-50 text-blue-900 rounded-lg text-xs font-semibold">
+              <div className="mt-2 p-3 bg-[#e6f4f0] text-[#064E3B] rounded-lg text-xs font-semibold border border-[#064E3B]/20">
                 Salary / Payout Note: {role.salaryText}
               </div>
             )}
@@ -139,7 +151,7 @@ export default async function RoleDetailsPage({ params }: { params: Promise<{ sl
             <ul className="space-y-3">
               {role.responsibilities?.map((item: string, idx: number) => (
                 <li key={idx} className="flex items-start gap-3 text-xs sm:text-sm text-slate-700">
-                  <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-4 h-4 text-[#064E3B] shrink-0 mt-0.5" />
                   <span className="leading-relaxed">{item}</span>
                 </li>
               ))}
@@ -152,7 +164,7 @@ export default async function RoleDetailsPage({ params }: { params: Promise<{ sl
             <ul className="space-y-3">
               {role.requirements?.map((req: string, idx: number) => (
                 <li key={idx} className="flex items-start gap-3 text-xs sm:text-sm text-slate-700">
-                  <span className="w-2 h-2 rounded-full bg-blue-600 shrink-0 mt-2" />
+                  <span className="w-2 h-2 rounded-full bg-[#064E3B] shrink-0 mt-2" />
                   <span className="leading-relaxed">{req}</span>
                 </li>
               ))}
@@ -174,18 +186,18 @@ export default async function RoleDetailsPage({ params }: { params: Promise<{ sl
             </div>
             <Link
               href={`/apply?role=${encodeURIComponent(role.title)}`}
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg text-sm font-semibold text-white bg-blue-900 hover:bg-blue-800 transition-colors shadow-xs"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg text-sm font-semibold text-[#f8e7c9] bg-[#064E3B] hover:bg-[#04382a] transition-colors shadow-xs border border-[#f8e7c9]/20"
             >
               Apply for This Role
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-4 h-4 text-[#f8e7c9]" />
             </Link>
           </div>
 
         </div>
 
         {/* Safety Warning Box */}
-        <div className="bg-amber-50 border border-amber-200 p-5 rounded-xl text-amber-950 text-xs flex items-start gap-3">
-          <ShieldAlert className="w-5 h-5 text-amber-700 shrink-0 mt-0.5" />
+        <div className="bg-[#fffbeb] border border-[#fde68a] p-5 rounded-xl text-[#78350f] text-xs flex items-start gap-3">
+          <ShieldAlert className="w-5 h-5 text-[#b45309] shrink-0 mt-0.5" />
           <div>
             <strong>Applicant Safety Reminder:</strong> Submission of an application does not guarantee employment. Never share passwords, OTPs, or bank PINs with anyone.
           </div>
