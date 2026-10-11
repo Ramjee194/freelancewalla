@@ -17,6 +17,7 @@ import Logo from '@/components/common/Logo';
 const navLinks = [
   { name: 'Home', href: '/' },
   { name: 'Services', href: '/services' },
+  { name: 'Agency Network', href: '/agency-network' },
   { name: 'About', href: '/about' },
   {
     name: 'Careers',

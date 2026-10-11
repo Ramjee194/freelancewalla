@@ -1,0 +1,19 @@
+[
+  {
+    "_id": "6acbcf18f0e436fe6e0f5834",
+    "firebaseUid": "pvZwo4pbajVY1ix35mAsynKApIU2",
+    "companyName": "Ramjee kumar Yadav",
+    "contactPerson": "Ramjee kumar Yadav",
+    "email": "ramjeekumaryadav733@gmail.com",
+    "phone": "",
+    "portfolioWebsite": "",
+    "categories": [],
+    "isVerifiedByAdmin": true,
+    "creditsBalance": 0,
+    "totalCreditsPurchased": 0,
+    "status": "Active",
+    "createdAt": "2026-10-11T18:02:00.571Z",
+    "updatedAt": "2026-10-11T18:02:00.571Z",
+    "__v": 0
+  }
+]

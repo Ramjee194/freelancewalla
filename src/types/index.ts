@@ -74,3 +74,60 @@ export interface IService {
   isActive: boolean;
   createdAt?: string | Date;
 }
+
+export type LeadCategory = 'Web Development' | 'App Development' | 'SEO Services' | 'AI & Automation';
+
+export interface IClientLead {
+  _id?: string;
+  title: string;
+  category: LeadCategory;
+  budgetRange: string;
+  projectDescription: string;
+  cityLocation: string;
+  // Private / Unlocked fields:
+  clientName: string;
+  clientPhone: string;
+  clientEmail: string;
+  clientFullAddress: string;
+  // Exclusivity: each client is assigned to only 1 agency
+  isAllocated: boolean;
+  allocatedToAgencyId?: string;
+  allocatedToAgencyName?: string;
+  allocatedAt?: string | Date;
+  status: 'Available' | 'Allocated' | 'Archived';
+  createdAt?: string | Date;
+  updatedAt?: string | Date;
+}
+
+export interface IAgencyUser {
+  _id?: string;
+  firebaseUid: string;
+  companyName: string;
+  contactPerson: string;
+  email: string;
+  phone?: string;
+  portfolioWebsite?: string;
+  categories?: string[];
+  isVerifiedByAdmin: boolean;
+  creditsBalance: number;
+  totalCreditsPurchased: number;
+  status: 'Active' | 'Pending Verification' | 'Suspended';
+  createdAt?: string | Date;
+  updatedAt?: string | Date;
+}
+
+export interface ILeadOrder {
+  _id?: string;
+  agencyId: string;
+  agencyEmail: string;
+  agencyCompanyName: string;
+  planName: 'Starter (5 Leads)' | 'Growth (10 Leads)' | 'Pro Agency (15 Leads)';
+  amount: number;
+  creditsGiven: number;
+  razorpayOrderId?: string;
+  razorpayPaymentId?: string;
+  disclaimerAccepted: boolean;
+  status: 'SUCCESS' | 'FAILED' | 'PENDING';
+  allocatedLeadIds: string[];
+  createdAt?: string | Date;
+}

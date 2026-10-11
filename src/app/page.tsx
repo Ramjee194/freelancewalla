@@ -150,7 +150,69 @@ export default async function HomePage() {
       {/* FULLSCREEN BACKGROUND IMAGE SLIDER HERO */}
       <HeroBackgroundSlider />
 
+      {/* B2B AGENCY PARTNER & CLIENT LEAD EXCHANGE BANNER */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <FadeIn className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#064E3B] via-[#04382a] to-[#022118] text-white p-8 sm:p-12 border border-[#f8e7c9]/20 shadow-2xl">
+          {/* Subtle decorative background glow */}
+          <div className="absolute top-0 right-0 w-96 h-96 bg-[#f8e7c9]/10 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none" />
+
+          <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
+            <div className="space-y-4 max-w-2xl">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#f8e7c9]/15 border border-[#f8e7c9]/30 text-[#f8e7c9] text-xs font-bold uppercase tracking-wider">
+                <span>🚀 FreelanceWalla Agency Network</span>
+                <span className="text-white/40">•</span>
+                <span>B2B Client Leads</span>
+              </div>
+
+              <h2 className="text-2xl sm:text-4xl font-black tracking-tight leading-tight">
+                Software Agency Struggling to <span className="text-[#f8e7c9]">Find Clients?</span>
+              </h2>
+
+              <p className="text-emerald-100/90 text-sm sm:text-base leading-relaxed">
+                Connect directly with verified businesses seeking custom <strong>Mobile Apps</strong>, <strong>Web Development</strong>, <strong>SEO Growth</strong>, and <strong>AI & Automation</strong>. Every client lead is <strong>100% exclusive</strong>—once claimed, it is assigned only to your company.
+              </p>
+
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+                <div className="bg-white/10 backdrop-blur-md rounded-xl p-3 border border-white/10 text-center">
+                  <span className="text-[10px] text-[#f8e7c9] font-bold uppercase block">Mobile Apps</span>
+                  <span className="text-xs font-semibold text-white">Flutter & Native</span>
+                </div>
+                <div className="bg-white/10 backdrop-blur-md rounded-xl p-3 border border-white/10 text-center">
+                  <span className="text-[10px] text-[#f8e7c9] font-bold uppercase block">Web Systems</span>
+                  <span className="text-xs font-semibold text-white">Next.js & MERN</span>
+                </div>
+                <div className="bg-white/10 backdrop-blur-md rounded-xl p-3 border border-white/10 text-center">
+                  <span className="text-[10px] text-[#f8e7c9] font-bold uppercase block">SEO Services</span>
+                  <span className="text-xs font-semibold text-white">Local GMB & Tech</span>
+                </div>
+                <div className="bg-white/10 backdrop-blur-md rounded-xl p-3 border border-white/10 text-center">
+                  <span className="text-[10px] text-[#f8e7c9] font-bold uppercase block">AI & Automation</span>
+                  <span className="text-xs font-semibold text-white">Bots & Workflows</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="w-full lg:w-auto flex flex-col sm:flex-row lg:flex-col gap-3 shrink-0">
+              <Link
+                href="/agency-network"
+                className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-2xl bg-[#f8e7c9] hover:bg-[#edd4a6] text-[#064E3B] font-extrabold text-sm shadow-xl hover:shadow-2xl transition-all duration-200 cursor-pointer text-center"
+              >
+                <span>Browse Available Projects</span>
+                <ArrowRight className="w-4 h-4 text-[#064E3B]" />
+              </Link>
+              <Link
+                href="/agency-network"
+                className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-xs transition-all duration-200 text-center"
+              >
+                <span>Agency Plans (From ₹699)</span>
+              </Link>
+            </div>
+          </div>
+        </FadeIn>
+      </section>
+
       {/* SERVICE OVERVIEW WITH FRAMER MOTION STAGGER */}
+
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <FadeIn className="text-center max-w-2xl mx-auto mb-12 space-y-3">
           <span className="text-xs font-bold uppercase tracking-wider text-[#064E3B] bg-[#e6f4f0] border border-[#064E3B]/10 px-3 py-1 rounded-full">

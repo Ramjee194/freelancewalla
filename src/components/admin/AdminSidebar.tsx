@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { LayoutDashboard, Users, Briefcase, Mail, Star, LogOut, ArrowLeft } from 'lucide-react';
+import { LayoutDashboard, Users, Briefcase, Mail, Star, LogOut, ArrowLeft, Layers } from 'lucide-react';
 
 export default function AdminSidebar() {
   const pathname = usePathname();
@@ -10,6 +10,7 @@ export default function AdminSidebar() {
 
   const navItems = [
     { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
+    { name: 'B2B Client Leads', href: '/admin/leads', icon: Layers },
     { name: 'Applications', href: '/admin/applications', icon: Users },
     { name: 'Job Vacancies', href: '/admin/roles', icon: Briefcase },
     { name: 'Client Enquiries', href: '/admin/enquiries', icon: Mail },
