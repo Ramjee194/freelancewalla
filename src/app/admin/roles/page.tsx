@@ -141,12 +141,10 @@ export default function AdminRolesPage() {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      <div className="flex flex-col lg:flex-row gap-8">
-        
-        <AdminSidebar />
+    <div className="w-full min-h-screen flex flex-col lg:flex-row bg-slate-50 m-0 p-0">
+      <AdminSidebar />
 
-        <main className="flex-1 space-y-6">
+      <main className="flex-1 p-6 lg:p-8 xl:p-10 space-y-6 w-full min-w-0">
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-2xl font-extrabold text-[#064E3B]">Job Vacancies Manager</h1>
@@ -335,8 +333,7 @@ export default function AdminRolesPage() {
           )}
 
         </main>
-
-      </div>
     </div>
   );
 }
+

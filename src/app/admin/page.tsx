@@ -42,12 +42,10 @@ export default async function AdminDashboardPage() {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      <div className="flex flex-col lg:flex-row gap-8">
-        
-        <AdminSidebar />
+    <div className="w-full min-h-screen flex flex-col lg:flex-row bg-slate-50 m-0 p-0">
+      <AdminSidebar />
 
-        <main className="flex-1 space-y-8">
+      <main className="flex-1 p-6 lg:p-8 xl:p-10 space-y-8 w-full min-w-0">
           <div className="space-y-1">
             <h1 className="text-2xl font-extrabold text-[#064E3B]">Dashboard Overview</h1>
             <p className="text-xs text-slate-500">Live operational stats for applications, roles, and client inquiries.</p>
@@ -112,8 +110,7 @@ export default async function AdminDashboardPage() {
           </div>
 
         </main>
-
-      </div>
     </div>
   );
 }
+

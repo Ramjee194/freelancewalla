@@ -3,12 +3,12 @@ import { IContactInquiry, IApplication } from '@/types';
 
 const host = process.env.MAIL_HOST || 'smtp.gmail.com';
 const port = parseInt(process.env.MAIL_PORT || '465', 10);
-const user = process.env.MAIL_USER || 'ramjeekumaryadav733@gmail.com';
+const user = process.env.MAIL_USER || '';
 // Remove any accidental spaces in app password string
-const pass = (process.env.MAIL_PASS || 'azsl vspn pqht urgw').replace(/\s+/g, '');
+const pass = (process.env.MAIL_PASS || '').replace(/\s+/g, '');
 
-const directorEmail = process.env.DIRECTOR_EMAIL || 'ramjeekumaryadav733@gmail.com';
-const senderEmail = process.env.SENDER_EMAIL || 'info@freelancewalla.in';
+const directorEmail = process.env.DIRECTOR_EMAIL || user;
+const senderEmail = process.env.SENDER_EMAIL || user || 'info@freelancewalla.in';
 
 const transporter = nodemailer.createTransport({
   host,

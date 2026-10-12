@@ -1,8 +1,8 @@
 import Razorpay from 'razorpay';
 
 export const razorpayInstance = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID || 'rzp_test_Tmfk69kUmEz6ej',
-  key_secret: process.env.RAZORPAY_KEY_SECRET || '5PF7s2ER7SUXRKtmWDGs6APK',
+  key_id: process.env.RAZORPAY_KEY_ID || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || '',
+  key_secret: process.env.RAZORPAY_KEY_SECRET || '',
 });
 
 export interface ILeadPlan {

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import connectToDatabase from '@/lib/db';
 import AgencyUser from '@/lib/models/AgencyUser';
+import { getStoredAgencies } from '@/lib/leadStore';
 
 export async function GET(req: NextRequest) {
   try {
@@ -11,14 +12,28 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: 'UID is required' }, { status: 400 });
     }
 
-    await connectToDatabase();
-    const agency = await AgencyUser.findOne({ firebaseUid: uid }).lean();
-
-    if (!agency) {
-      return NextResponse.json({ error: 'Agency not found' }, { status: 404 });
+    // Try MongoDB
+    try {
+      const conn = await connectToDatabase();
+      if (conn) {
+        const agency = await AgencyUser.findOne({ firebaseUid: uid }).lean();
+        if (agency) {
+          return NextResponse.json({ success: true, agency });
+        }
+      }
+    } catch (dbErr) {
+      // Fallback
     }
 
-    return NextResponse.json({ success: true, agency });
+    // Fallback store
+    const fallbackAgencies = await getStoredAgencies();
+    const fallbackAgency = fallbackAgencies.find((a: any) => a.firebaseUid === uid);
+
+    if (fallbackAgency) {
+      return NextResponse.json({ success: true, agency: fallbackAgency });
+    }
+
+    return NextResponse.json({ error: 'Agency not found' }, { status: 404 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

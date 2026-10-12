@@ -43,6 +43,10 @@ import {
   Layers,
   ArrowRight,
   TrendingUp,
+  CreditCard,
+  Calendar,
+  Copy,
+  Receipt,
 } from 'lucide-react';
 
 declare global {
@@ -88,6 +92,12 @@ export default function AgencyNetworkPage() {
     portfolioWebsite: '',
   });
 
+  // Profile Sub-tab & Payment History
+  const [profileSubTab, setProfileSubTab] = useState<'details' | 'leads' | 'payments'>('details');
+  const [paymentsList, setPaymentsList] = useState<any[]>([]);
+  const [paymentsLoading, setPaymentsLoading] = useState(false);
+  const [copiedTxnId, setCopiedTxnId] = useState<string | null>(null);
+
   // Payment & Disclaimer Modal State
   const [selectedPlanForPurchase, setSelectedPlanForPurchase] = useState<ILeadPlan | null>(null);
   const [disclaimerAccepted, setDisclaimerAccepted] = useState(false);
@@ -100,18 +110,52 @@ export default function AgencyNetworkPage() {
   // Toast notification
   const [notification, setNotification] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
 
-  // Track Firebase Auth State
+  // Track Firebase & Demo Auth State
   useEffect(() => {
+    const checkDemoAndSync = async () => {
+      if (typeof window !== 'undefined') {
+        const stored = localStorage.getItem('fw_demo_agency_user');
+        if (stored) {
+          try {
+            const parsed = JSON.parse(stored);
+            setCurrentUser(parsed);
+            await syncAndFetchAgency(parsed);
+            setAuthLoading(false);
+            return;
+          } catch (e) {}
+        }
+      }
+    };
+
+    checkDemoAndSync();
+
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      setCurrentUser(user);
       if (user) {
+        if (typeof window !== 'undefined') {
+          localStorage.removeItem('fw_demo_agency_user');
+        }
+        setCurrentUser(user);
         await syncAndFetchAgency(user);
       } else {
-        setAgencyProfile(null);
+        const storedDemo = typeof window !== 'undefined' ? localStorage.getItem('fw_demo_agency_user') : null;
+        if (!storedDemo) {
+          setCurrentUser(null);
+          setAgencyProfile(null);
+        }
       }
       setAuthLoading(false);
     });
-    return () => unsubscribe();
+
+    const handleAuthChange = () => {
+      checkDemoAndSync();
+    };
+
+    window.addEventListener('fw_auth_change', handleAuthChange);
+
+    return () => {
+      unsubscribe();
+      window.removeEventListener('fw_auth_change', handleAuthChange);
+    };
   }, []);
 
   const syncAndFetchAgency = async (user: User) => {
@@ -173,11 +217,29 @@ export default function AgencyNetworkPage() {
     }
   };
 
+  const fetchMyPayments = async (uid: string) => {
+    try {
+      setPaymentsLoading(true);
+      const res = await fetch(`/api/agency/payments?uid=${uid}`);
+      const data = await res.json();
+      if (data.success) {
+        setPaymentsList(data.orders || []);
+      }
+    } catch (err) {
+      console.error('Failed to retrieve payments:', err);
+    } finally {
+      setPaymentsLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (activeTab === 'marketplace') {
       fetchAvailableLeads();
     } else if (activeTab === 'my-leads' && currentUser) {
       fetchMyUnlockedLeads(currentUser.uid);
+    } else if (activeTab === 'profile' && currentUser) {
+      fetchMyUnlockedLeads(currentUser.uid);
+      fetchMyPayments(currentUser.uid);
     }
   }, [activeTab, selectedCategory, searchQuery, currentUser]);
 
@@ -255,6 +317,11 @@ export default function AgencyNetworkPage() {
       displayName: 'DevSpark Tech Solutions',
     } as any;
 
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('fw_demo_agency_user', JSON.stringify(demoUser));
+      window.dispatchEvent(new Event('fw_auth_change'));
+    }
+
     setCurrentUser(demoUser);
     await fetch('/api/agency/sync', {
       method: 'POST',
@@ -279,6 +346,9 @@ export default function AgencyNetworkPage() {
         portfolioWebsite: data.agency.portfolioWebsite,
       });
     }
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new Event('fw_auth_change'));
+    }
     setShowAuthModal(false);
     setNotification({ type: 'success', message: 'Logged in as Certified Agency Partner! Ready to explore leads.' });
   };
@@ -300,6 +370,9 @@ export default function AgencyNetworkPage() {
       const data = await res.json();
       if (data.success) {
         setAgencyProfile(data.agency);
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new Event('fw_auth_change'));
+        }
         setIsEditingProfile(false);
         setNotification({ type: 'success', message: 'Agency profile updated successfully!' });
       }
@@ -311,6 +384,10 @@ export default function AgencyNetworkPage() {
   };
 
   const handleLogout = async () => {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('fw_demo_agency_user');
+      window.dispatchEvent(new Event('fw_auth_change'));
+    }
     await signOut(auth);
     setAgencyProfile(null);
     setCurrentUser(null);
@@ -985,116 +1062,343 @@ export default function AgencyNetworkPage() {
                 </div>
               </div>
 
-              {/* Edit Profile Form or Overview Card */}
-              {isEditingProfile ? (
-                <div className="bg-white rounded-3xl border border-slate-200 p-8 shadow-md space-y-5">
-                  <h3 className="text-base font-black text-[#064E3B]">Update Agency Credentials</h3>
-                  <form onSubmit={handleUpdateProfile} className="space-y-4 text-xs">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div className="space-y-1">
-                        <label className="font-bold text-slate-700">Company / Agency Name</label>
-                        <input
-                          type="text"
-                          required
-                          value={profileForm.companyName}
-                          onChange={(e) => setProfileForm({ ...profileForm, companyName: e.target.value })}
-                          className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none"
-                        />
-                      </div>
-                      <div className="space-y-1">
-                        <label className="font-bold text-slate-700">Primary Contact Person</label>
-                        <input
-                          type="text"
-                          required
-                          value={profileForm.contactPerson}
-                          onChange={(e) => setProfileForm({ ...profileForm, contactPerson: e.target.value })}
-                          className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none"
-                        />
+              {/* Sub-tab Navigation */}
+              <div className="flex items-center gap-2 border-b border-slate-200 pb-2 overflow-x-auto">
+                <button
+                  type="button"
+                  onClick={() => setProfileSubTab('details')}
+                  className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
+                    profileSubTab === 'details'
+                      ? 'bg-[#064E3B] text-[#f8e7c9] shadow-sm'
+                      : 'text-slate-600 hover:text-slate-900 bg-white border border-slate-200'
+                  }`}
+                >
+                  <Building2 className="w-3.5 h-3.5" />
+                  Agency Credentials
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setProfileSubTab('leads')}
+                  className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
+                    profileSubTab === 'leads'
+                      ? 'bg-[#064E3B] text-[#f8e7c9] shadow-sm'
+                      : 'text-slate-600 hover:text-slate-900 bg-white border border-slate-200'
+                  }`}
+                >
+                  <Layers className="w-3.5 h-3.5" />
+                  Unlocked Lead History ({myUnlockedLeads.length})
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setProfileSubTab('payments')}
+                  className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
+                    profileSubTab === 'payments'
+                      ? 'bg-[#064E3B] text-[#f8e7c9] shadow-sm'
+                      : 'text-slate-600 hover:text-slate-900 bg-white border border-slate-200'
+                  }`}
+                >
+                  <CreditCard className="w-3.5 h-3.5" />
+                  Payment History ({paymentsList.length})
+                </button>
+              </div>
+
+              {/* VIEW 1: AGENCY CREDENTIALS */}
+              {profileSubTab === 'details' && (
+                <>
+                  {isEditingProfile ? (
+                    <div className="bg-white rounded-3xl border border-slate-200 p-8 shadow-md space-y-5">
+                      <h3 className="text-base font-black text-[#064E3B]">Update Agency Credentials</h3>
+                      <form onSubmit={handleUpdateProfile} className="space-y-4 text-xs">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          <div className="space-y-1">
+                            <label className="font-bold text-slate-700">Company / Agency Name</label>
+                            <input
+                              type="text"
+                              required
+                              value={profileForm.companyName}
+                              onChange={(e) => setProfileForm({ ...profileForm, companyName: e.target.value })}
+                              className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none"
+                            />
+                          </div>
+                          <div className="space-y-1">
+                            <label className="font-bold text-slate-700">Primary Contact Person</label>
+                            <input
+                              type="text"
+                              required
+                              value={profileForm.contactPerson}
+                              onChange={(e) => setProfileForm({ ...profileForm, contactPerson: e.target.value })}
+                              className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none"
+                            />
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          <div className="space-y-1">
+                            <label className="font-bold text-slate-700">Official Mobile / WhatsApp</label>
+                            <input
+                              type="tel"
+                              value={profileForm.phone}
+                              onChange={(e) => setProfileForm({ ...profileForm, phone: e.target.value })}
+                              placeholder="+91 98765 43210"
+                              className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none"
+                            />
+                          </div>
+                          <div className="space-y-1">
+                            <label className="font-bold text-slate-700">Portfolio / Website Link</label>
+                            <input
+                              type="url"
+                              value={profileForm.portfolioWebsite}
+                              onChange={(e) => setProfileForm({ ...profileForm, portfolioWebsite: e.target.value })}
+                              placeholder="https://youragency.com"
+                              className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none"
+                            />
+                          </div>
+                        </div>
+
+                        <div className="flex justify-end gap-3 pt-3">
+                          <button
+                            type="button"
+                            onClick={() => setIsEditingProfile(false)}
+                            className="px-5 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-bold"
+                          >
+                            Cancel
+                          </button>
+                          <button
+                            type="submit"
+                            disabled={profileSaving}
+                            className="px-6 py-2.5 rounded-xl bg-[#064E3B] text-[#f8e7c9] font-bold shadow-md disabled:opacity-50 cursor-pointer flex items-center gap-2"
+                          >
+                            {profileSaving && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
+                            Save Changes
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  ) : (
+                    <div className="bg-white rounded-3xl border border-slate-200 p-8 shadow-md space-y-6">
+                      <h3 className="text-base font-black text-slate-900">Agency Information & Specialties</h3>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-xs">
+                        <div>
+                          <span className="text-[10px] text-slate-400 font-bold uppercase block">Official Email</span>
+                          <span className="text-sm font-bold text-slate-800">{agencyProfile.email}</span>
+                        </div>
+
+                        <div>
+                          <span className="text-[10px] text-slate-400 font-bold uppercase block">Official Phone</span>
+                          <span className="text-sm font-bold text-slate-800">{agencyProfile.phone || 'Not specified'}</span>
+                        </div>
+
+                        <div>
+                          <span className="text-[10px] text-slate-400 font-bold uppercase block">Official Portfolio</span>
+                          {agencyProfile.portfolioWebsite ? (
+                            <a
+                              href={agencyProfile.portfolioWebsite.startsWith('http') ? agencyProfile.portfolioWebsite : `https://${agencyProfile.portfolioWebsite}`}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="text-sm font-bold text-[#064E3B] hover:underline flex items-center gap-1.5"
+                            >
+                              <Globe className="w-3.5 h-3.5" /> {agencyProfile.portfolioWebsite}
+                            </a>
+                          ) : (
+                            <span className="text-sm text-slate-400">None provided</span>
+                          )}
+                        </div>
+
+                        <div>
+                          <span className="text-[10px] text-slate-400 font-bold uppercase block">Approved Engineering Categories</span>
+                          <div className="flex flex-wrap gap-1.5 mt-1">
+                            <span className="px-2.5 py-1 bg-emerald-50 text-[#064E3B] rounded-lg font-bold text-[10px]">Web Development</span>
+                            <span className="px-2.5 py-1 bg-emerald-50 text-[#064E3B] rounded-lg font-bold text-[10px]">App Development</span>
+                            <span className="px-2.5 py-1 bg-emerald-50 text-[#064E3B] rounded-lg font-bold text-[10px]">SEO Services</span>
+                            <span className="px-2.5 py-1 bg-emerald-50 text-[#064E3B] rounded-lg font-bold text-[10px]">AI & Automation</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
+                  )}
+                </>
+              )}
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div className="space-y-1">
-                        <label className="font-bold text-slate-700">Official Mobile / WhatsApp</label>
-                        <input
-                          type="tel"
-                          value={profileForm.phone}
-                          onChange={(e) => setProfileForm({ ...profileForm, phone: e.target.value })}
-                          placeholder="+91 98765 43210"
-                          className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none"
-                        />
-                      </div>
-                      <div className="space-y-1">
-                        <label className="font-bold text-slate-700">Portfolio / Website Link</label>
-                        <input
-                          type="url"
-                          value={profileForm.portfolioWebsite}
-                          onChange={(e) => setProfileForm({ ...profileForm, portfolioWebsite: e.target.value })}
-                          placeholder="https://youragency.com"
-                          className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none"
-                        />
-                      </div>
+              {/* VIEW 2: UNLOCKED LEAD HISTORY */}
+              {profileSubTab === 'leads' && (
+                <div className="space-y-4">
+                  {leadsLoading ? (
+                    <div className="py-12 flex flex-col items-center justify-center text-slate-400 gap-2">
+                      <Loader2 className="w-6 h-6 animate-spin text-[#064E3B]" />
+                      <span className="text-xs">Loading unlocked leads...</span>
                     </div>
-
-                    <div className="flex justify-end gap-3 pt-3">
+                  ) : myUnlockedLeads.length === 0 ? (
+                    <div className="bg-white p-8 rounded-3xl border border-slate-200 text-center space-y-3">
+                      <Layers className="w-10 h-10 text-slate-300 mx-auto" />
+                      <h4 className="font-bold text-sm text-slate-800">No Unlocked Leads in History</h4>
+                      <p className="text-xs text-slate-500 max-w-sm mx-auto">
+                        You have not unlocked any client contacts yet. Head over to the Marketplace tab to unlock exclusive leads.
+                      </p>
                       <button
                         type="button"
-                        onClick={() => setIsEditingProfile(false)}
-                        className="px-5 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-bold"
+                        onClick={() => setActiveTab('marketplace')}
+                        className="px-4 py-2 rounded-xl bg-[#064E3B] text-[#f8e7c9] text-xs font-bold cursor-pointer"
                       >
-                        Cancel
-                      </button>
-                      <button
-                        type="submit"
-                        disabled={profileSaving}
-                        className="px-6 py-2.5 rounded-xl bg-[#064E3B] text-[#f8e7c9] font-bold shadow-md disabled:opacity-50 cursor-pointer flex items-center gap-2"
-                      >
-                        {profileSaving && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
-                        Save Changes
+                        Explore Marketplace
                       </button>
                     </div>
-                  </form>
+                  ) : (
+                    <div className="space-y-4">
+                      {myUnlockedLeads.map((lead) => (
+                        <div key={lead._id} className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+                            <div>
+                              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#064E3B] text-[#f8e7c9]">
+                                {lead.category}
+                              </span>
+                              <h4 className="text-base font-bold text-slate-900 mt-1">{lead.title}</h4>
+                            </div>
+                            <div className="sm:text-right">
+                              <span className="text-xs font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full">
+                                Scope: {lead.budgetRange}
+                              </span>
+                            </div>
+                          </div>
+
+                          <div className="bg-emerald-50/70 p-4 rounded-2xl border border-emerald-200 space-y-2 text-xs">
+                            <span className="font-black text-emerald-900 uppercase text-[10px] block">
+                              Client Contact Credentials
+                            </span>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-slate-800 font-medium">
+                              <div><strong>Name:</strong> {lead.clientName}</div>
+                              <div>
+                                <strong>Phone:</strong>{' '}
+                                <a href={`tel:${lead.clientPhone}`} className="text-[#064E3B] font-bold hover:underline">
+                                  {lead.clientPhone}
+                                </a>
+                              </div>
+                              <div>
+                                <strong>Email:</strong>{' '}
+                                <a href={`mailto:${lead.clientEmail}`} className="text-[#064E3B] hover:underline">
+                                  {lead.clientEmail}
+                                </a>
+                              </div>
+                              <div><strong>City:</strong> {lead.cityLocation}</div>
+                            </div>
+                            {lead.clientFullAddress && (
+                              <div className="pt-1 text-slate-600 border-t border-emerald-200/60">
+                                <strong>Address:</strong> {lead.clientFullAddress}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
-              ) : (
-                <div className="bg-white rounded-3xl border border-slate-200 p-8 shadow-md space-y-6">
-                  <h3 className="text-base font-black text-slate-900">Agency Information & Specialties</h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-xs">
-                    <div>
-                      <span className="text-[10px] text-slate-400 font-bold uppercase block">Official Email</span>
-                      <span className="text-sm font-bold text-slate-800">{agencyProfile.email}</span>
-                    </div>
+              )}
 
-                    <div>
-                      <span className="text-[10px] text-slate-400 font-bold uppercase block">Official Phone</span>
-                      <span className="text-sm font-bold text-slate-800">{agencyProfile.phone || 'Not specified'}</span>
+              {/* VIEW 3: PAYMENT HISTORY */}
+              {profileSubTab === 'payments' && (
+                <div className="space-y-4">
+                  {paymentsLoading ? (
+                    <div className="py-12 flex flex-col items-center justify-center text-slate-400 gap-2">
+                      <Loader2 className="w-6 h-6 animate-spin text-[#064E3B]" />
+                      <span className="text-xs">Loading payment transactions...</span>
                     </div>
-
-                    <div>
-                      <span className="text-[10px] text-slate-400 font-bold uppercase block">Official Portfolio</span>
-                      {agencyProfile.portfolioWebsite ? (
-                        <a
-                          href={agencyProfile.portfolioWebsite}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="text-sm font-bold text-[#064E3B] hover:underline flex items-center gap-1.5"
+                  ) : paymentsList.length === 0 ? (
+                    <div className="bg-white p-8 rounded-3xl border border-slate-200 text-center space-y-3">
+                      <Receipt className="w-10 h-10 text-slate-300 mx-auto" />
+                      <h4 className="font-bold text-sm text-slate-800">No Payment Records Found</h4>
+                      <p className="text-xs text-slate-500 max-w-sm mx-auto">
+                        Purchase lead packages to unlock direct leads. Every verified transaction is listed here.
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => setActiveTab('pricing')}
+                        className="px-4 py-2 rounded-xl bg-[#064E3B] text-[#f8e7c9] text-xs font-bold cursor-pointer"
+                      >
+                        View Pricing Plans
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="space-y-3">
+                      {paymentsList.map((order, idx) => (
+                        <div
+                          key={order._id || idx}
+                          className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs space-y-3"
                         >
-                          <Globe className="w-3.5 h-3.5" /> {agencyProfile.portfolioWebsite}
-                        </a>
-                      ) : (
-                        <span className="text-sm text-slate-400">None provided</span>
-                      )}
-                    </div>
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+                            <div className="flex items-center gap-3">
+                              <div className="w-10 h-10 rounded-xl bg-emerald-100 text-[#064E3B] flex items-center justify-center shrink-0">
+                                <CreditCard className="w-5 h-5" />
+                              </div>
+                              <div>
+                                <div className="flex items-center gap-2">
+                                  <h5 className="font-bold text-sm text-slate-900">{order.planName}</h5>
+                                  <span className="px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded-full text-[10px] font-bold">
+                                    {order.status}
+                                  </span>
+                                </div>
+                                <p className="text-[11px] text-slate-500 mt-0.5">
+                                  {new Date(order.createdAt).toLocaleDateString('en-IN', {
+                                    day: 'numeric',
+                                    month: 'short',
+                                    year: 'numeric',
+                                    hour: '2-digit',
+                                    minute: '2-digit',
+                                  })}
+                                </p>
+                              </div>
+                            </div>
+                            <div className="sm:text-right">
+                              <span className="text-lg font-black text-[#064E3B]">₹{order.amount?.toLocaleString('en-IN')}</span>
+                              <span className="block text-[11px] text-emerald-700 font-bold">+{order.creditsGiven} Credits</span>
+                            </div>
+                          </div>
 
-                    <div>
-                      <span className="text-[10px] text-slate-400 font-bold uppercase block">Approved Engineering Categories</span>
-                      <div className="flex flex-wrap gap-1.5 mt-1">
-                        <span className="px-2.5 py-1 bg-emerald-50 text-[#064E3B] rounded-lg font-bold text-[10px]">Web Development</span>
-                        <span className="px-2.5 py-1 bg-emerald-50 text-[#064E3B] rounded-lg font-bold text-[10px]">App Development</span>
-                        <span className="px-2.5 py-1 bg-emerald-50 text-[#064E3B] rounded-lg font-bold text-[10px]">SEO Services</span>
-                        <span className="px-2.5 py-1 bg-emerald-50 text-[#064E3B] rounded-lg font-bold text-[10px]">AI & Automation</span>
-                      </div>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                            {order.razorpayPaymentId && (
+                              <div className="flex items-center justify-between gap-2">
+                                <span className="text-slate-500">Payment ID:</span>
+                                <div className="flex items-center gap-1 font-mono font-semibold text-slate-700 truncate">
+                                  <span className="truncate">{order.razorpayPaymentId}</span>
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      navigator.clipboard.writeText(order.razorpayPaymentId);
+                                      setCopiedTxnId(`p_${order._id}`);
+                                      setTimeout(() => setCopiedTxnId(null), 2000);
+                                    }}
+                                    className="p-1 hover:bg-slate-200 rounded text-slate-500 cursor-pointer"
+                                  >
+                                    {copiedTxnId === `p_${order._id}` ? <Check className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3" />}
+                                  </button>
+                                </div>
+                              </div>
+                            )}
+
+                            {order.razorpayOrderId && (
+                              <div className="flex items-center justify-between gap-2">
+                                <span className="text-slate-500">Order ID:</span>
+                                <div className="flex items-center gap-1 font-mono font-semibold text-slate-700 truncate">
+                                  <span className="truncate">{order.razorpayOrderId}</span>
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      navigator.clipboard.writeText(order.razorpayOrderId);
+                                      setCopiedTxnId(`o_${order._id}`);
+                                      setTimeout(() => setCopiedTxnId(null), 2000);
+                                    }}
+                                    className="p-1 hover:bg-slate-200 rounded text-slate-500 cursor-pointer"
+                                  >
+                                    {copiedTxnId === `o_${order._id}` ? <Check className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3" />}
+                                  </button>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      ))}
                     </div>
-                  </div>
+                  )}
                 </div>
               )}
             </div>

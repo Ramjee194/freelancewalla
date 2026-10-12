@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
       orderId: order.id,
       amount: order.amount,
       currency: order.currency,
-      keyId: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'rzp_test_Tmfk69kUmEz6ej',
+      keyId: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || process.env.RAZORPAY_KEY_ID || '',
       plan,
       agency: {
         name: agency.companyName,

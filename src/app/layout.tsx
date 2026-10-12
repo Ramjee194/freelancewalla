@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
+import AppProviders from '@/components/providers/AppProviders';
 
 const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://freelancewalla.in';
 
@@ -327,9 +328,11 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen flex flex-col bg-slate-50 text-slate-900 antialiased font-sans">
-        <Navbar />
-        <main className="flex-grow">{children}</main>
-        <Footer />
+        <AppProviders>
+          <Navbar />
+          <main className="flex-grow">{children}</main>
+          <Footer />
+        </AppProviders>
       </body>
     </html>
   );

@@ -27,39 +27,41 @@ export default function AdminSidebar() {
   };
 
   return (
-    <aside className="w-full lg:w-64 bg-[#064E3B] text-white p-6 rounded-2xl space-y-8 shrink-0 border border-[#04382a] shadow-lg">
-      <div className="space-y-1">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-[#f8e7c9] flex items-center justify-center font-bold text-[#064E3B] text-sm shadow-xs">
-            FW
+    <aside className="w-full lg:w-64 xl:w-72 bg-[#064E3B] text-white p-6 shrink-0 border-b lg:border-b-0 lg:border-r border-[#04382a] shadow-md lg:sticky lg:top-[72px] lg:left-0 h-auto lg:h-[calc(100vh-72px)] lg:min-h-[calc(100vh-72px)] flex flex-col justify-between overflow-y-auto z-40 rounded-none m-0">
+      <div className="space-y-8">
+        <div className="space-y-1">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-lg bg-[#f8e7c9] flex items-center justify-center font-bold text-[#064E3B] text-sm shadow-xs">
+              FW
+            </div>
+            <span className="font-extrabold text-lg text-white">Admin Portal</span>
           </div>
-          <span className="font-extrabold text-lg text-white">Admin Portal</span>
+          <p className="text-[11px] text-[#f8e7c9]/80">FreelanceWalla Management</p>
         </div>
-        <p className="text-[11px] text-[#f8e7c9]/80">FreelanceWalla Management</p>
+
+        <nav className="space-y-1.5">
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            const isActive = pathname === item.href;
+            return (
+              <Link
+                key={item.name}
+                href={item.href}
+                className={`flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                  isActive
+                    ? 'bg-[#f8e7c9] text-[#064E3B] font-bold shadow-xs'
+                    : 'text-emerald-100/80 hover:text-white hover:bg-[#04382a]'
+                }`}
+              >
+                <Icon className="w-4 h-4" />
+                {item.name}
+              </Link>
+            );
+          })}
+        </nav>
       </div>
 
-      <nav className="space-y-1.5">
-        {navItems.map((item) => {
-          const Icon = item.icon;
-          const isActive = pathname === item.href;
-          return (
-            <Link
-              key={item.name}
-              href={item.href}
-              className={`flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                isActive
-                  ? 'bg-[#f8e7c9] text-[#064E3B] font-bold shadow-xs'
-                  : 'text-emerald-100/80 hover:text-white hover:bg-[#04382a]'
-              }`}
-            >
-              <Icon className="w-4 h-4" />
-              {item.name}
-            </Link>
-          );
-        })}
-      </nav>
-
-      <div className="pt-6 border-t border-[#04382a] space-y-3">
+      <div className="pt-6 border-t border-[#04382a] space-y-3 mt-8">
         <Link
           href="/"
           className="flex items-center gap-2 text-xs font-semibold text-[#f8e7c9]/90 hover:text-white transition-colors"

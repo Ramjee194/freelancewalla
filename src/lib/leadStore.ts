@@ -402,3 +402,39 @@ export async function saveLeadOrder(orderData: any) {
   fs.writeFileSync(ordersFilePath, JSON.stringify(orders, null, 2), 'utf-8');
   return newOrder;
 }
+
+export async function getStoredLeadOrders(agencyIdOrEmail?: string): Promise<any[]> {
+  try {
+    const conn = await connectToDatabase();
+    if (conn) {
+      const query = agencyIdOrEmail
+        ? {
+            $or: [
+              { agencyId: agencyIdOrEmail },
+              { agencyEmail: agencyIdOrEmail.toLowerCase() },
+            ],
+          }
+        : {};
+      const dbOrders = await LeadOrder.find(query).sort({ createdAt: -1 }).lean();
+      if (dbOrders && dbOrders.length > 0) return dbOrders;
+    }
+  } catch (err) {
+    // Mongo fallback
+  }
+
+  ensureDir();
+  if (!fs.existsSync(ordersFilePath)) {
+    return [];
+  }
+  try {
+    const all = JSON.parse(fs.readFileSync(ordersFilePath, 'utf-8'));
+    if (!agencyIdOrEmail) return all;
+    return all.filter(
+      (o: any) =>
+        o.agencyId === agencyIdOrEmail ||
+        o.agencyEmail?.toLowerCase() === agencyIdOrEmail.toLowerCase()
+    );
+  } catch {
+    return [];
+  }
+}

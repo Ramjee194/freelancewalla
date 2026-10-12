@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Missing payment verification details' }, { status: 400 });
     }
 
-    const secret = process.env.RAZORPAY_KEY_SECRET || '5PF7s2ER7SUXRKtmWDGs6APK';
+    const secret = process.env.RAZORPAY_KEY_SECRET || '';
 
     // Verify signature
     const hmac = crypto.createHmac('sha256', secret);
