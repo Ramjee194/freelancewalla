@@ -124,8 +124,8 @@ export interface ILeadOrder {
   planName: 'Starter (5 Leads)' | 'Growth (10 Leads)' | 'Pro Agency (15 Leads)';
   amount: number;
   creditsGiven: number;
-  razorpayOrderId?: string;
-  razorpayPaymentId?: string;
+  cashfreeOrderId?: string;
+  cashfreePaymentId?: string;
   disclaimerAccepted: boolean;
   status: 'SUCCESS' | 'FAILED' | 'PENDING';
   allocatedLeadIds: string[];

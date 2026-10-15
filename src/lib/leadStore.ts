@@ -16,7 +16,7 @@ const INITIAL_SEED_LEADS = [
     title: 'Cross-Platform Grocery & Essentials Delivery Mobile App',
     category: 'App Development',
     budgetRange: '₹90,000 - ₹1,40,000',
-    projectDescription: 'Need a Flutter or React Native app with real-time delivery boy tracking, Razorpay payment gateway integration, customer order history, and push notifications.',
+    projectDescription: 'Need a Flutter or React Native app with real-time delivery boy tracking, Cashfree payment gateway integration, customer order history, and push notifications.',
     cityLocation: 'Pune, Maharashtra',
     clientName: 'Sanjay Deshmukh',
     clientPhone: '+91 98231 45780',

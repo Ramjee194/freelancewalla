@@ -1,10 +1,3 @@
-import Razorpay from 'razorpay';
-
-export const razorpayInstance = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || '',
-  key_secret: process.env.RAZORPAY_KEY_SECRET || '',
-});
-
 export interface ILeadPlan {
   id: 'starter' | 'growth' | 'pro';
   name: 'Starter (5 Leads)' | 'Growth (10 Leads)' | 'Pro Agency (15 Leads)';
@@ -19,7 +12,7 @@ export const LEAD_PLANS: ILeadPlan[] = [
   {
     id: 'starter',
     name: 'Starter (5 Leads)',
-    price: 699,
+    price: 4,
     leadsCount: 5,
     pricePerLead: '₹140 / lead',
     features: [
@@ -57,7 +50,7 @@ export const LEAD_PLANS: ILeadPlan[] = [
       'Direct Mobile, Email & Address',
       'Enterprise & High-Ticket Scope',
       '100% Exclusive Allocation (No Agency Sharing)',
-      'Dedicated Account Manager Support',
+      '24/7 Dedicated Account Manager',
       'Lifetime Access in Dashboard',
     ],
   },

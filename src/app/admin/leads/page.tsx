@@ -567,7 +567,7 @@ export default function AdminLeadsPage() {
                       <textarea
                         rows={3}
                         required
-                        placeholder="Client needs custom Next.js web application with Razorpay integration, multi-vendor support..."
+                        placeholder="Client needs custom Next.js web application with Cashfree integration, multi-vendor support..."
                         value={formData.projectDescription}
                         onChange={(e) => setFormData({ ...formData, projectDescription: e.target.value })}
                         className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none"

@@ -283,14 +283,14 @@ export default function AccountHistoryModal({
 
                       {/* Transaction IDs */}
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] bg-slate-50 p-2.5 rounded-xl border border-slate-100">
-                        {order.razorpayPaymentId && (
+                        {order.cashfreePaymentId && (
                           <div className="flex items-center justify-between gap-2">
                             <span className="text-slate-500">Payment ID:</span>
                             <div className="flex items-center gap-1 font-mono text-slate-700 font-semibold truncate">
-                              <span className="truncate">{order.razorpayPaymentId}</span>
+                              <span className="truncate">{order.cashfreePaymentId}</span>
                               <button
                                 type="button"
-                                onClick={() => copyToClipboard(order.razorpayPaymentId, `p_${order._id}`)}
+                                onClick={() => copyToClipboard(order.cashfreePaymentId, `p_${order._id}`)}
                                 className="p-1 hover:bg-slate-200 rounded text-slate-500 cursor-pointer"
                                 title="Copy Payment ID"
                               >
@@ -300,14 +300,14 @@ export default function AccountHistoryModal({
                           </div>
                         )}
 
-                        {order.razorpayOrderId && (
+                        {order.cashfreeOrderId && (
                           <div className="flex items-center justify-between gap-2">
                             <span className="text-slate-500">Order ID:</span>
                             <div className="flex items-center gap-1 font-mono text-slate-700 font-semibold truncate">
-                              <span className="truncate">{order.razorpayOrderId}</span>
+                              <span className="truncate">{order.cashfreeOrderId}</span>
                               <button
                                 type="button"
-                                onClick={() => copyToClipboard(order.razorpayOrderId, `o_${order._id}`)}
+                                onClick={() => copyToClipboard(order.cashfreeOrderId, `o_${order._id}`)}
                                 className="p-1 hover:bg-slate-200 rounded text-slate-500 cursor-pointer"
                                 title="Copy Order ID"
                               >

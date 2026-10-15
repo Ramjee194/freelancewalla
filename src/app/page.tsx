@@ -146,7 +146,7 @@ export default async function HomePage() {
 
   return (
     <div className="space-y-16 md:space-y-24 pb-16">
-      
+
       {/* FULLSCREEN BACKGROUND IMAGE SLIDER HERO */}
       <HeroBackgroundSlider />
 
@@ -204,7 +204,7 @@ export default async function HomePage() {
                 href="/agency-network"
                 className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-xs transition-all duration-200 text-center"
               >
-                <span>Agency Plans (From ₹699)</span>
+                <span>Agency Plans (From ₹4)</span>
               </Link>
             </div>
           </div>
@@ -396,7 +396,7 @@ export default async function HomePage() {
       <section className="bg-[#04382a] text-white py-16 border-t border-[#f8e7c9]/15">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            
+
             <FadeIn className="lg:col-span-7 space-y-6">
               <span className="text-xs uppercase font-bold tracking-wider text-[#f8e7c9] bg-[#f8e7c9]/15 px-3 py-1 rounded-full border border-[#f8e7c9]/30">
                 Work With Us
@@ -472,7 +472,7 @@ export default async function HomePage() {
                   </div>
                   <h3 className="text-xl font-bold text-slate-900">{role.title}</h3>
                   <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">{role.description}</p>
-                  
+
                   <div className="flex flex-wrap gap-2 text-xs text-slate-500 pt-1">
                     {role.workType?.map((wt: string) => (
                       <span key={wt} className="px-2 py-0.5 bg-[#f8e7c9] rounded-md text-[#064E3B] font-medium text-[11px]">

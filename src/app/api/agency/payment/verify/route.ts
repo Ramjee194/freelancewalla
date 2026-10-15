@@ -1,49 +1,89 @@
 import { NextRequest, NextResponse } from 'next/server';
-import crypto from 'crypto';
-import { LEAD_PLANS } from '@/lib/razorpay';
-import { getStoredAgencies, updateAgencyCredits, saveLeadOrder } from '@/lib/leadStore';
+import { cashfreeInstance, LEAD_PLANS } from '@/lib/cashfree';
+import connectToDatabase from '@/lib/db';
+import AgencyUser from '@/lib/models/AgencyUser';
+import { saveLeadOrder } from '@/lib/leadStore';
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const {
-      razorpay_order_id,
-      razorpay_payment_id,
-      razorpay_signature,
+      orderId,
       planId,
       uid,
       disclaimerAccepted,
     } = body;
 
-    if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature || !planId || !uid) {
-      return NextResponse.json({ error: 'Missing payment verification details' }, { status: 400 });
+    // Validate required fields
+    if (!orderId) {
+      return NextResponse.json(
+        { success: false, error: 'Missing Cashfree order ID.' },
+        { status: 400 }
+      );
+    }
+    if (!planId || !uid) {
+      return NextResponse.json(
+        { success: false, error: 'Missing plan or user information.' },
+        { status: 400 }
+      );
     }
 
-    const secret = process.env.RAZORPAY_KEY_SECRET || '';
+    if (!process.env.CASHFREE_APP_ID || !process.env.CASHFREE_SECRET_KEY) {
+      console.error('[verify-payment] CASHFREE credentials are not configured');
+      return NextResponse.json(
+        { success: false, error: 'Payment gateway is not configured. Please contact support.' },
+        { status: 500 }
+      );
+    }
 
-    // Verify signature
-    const hmac = crypto.createHmac('sha256', secret);
-    hmac.update(`${razorpay_order_id}|${razorpay_payment_id}`);
-    const generatedSignature = hmac.digest('hex');
+    // Verify payment by fetching order status from Cashfree
+    const response = await cashfreeInstance.PGFetchOrder(orderId);
+    const orderData = response.data;
 
-    if (generatedSignature !== razorpay_signature) {
-      return NextResponse.json({ error: 'Invalid payment signature. Verification failed.' }, { status: 400 });
+    if (!orderData || orderData.order_status !== 'PAID') {
+      console.error('[verify-payment] Payment not completed', {
+        orderId,
+        status: orderData?.order_status,
+      });
+      return NextResponse.json(
+        { success: false, error: `Payment not completed. Current status: ${orderData?.order_status || 'UNKNOWN'}` },
+        { status: 400 }
+      );
     }
 
     const plan = LEAD_PLANS.find((p) => p.id === planId);
     if (!plan) {
-      return NextResponse.json({ error: 'Unknown plan' }, { status: 400 });
+      return NextResponse.json(
+        { success: false, error: 'Unknown plan selected.' },
+        { status: 400 }
+      );
     }
 
-    const agencies = await getStoredAgencies();
-    const agency = agencies.find((a) => a.firebaseUid === uid);
+    // Use MongoDB directly (consistent with create-order route)
+    await connectToDatabase();
+    const agency = await AgencyUser.findOne({ firebaseUid: uid });
 
     if (!agency) {
-      return NextResponse.json({ error: 'Agency not found' }, { status: 404 });
+      return NextResponse.json(
+        { success: false, error: 'Agency not found.' },
+        { status: 404 }
+      );
     }
 
-    // Add credits to agency
-    const updatedAgency = await updateAgencyCredits(uid, plan.leadsCount);
+    // Add credits to agency atomically
+    const updatedAgency = await AgencyUser.findOneAndUpdate(
+      { firebaseUid: uid },
+      {
+        $inc: {
+          creditsBalance: plan.leadsCount,
+          totalCreditsPurchased: plan.leadsCount,
+        },
+      },
+      { new: true }
+    );
+
+    // Extract Cashfree payment ID from the order data
+    const cfPaymentId = orderData.cf_order_id?.toString() || orderId;
 
     // Record order
     const orderRecord = await saveLeadOrder({
@@ -53,20 +93,38 @@ export async function POST(req: NextRequest) {
       planName: plan.name,
       amount: plan.price,
       creditsGiven: plan.leadsCount,
-      razorpayOrderId: razorpay_order_id,
-      razorpayPaymentId: razorpay_payment_id,
+      cashfreeOrderId: orderId,
+      cashfreePaymentId: cfPaymentId,
       disclaimerAccepted: !!disclaimerAccepted,
       status: 'SUCCESS',
       allocatedLeadIds: [],
     });
 
+    console.log('[verify-payment] Payment verified successfully:', {
+      paymentId: cfPaymentId,
+      orderId: orderId,
+      plan: plan.id,
+      creditsAdded: plan.leadsCount,
+      newBalance: updatedAgency?.creditsBalance,
+    });
+
     return NextResponse.json({
       success: true,
       message: `Payment successful! Added ${plan.leadsCount} lead credits to your account.`,
-      newCreditsBalance: updatedAgency ? updatedAgency.creditsBalance : (agency.creditsBalance + plan.leadsCount),
+      newCreditsBalance: updatedAgency
+        ? updatedAgency.creditsBalance
+        : agency.creditsBalance + plan.leadsCount,
       order: orderRecord,
     });
   } catch (error: any) {
-    return NextResponse.json({ error: error.message || 'Payment verification failed' }, { status: 500 });
+    console.error('[verify-payment] Error:', {
+      message: error.message,
+      response: error.response?.data,
+      stack: error.stack,
+    });
+    return NextResponse.json(
+      { success: false, error: error.message || 'Payment verification failed.' },
+      { status: 500 }
+    );
   }
 }

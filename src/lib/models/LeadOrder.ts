@@ -15,8 +15,8 @@ const LeadOrderSchema = new Schema<ILeadOrderDocument>(
     },
     amount: { type: Number, required: true },
     creditsGiven: { type: Number, required: true },
-    razorpayOrderId: { type: String },
-    razorpayPaymentId: { type: String },
+    cashfreeOrderId: { type: String },
+    cashfreePaymentId: { type: String },
     disclaimerAccepted: { type: Boolean, required: true, default: true },
     status: {
       type: String,

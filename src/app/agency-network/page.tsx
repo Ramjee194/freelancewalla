@@ -15,7 +15,7 @@ import {
   onAuthStateChanged,
   User,
 } from 'firebase/auth';
-import { LEAD_PLANS, ILeadPlan } from '@/lib/razorpay';
+import { LEAD_PLANS, ILeadPlan } from '@/lib/leadPlans';
 import {
   CheckCircle2,
   Lock,
@@ -51,7 +51,7 @@ import {
 
 declare global {
   interface Window {
-    Razorpay: any;
+    Cashfree: any;
   }
 }
 
@@ -395,7 +395,7 @@ export default function AgencyNetworkPage() {
     setNotification({ type: 'success', message: 'You have been logged out securely.' });
   };
 
-  // Payment Handlers (Razorpay)
+  // Payment Handlers (Cashfree)
   const handleInitiatePlanPurchase = (plan: ILeadPlan) => {
     if (!currentUser) {
       setSelectedPlanForPurchase(plan);
@@ -406,7 +406,7 @@ export default function AgencyNetworkPage() {
     setDisclaimerAccepted(false);
   };
 
-  const handleProceedToRazorpay = async () => {
+  const handleProceedToCashfree = async () => {
     if (!selectedPlanForPurchase || !currentUser || !disclaimerAccepted) return;
 
     try {
@@ -427,68 +427,71 @@ export default function AgencyNetworkPage() {
         throw new Error(orderData.error || 'Failed to initialize payment gateway.');
       }
 
-      const options = {
-        key: orderData.keyId,
-        amount: orderData.amount,
-        currency: orderData.currency,
-        name: 'FreelanceWalla Agency Exchange',
-        description: `${selectedPlanForPurchase.name} (${selectedPlanForPurchase.leadsCount} Exclusive Client Leads)`,
-        order_id: orderData.orderId,
-        prefill: {
-          name: agencyProfile?.contactPerson || currentUser.displayName || 'Agency Partner',
-          email: currentUser.email || '',
-          contact: agencyProfile?.phone || '',
-        },
-        theme: {
-          color: '#064E3B',
-        },
-        handler: async function (response: any) {
-          try {
-            const verifyRes = await fetch('/api/agency/payment/verify', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                razorpay_order_id: response.razorpay_order_id,
-                razorpay_payment_id: response.razorpay_payment_id,
-                razorpay_signature: response.razorpay_signature,
-                planId: selectedPlanForPurchase.id,
-                uid: currentUser.uid,
-                disclaimerAccepted: true,
-              }),
-            });
+      // Initialize Cashfree checkout
+      const cashfree = window.Cashfree({
+        mode: 'production',
+      });
 
-            const verifyData = await verifyRes.json();
-            if (verifyData.success) {
-              setAgencyProfile((prev: any) => ({
-                ...prev,
-                creditsBalance: verifyData.newCreditsBalance,
-              }));
-              setSelectedPlanForPurchase(null);
-              setNotification({
-                type: 'success',
-                message: `Payment Successful! ${selectedPlanForPurchase.leadsCount} Exclusive Lead Credits have been added to your balance.`,
-              });
-              setActiveTab('marketplace');
-            } else {
-              setNotification({ type: 'error', message: verifyData.error || 'Payment verification failed.' });
-            }
-          } catch (err: any) {
-            setNotification({ type: 'error', message: err.message || 'Payment verification failed.' });
-          }
-        },
-        modal: {
-          ondismiss: function () {
-            setPaymentProcessing(false);
-          },
-        },
+      const checkoutOptions = {
+        paymentSessionId: orderData.paymentSessionId,
+        redirectTarget: '_modal' as const,
       };
 
-      const razorpay = new window.Razorpay(options);
-      razorpay.open();
+      const result = await cashfree.checkout(checkoutOptions);
+
+      if (result.error) {
+        // Payment was cancelled or errored
+        setPaymentProcessing(false);
+        console.error('[Cashfree] Payment error:', result.error);
+        setNotification({
+          type: 'error',
+          message: result.error.message || 'Payment was cancelled. No amount has been charged.',
+        });
+        return;
+      }
+
+      if (result.redirect) {
+        // Payment is being redirected — handled via return_url
+        console.log('[Cashfree] Payment redirect triggered');
+        return;
+      }
+
+      // Payment completed — verify on server
+      try {
+        const verifyRes = await fetch('/api/agency/payment/verify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            orderId: orderData.orderId,
+            planId: selectedPlanForPurchase.id,
+            uid: currentUser.uid,
+            disclaimerAccepted: true,
+          }),
+        });
+
+        const verifyData = await verifyRes.json();
+        if (verifyData.success) {
+          setAgencyProfile((prev: any) => ({
+            ...prev,
+            creditsBalance: verifyData.newCreditsBalance,
+          }));
+          setSelectedPlanForPurchase(null);
+          setNotification({
+            type: 'success',
+            message: `Payment Successful! ${selectedPlanForPurchase.leadsCount} Exclusive Lead Credits have been added to your balance.`,
+          });
+          setActiveTab('marketplace');
+        } else {
+          setNotification({ type: 'error', message: verifyData.error || 'Payment verification failed.' });
+        }
+      } catch (err: any) {
+        setNotification({ type: 'error', message: err.message || 'Payment verification failed.' });
+      } finally {
+        setPaymentProcessing(false);
+      }
     } catch (err: any) {
-      setNotification({ type: 'error', message: err.message || 'Payment initialization failed.' });
-    } finally {
       setPaymentProcessing(false);
+      setNotification({ type: 'error', message: err.message || 'Payment initialization failed.' });
     }
   };
 
@@ -538,7 +541,7 @@ export default function AgencyNetworkPage() {
 
   return (
     <>
-      <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
+      <Script src="https://sdk.cashfree.com/js/v3/cashfree.js" strategy="afterInteractive" />
 
       <div className="min-h-screen bg-slate-50 text-slate-800 pb-24">
         {/* HERO SECTION */}
@@ -1355,15 +1358,15 @@ export default function AgencyNetworkPage() {
                           </div>
 
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] bg-slate-50 p-2.5 rounded-xl border border-slate-100">
-                            {order.razorpayPaymentId && (
+                            {order.cashfreePaymentId && (
                               <div className="flex items-center justify-between gap-2">
                                 <span className="text-slate-500">Payment ID:</span>
                                 <div className="flex items-center gap-1 font-mono font-semibold text-slate-700 truncate">
-                                  <span className="truncate">{order.razorpayPaymentId}</span>
+                                  <span className="truncate">{order.cashfreePaymentId}</span>
                                   <button
                                     type="button"
                                     onClick={() => {
-                                      navigator.clipboard.writeText(order.razorpayPaymentId);
+                                      navigator.clipboard.writeText(order.cashfreePaymentId);
                                       setCopiedTxnId(`p_${order._id}`);
                                       setTimeout(() => setCopiedTxnId(null), 2000);
                                     }}
@@ -1375,15 +1378,15 @@ export default function AgencyNetworkPage() {
                               </div>
                             )}
 
-                            {order.razorpayOrderId && (
+                            {order.cashfreeOrderId && (
                               <div className="flex items-center justify-between gap-2">
                                 <span className="text-slate-500">Order ID:</span>
                                 <div className="flex items-center gap-1 font-mono font-semibold text-slate-700 truncate">
-                                  <span className="truncate">{order.razorpayOrderId}</span>
+                                  <span className="truncate">{order.cashfreeOrderId}</span>
                                   <button
                                     type="button"
                                     onClick={() => {
-                                      navigator.clipboard.writeText(order.razorpayOrderId);
+                                      navigator.clipboard.writeText(order.cashfreeOrderId);
                                       setCopiedTxnId(`o_${order._id}`);
                                       setTimeout(() => setCopiedTxnId(null), 2000);
                                     }}
@@ -1491,12 +1494,12 @@ export default function AgencyNetworkPage() {
                   <button
                     type="button"
                     disabled={!disclaimerAccepted || paymentProcessing}
-                    onClick={handleProceedToRazorpay}
+                    onClick={handleProceedToCashfree}
                     className="px-7 py-3 rounded-2xl bg-[#064E3B] hover:bg-[#04382a] text-[#f8e7c9] font-black text-xs shadow-md disabled:opacity-50 cursor-pointer flex items-center gap-2"
                   >
                     {paymentProcessing ? (
                       <>
-                        <Loader2 className="w-4 h-4 animate-spin" /> Launching Razorpay Gateway...
+                        <Loader2 className="w-4 h-4 animate-spin" /> Launching Cashfree Gateway...
                       </>
                     ) : (
                       <>Pay ₹{selectedPlanForPurchase.price} Securely</>
