@@ -6,21 +6,39 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const staticRoutes = [
     '',
-    '/about',
     '/services',
+    '/agency-network',
+    '/about',
+    '/contact',
+    '/reviews',
     '/careers',
     '/careers/roles',
-    '/reviews',
-    '/contact',
     '/apply',
-    '/terms',
     '/privacy',
-  ].map((route) => ({
-    url: `${baseUrl}${route}`,
-    lastModified: new Date().toISOString(),
-    changeFrequency: route === '' ? ('daily' as const) : ('weekly' as const),
-    priority: route === '' ? 1.0 : route === '/services' || route === '/careers' ? 0.9 : 0.8,
-  }));
+    '/terms',
+  ].map((route) => {
+    let priority = 0.8;
+    let changeFrequency: 'daily' | 'weekly' | 'monthly' = 'weekly';
+
+    if (route === '') {
+      priority = 1.0;
+      changeFrequency = 'daily';
+    } else if (route === '/services' || route === '/agency-network') {
+      priority = 0.95;
+      changeFrequency = 'daily';
+    } else if (route === '/contact' || route === '/about' || route === '/reviews') {
+      priority = 0.9;
+    } else if (route === '/careers' || route === '/careers/roles' || route === '/apply') {
+      priority = 0.85;
+    }
+
+    return {
+      url: `${baseUrl}${route}`,
+      lastModified: new Date().toISOString(),
+      changeFrequency,
+      priority,
+    };
+  });
 
   const roleRoutes = defaultJobRoles.map((role) => ({
     url: `${baseUrl}/careers/${role.slug}`,

@@ -26,7 +26,6 @@ export default function AuthModal() {
     loginWithGoogle,
     loginWithEmail,
     signupWithEmail,
-    loginWithDemo,
   } = useAuth();
 
   const [email, setEmail] = useState('');
@@ -65,7 +64,7 @@ export default function AuthModal() {
     } catch (err: any) {
       console.error('Auth submit error:', err);
       if (err.code === 'auth/configuration-not-found' || err.message?.includes('identitytoolkit')) {
-        setErrorMsg('Firebase Authentication is initializing. You can use the 1-Click Instant Demo Partner Login below to test instantly.');
+        setErrorMsg('Authentication error. Please check your credentials or try again.');
       } else if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential') {
         setErrorMsg('Invalid email or password. Please verify credentials or register.');
       } else if (err.code === 'auth/email-already-in-use') {
@@ -86,22 +85,10 @@ export default function AuthModal() {
     } catch (err: any) {
       console.error('Google auth error:', err);
       if (err.code === 'auth/configuration-not-found' || err.message?.includes('identitytoolkit')) {
-        setErrorMsg('Firebase Google Auth requires configuration. You can use 1-Click Instant Demo Login below.');
+        setErrorMsg('Google Sign-in is currently unavailable. Please sign in with email.');
       } else {
         setErrorMsg(err.message || 'Failed to authenticate with Google.');
       }
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleDemoAuth = async () => {
-    setIsSubmitting(true);
-    setErrorMsg('');
-    try {
-      await loginWithDemo();
-    } catch (err: any) {
-      setErrorMsg(err.message || 'Demo login failed.');
     } finally {
       setIsSubmitting(false);
     }
@@ -149,11 +136,10 @@ export default function AuthModal() {
                 openAuthModal('login');
                 setErrorMsg('');
               }}
-              className={`flex-1 py-2 rounded-lg text-xs font-bold transition-all ${
-                authModalMode === 'login'
+              className={`flex-1 py-2 rounded-lg text-xs font-bold transition-all ${authModalMode === 'login'
                   ? 'bg-white text-[#064E3B] shadow-sm'
                   : 'text-slate-600 hover:text-slate-900'
-              }`}
+                }`}
             >
               Partner / User Login
             </button>
@@ -163,37 +149,15 @@ export default function AuthModal() {
                 openAuthModal('signup');
                 setErrorMsg('');
               }}
-              className={`flex-1 py-2 rounded-lg text-xs font-bold transition-all ${
-                authModalMode === 'signup'
+              className={`flex-1 py-2 rounded-lg text-xs font-bold transition-all ${authModalMode === 'signup'
                   ? 'bg-white text-[#064E3B] shadow-sm'
                   : 'text-slate-600 hover:text-slate-900'
-              }`}
+                }`}
             >
               Register New Agency
             </button>
           </div>
 
-          {/* Quick Instant Demo Option */}
-          <div className="p-3.5 bg-gradient-to-r from-emerald-50 via-teal-50 to-amber-50 rounded-2xl border border-emerald-200/80 flex items-center justify-between gap-3 shadow-xs">
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-[#064E3B] text-[#f8e7c9] flex items-center justify-center shrink-0">
-                <Sparkles className="w-4 h-4 text-[#f8e7c9]" />
-              </div>
-              <div className="text-left">
-                <div className="text-xs font-bold text-[#064E3B]">Quick Demo Login</div>
-                <div className="text-[11px] text-slate-600">DevSpark Tech Solutions (Verified Agency Partner)</div>
-              </div>
-            </div>
-            <button
-              type="button"
-              onClick={handleDemoAuth}
-              disabled={isSubmitting}
-              className="px-3.5 py-1.5 rounded-xl bg-[#064E3B] hover:bg-[#04382a] text-[#f8e7c9] text-xs font-bold shadow-sm transition-all flex items-center gap-1 shrink-0"
-            >
-              1-Click Demo
-              <ArrowRight className="w-3.5 h-3.5" />
-            </button>
-          </div>
 
           {/* Google Sign In */}
           <button

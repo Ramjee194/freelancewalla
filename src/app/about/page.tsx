@@ -4,13 +4,21 @@ import { Target, Eye, ShieldCheck, HeartHandshake, BookOpen, CheckCircle } from 
 import { FadeIn, StaggerContainer, StaggerItem, PageMotion } from '@/components/common/MotionWrapper';
 
 export const metadata: Metadata = {
-  title: 'About Us | FreelanceWalla – BPO & Telecalling Platform Gurgaon',
-  description: 'FreelanceWalla is headquartered at DLF Phase 3, Cyber City, Gurugram, Haryana. We connect businesses across India with dedicated telecalling, customer support, and back-office teams.',
+  title: 'About FreelanceWalla | #1 BPO & Lead Generation Company Gurgaon, India',
+  description:
+    'FreelanceWalla is headquartered at DLF Phase 3, Cyber City, Gurugram, Haryana. We empower businesses across India with dedicated BPO telecalling, 24/7 customer support, and verified lead generation.',
+  keywords: [
+    'About FreelanceWalla',
+    'FreelanceWalla Gurgaon',
+    'BPO Company Gurgaon',
+    'Cyber City Gurugram BPO',
+    'FreelanceWalla Founder',
+  ],
   alternates: {
     canonical: 'https://freelancewalla.in/about',
   },
   openGraph: {
-    title: 'About FreelanceWalla | #1 BPO & Support Platform India',
+    title: 'About FreelanceWalla | #1 BPO & Lead Generation Platform India',
     description: 'Learn about FreelanceWalla mission, vision, and core operational capabilities headquartered in Cyber City Gurgaon.',
     url: 'https://freelancewalla.in/about',
   },

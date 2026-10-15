@@ -7,19 +7,33 @@ import AppProviders from '@/components/providers/AppProviders';
 const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://freelancewalla.in';
 
 export const metadata: Metadata = {
-  // ─── Title Strategy ────────────────────────────────────────────────────────
+  // ─── Title Strategy: Brand First for Exact Match Authority ──────────────────
   title: {
     default:
-      'FreelanceWalla – #1 BPO, Telecalling, Data Entry & Customer Support Outsourcing India',
-    template: '%s | FreelanceWalla',
+      'FreelanceWalla – #1 BPO & Lead Generation Company in India | Official Site',
+    template: '%s | FreelanceWalla - BPO & Lead Generation',
   },
   // ─── Primary Meta ──────────────────────────────────────────────────────────
   description:
-    'FreelanceWalla is India\'s trusted BPO outsourcing platform — dedicated sales telecalling, 24/7 customer support, live chat, email management, data entry & lead generation teams. Hire trained remote teams or apply for work-from-home jobs online.',
+    'FreelanceWalla (freelancewalla.in) is India\'s #1 BPO outsourcing and verified lead generation company. Specializing in sales telecalling, 24/7 customer support desk, exclusive B2B & B2C client leads, data entry, and back-office operations from Cyber City Gurugram, India.',
   keywords: [
     'FreelanceWalla',
     'freelancewalla.in',
+    'Freelance Walla',
+    'freelancewala',
+    'freelance wala',
+    'freelancewalla bpo',
+    'freelancewalla lead generation',
+    'freelancewalla official website',
+    'freelancewalla company',
+    'freelancewalla careers',
+    'freelancewalla reviews',
+    'freelancewalla login',
+    'freelancewalla contact',
     'BPO Services India',
+    'BPO and Lead Generation Company India',
+    'Lead Generation Company India',
+    'Exclusive Lead Generation India',
     'BPO Company in Gurgaon',
     'BPO in Cyber City Gurgaon',
     'Telecalling Company Gurgaon Haryana',
@@ -32,7 +46,7 @@ export const metadata: Metadata = {
     'Email Support Outsourcing',
     'Data Entry Services India',
     'Data Entry Services Gurgaon',
-    'Lead Generation Company India',
+    'B2B Client Leads India',
     'Back Office Support India',
     'Remote Work India',
     'Work From Home Telecalling Jobs India',
@@ -135,7 +149,13 @@ export default function RootLayout({
     '@type': 'ProfessionalService',
     '@id': `${BASE_URL}/#organization`,
     name: 'FreelanceWalla',
-    alternateName: 'FreelanceWalla BPO',
+    alternateName: [
+      'FreelanceWalla.in',
+      'Freelance Walla',
+      'FreelanceWalla BPO',
+      'FreelanceWalla BPO & Lead Generation',
+      'FreelanceWalla Agency Network',
+    ],
     url: BASE_URL,
     logo: {
       '@type': 'ImageObject',
@@ -145,7 +165,7 @@ export default function RootLayout({
     },
     image: `${BASE_URL}/images/hero_bpo_team.png`,
     description:
-      'FreelanceWalla is India\'s trusted BPO outsourcing platform providing sales telecalling, customer support, live chat, email management, data entry, lead generation and back-office operations from Cyber City Gurugram.',
+      'FreelanceWalla is India\'s #1 BPO outsourcing and verified lead generation platform providing sales telecalling, customer support, live chat, email management, data entry, lead generation and back-office operations from Cyber City Gurugram, India.',
     email: 'info@freelancewalla.in',
     telephone: '+91-9876543210',
     address: {
@@ -165,11 +185,15 @@ export default function RootLayout({
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: '4.9',
-      reviewCount: '124',
+      reviewCount: '158',
       bestRating: '5',
       worstRating: '1',
     },
-    sameAs: [BASE_URL],
+    sameAs: [
+      BASE_URL,
+      'https://www.linkedin.com/company/freelancewalla',
+      'https://twitter.com/FreelanceWalla',
+    ],
     priceRange: '₹₹',
     areaServed: {
       '@type': 'Country',
@@ -177,21 +201,22 @@ export default function RootLayout({
     },
     serviceType: [
       'BPO Services',
-      'Telecalling Services',
-      'Customer Support',
-      'Data Entry',
       'Lead Generation',
-      'Email Support',
+      'Telecalling Services',
+      'Inbound & Outbound Calling',
+      'Customer Support Outsourcing',
       'Live Chat Support',
+      'Email Support Management',
+      'Data Entry & Database Cleanup',
       'Back Office Support',
       'Virtual Assistance',
     ],
     knowsAbout: [
-      'Business Process Outsourcing',
-      'Sales Telecalling',
-      'Customer Support',
-      'Data Entry',
-      'Lead Generation',
+      'Business Process Outsourcing (BPO)',
+      'Exclusive Lead Generation',
+      'Sales Telecalling & Telemarketing',
+      '24/7 Customer Support',
+      'Data Entry & Operations',
     ],
     foundingDate: '2020',
     numberOfEmployees: {
@@ -208,8 +233,9 @@ export default function RootLayout({
     '@id': `${BASE_URL}/#website`,
     url: BASE_URL,
     name: 'FreelanceWalla',
+    alternateName: 'FreelanceWalla.in',
     description:
-      'BPO, Telecalling, Customer Support & Data Entry Services India',
+      '#1 BPO Services, Exclusive Lead Generation, Telecalling & Customer Support in India',
     publisher: {
       '@id': `${BASE_URL}/#organization`,
     },
@@ -237,67 +263,73 @@ export default function RootLayout({
       {
         '@type': 'ListItem',
         position: 2,
-        name: 'Services',
+        name: 'BPO Services',
         item: `${BASE_URL}/services`,
       },
       {
         '@type': 'ListItem',
         position: 3,
-        name: 'Careers',
-        item: `${BASE_URL}/careers`,
+        name: 'Exclusive Lead Network',
+        item: `${BASE_URL}/agency-network`,
       },
       {
         '@type': 'ListItem',
         position: 4,
-        name: 'Contact',
+        name: 'Careers & Jobs',
+        item: `${BASE_URL}/careers`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 5,
+        name: 'Contact Us',
         item: `${BASE_URL}/contact`,
       },
     ],
   };
 
-  // ─── Schema.org: FAQPage (boosts rich results) ─────────────────────────────
+  // ─── Schema.org: FAQPage (boosts rich Google SERP results) ────────────────
   const jsonLdFAQ = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     mainEntity: [
       {
         '@type': 'Question',
-        name: 'What BPO services does FreelanceWalla offer?',
+        name: 'What is FreelanceWalla?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'FreelanceWalla offers sales telecalling, inbound customer support, live chat support, email management, data entry, lead generation, back-office support, and virtual assistance services across India.',
+          text: 'FreelanceWalla (freelancewalla.in) is India\'s premier BPO outsourcing and verified lead generation platform headquartered at DLF Phase 3, Cyber City, Gurugram. It connects businesses with dedicated telecalling teams, customer support executives, and 100% exclusive sales leads.',
         },
       },
       {
         '@type': 'Question',
-        name: 'Can I hire a telecalling team from FreelanceWalla?',
+        name: 'What BPO and Lead Generation services does FreelanceWalla offer?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Yes! FreelanceWalla provides dedicated sales and telecalling teams for outbound calls, lead follow-ups, appointment scheduling, and lead qualification for businesses across India.',
+          text: 'FreelanceWalla offers outbound sales telecalling, inbound customer service, 24/7 live chat, email ticket management, verified B2B/B2C lead generation, data entry, back-office operations, and virtual assistance across India.',
         },
       },
       {
         '@type': 'Question',
-        name: 'Does FreelanceWalla offer work-from-home jobs?',
+        name: 'How does FreelanceWalla provide 100% exclusive client leads?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Yes. FreelanceWalla offers flexible remote work opportunities in telecalling, customer support, chat support, email support, and data entry roles for candidates across India.',
+          text: 'Every client lead on FreelanceWalla is verified by our procurement team and allocated strictly to ONE agency or partner. We guarantee zero lead sharing, giving your company 100% exclusive access to the prospect.',
         },
       },
       {
         '@type': 'Question',
-        name: 'How do I apply for a job at FreelanceWalla?',
+        name: 'Can I hire a dedicated telecalling team from FreelanceWalla?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'You can apply directly through the FreelanceWalla website at freelancewalla.in/apply. Browse available roles and submit your application online with no registration charges.',
+          text: 'Yes! FreelanceWalla provides trained, dedicated sales telecalling teams for outbound outreach, appointment scheduling, cold calling, and lead qualification trained on your business scripts and SLAs.',
         },
       },
       {
         '@type': 'Question',
-        name: 'Is FreelanceWalla a registered BPO company in India?',
+        name: 'Does FreelanceWalla offer remote work-from-home jobs?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'FreelanceWalla is a professional BPO outsourcing platform based in India, connecting businesses with skilled remote support teams for various operational requirements.',
+          text: 'Yes. FreelanceWalla offers flexible remote work opportunities in telecalling, customer support, chat support, email support, and data entry roles for candidates across India with no registration fees.',
         },
       },
     ],
@@ -310,9 +342,9 @@ export default function RootLayout({
         <link rel="icon" href="/icon.svg" type="image/svg+xml" />
         <link rel="icon" href="/favicon.ico" sizes="48x48" />
         <link rel="apple-touch-icon" href="/images/logo.png" />
-        <link rel="mask-icon" href="/icon.svg" color="#1A2A5E" />
-        <meta name="theme-color" content="#1A2A5E" />
-        <meta name="msapplication-TileColor" content="#1A2A5E" />
+        <link rel="mask-icon" href="/icon.svg" color="#064E3B" />
+        <meta name="theme-color" content="#064E3B" />
+        <meta name="msapplication-TileColor" content="#064E3B" />
 
         {/* JSON-LD Structured Data – all schemas injected together */}
         <script

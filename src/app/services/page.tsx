@@ -20,14 +20,22 @@ import { defaultServices } from '@/lib/constants';
 import { FadeIn, PageMotion } from '@/components/common/MotionWrapper';
 
 export const metadata: Metadata = {
-  title: 'BPO & Freelance Services | Sales, Telecalling & Customer Support',
+  title: 'BPO & Lead Generation Services | FreelanceWalla Telecalling & Support',
   description:
-    'Explore FreelanceWalla operational services including sales telecalling, 24/7 customer support, live chat management, email support, data entry, lead generation, and back-office operations in India.',
+    'Explore FreelanceWalla BPO services including sales telecalling, 24/7 customer support, live chat management, verified lead generation, email helpdesk, data entry, and back-office operations across India.',
+  keywords: [
+    'FreelanceWalla Services',
+    'BPO Services India',
+    'Lead Generation Company India',
+    'Telecalling Outsourcing India',
+    'Customer Support BPO',
+    'Data Entry Services Gurgaon',
+  ],
   alternates: {
     canonical: 'https://freelancewalla.in/services',
   },
   openGraph: {
-    title: 'BPO & Freelance Services | FreelanceWalla India',
+    title: 'BPO & Lead Generation Services | FreelanceWalla India',
     description: 'Outsource sales telecalling, customer support, live chat, email management, data entry, and lead generation to trained remote teams.',
     url: 'https://freelancewalla.in/services',
   },

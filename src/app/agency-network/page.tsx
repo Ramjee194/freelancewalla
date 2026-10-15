@@ -24,6 +24,9 @@ import {
   ShieldCheck,
   AlertTriangle,
   Phone,
+  PhoneCall,
+  Headphones,
+  Users,
   Mail,
   MapPin,
   ExternalLink,
@@ -544,55 +547,62 @@ export default function AgencyNetworkPage() {
       <Script src="https://sdk.cashfree.com/js/v3/cashfree.js" strategy="afterInteractive" />
 
       <div className="min-h-screen bg-slate-50 text-slate-800 pb-24">
-        {/* HERO SECTION */}
-        <div className="bg-[#064E3B] text-white pt-16 pb-20 px-4 sm:px-6 lg:px-8 border-b border-[#04382a] relative overflow-hidden">
-          <div className="max-w-7xl mx-auto relative z-10 space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#f8e7c9]/15 border border-[#f8e7c9]/30 text-[#f8e7c9] text-xs font-bold uppercase tracking-wider">
-              <Sparkles className="w-3.5 h-3.5" /> Certified Agency Partner Network
+        {/* HERO SECTION - BPO & LEAD GENERATION */}
+        <div className="bg-[#064E3B] text-white pt-16 pb-20 px-4 sm:px-6 lg:px-8 border-b border-[#04382a] relative overflow-hidden text-center">
+          {/* Subtle background glow effect */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[350px] bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="max-w-4xl mx-auto relative z-10 flex flex-col items-center justify-center space-y-6 text-center">
+            {/* Centered Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#f8e7c9]/15 border border-[#f8e7c9]/30 text-[#f8e7c9] text-xs font-bold uppercase tracking-wider shadow-sm mx-auto">
+              <Sparkles className="w-3.5 h-3.5" /> India's Premier BPO & Exclusive Lead Generation Network
             </div>
 
-            <div className="max-w-3xl space-y-4">
-              <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
-                High-Ticket Client Inquiries for <span className="text-[#f8e7c9]">Software Agencies & Startups</span>
+            {/* Centered Main Heading */}
+            <div className="max-w-3xl space-y-4 text-center mx-auto">
+              <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight text-white text-center">
+                Scalable BPO Services & <span className="text-[#f8e7c9]">Verified Lead Generation</span> for Growing Businesses
               </h1>
-              <p className="text-sm sm:text-base text-emerald-100/90 leading-relaxed font-normal">
-                Receive verified, ready-to-build client requirements across <strong>Mobile App Development</strong>, <strong>Web Systems</strong>, <strong>SEO Growth</strong>, and <strong>AI & Automation</strong>. Every client lead is <strong>100% exclusive</strong>—once assigned, no other agency receives this lead.
+              <p className="text-sm sm:text-base text-emerald-100/90 leading-relaxed font-normal max-w-2xl mx-auto text-center">
+                Accelerate your growth with professional <strong>Inbound & Outbound Telecalling</strong>, <strong>24/7 Customer Support</strong>, and <strong>100% verified, exclusive client leads</strong>. Every lead is allocated strictly to one partner—guaranteed zero lead sharing.
               </p>
             </div>
 
-            {/* Quick Status Bar / Auth Trigger */}
-            <div className="pt-2 flex flex-wrap items-center gap-4">
-              {currentUser && agencyProfile ? (
-                <div className="flex flex-wrap items-center gap-3 bg-white/10 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/15 shadow-sm">
+            {/* Centered Feature Highlights */}
+            <div className="flex flex-wrap items-center justify-center gap-2.5 pt-1 text-xs">
+              <div className="bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/15 text-emerald-100 flex items-center gap-1.5 shadow-xs">
+                <PhoneCall className="w-3.5 h-3.5 text-[#f8e7c9]" /> Inbound & Outbound Calling
+              </div>
+              <div className="bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/15 text-emerald-100 flex items-center gap-1.5 shadow-xs">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#f8e7c9]" /> 100% Verified Exclusive Leads
+              </div>
+              <div className="bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/15 text-emerald-100 flex items-center gap-1.5 shadow-xs">
+                <Headphones className="w-3.5 h-3.5 text-[#f8e7c9]" /> 24/7 Customer & Live Chat Support
+              </div>
+              <div className="bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/15 text-emerald-100 flex items-center gap-1.5 shadow-xs">
+                <ShieldCheck className="w-3.5 h-3.5 text-[#f8e7c9]" /> Zero Lead-Sharing Guarantee
+              </div>
+            </div>
+
+            {/* Centered Action Trigger (Profile & Purchase details removed; already in tabs/profile section) */}
+            <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
+              {currentUser ? (
+                <>
                   <button
-                    onClick={() => setActiveTab('profile')}
-                    className="flex items-center gap-2 hover:opacity-80 transition-opacity cursor-pointer"
+                    onClick={() => setActiveTab('marketplace')}
+                    className="bg-[#f8e7c9] hover:bg-[#edd4a6] text-[#064E3B] px-6 py-3.5 rounded-2xl font-black text-xs shadow-md hover:shadow-lg transition-all cursor-pointer flex items-center gap-2"
                   >
-                    <UserCheck className="w-4 h-4 text-[#f8e7c9]" />
-                    <span className="text-xs font-extrabold text-white underline underline-offset-2">
-                      {agencyProfile.companyName}
-                    </span>
+                    <Briefcase className="w-4 h-4" /> Browse Available Client Requirements
                   </button>
-                  <span className="text-white/40">|</span>
-                  <div className="flex items-center gap-1.5 bg-[#f8e7c9] text-[#064E3B] px-3 py-1 rounded-xl text-xs font-black shadow-xs">
-                    <Coins className="w-4 h-4 text-[#064E3B]" />
-                    <span>{agencyProfile.creditsBalance || 0} Lead Credits Available</span>
-                  </div>
                   <button
                     onClick={() => setActiveTab('pricing')}
-                    className="text-xs text-[#f8e7c9] font-bold hover:text-white transition-colors cursor-pointer ml-1"
+                    className="bg-white/10 hover:bg-white/20 text-white px-6 py-3.5 rounded-2xl font-bold text-xs border border-white/20 transition-all cursor-pointer flex items-center gap-2"
                   >
-                    + Purchase Credits
+                    <Coins className="w-4 h-4 text-[#f8e7c9]" /> View Lead Plans & Pricing
                   </button>
-                  <button
-                    onClick={handleLogout}
-                    className="text-xs text-rose-300 hover:text-rose-100 flex items-center gap-1 cursor-pointer ml-2 transition-colors"
-                  >
-                    <LogOut className="w-3.5 h-3.5" /> Logout
-                  </button>
-                </div>
+                </>
               ) : (
-                <div className="flex flex-wrap items-center gap-3">
+                <>
                   <button
                     onClick={() => {
                       setAuthMode('signup');
@@ -600,7 +610,7 @@ export default function AgencyNetworkPage() {
                     }}
                     className="bg-[#f8e7c9] hover:bg-[#edd4a6] text-[#064E3B] px-6 py-3.5 rounded-2xl font-black text-xs shadow-md hover:shadow-lg transition-all cursor-pointer flex items-center gap-2"
                   >
-                    <Briefcase className="w-4 h-4" /> Register Agency Account
+                    <Briefcase className="w-4 h-4" /> Register Partner Account
                   </button>
                   <button
                     onClick={() => {
@@ -611,7 +621,14 @@ export default function AgencyNetworkPage() {
                   >
                     Sign In
                   </button>
-                </div>
+                  <button
+                    onClick={() => setActiveTab('marketplace')}
+                    className="bg-white/10 hover:bg-white/20 text-white px-6 py-3.5 rounded-2xl font-bold text-xs border border-white/20 transition-all cursor-pointer flex items-center gap-2"
+                  >
+                    <span>Browse Available Leads</span>
+                    <ArrowRight className="w-3.5 h-3.5 text-[#f8e7c9]" />
+                  </button>
+                </>
               )}
             </div>
           </div>
@@ -1726,7 +1743,7 @@ export default function AgencyNetworkPage() {
                   </button>
                 </form>
 
-                <div className="text-center pt-2 space-y-2">
+                <div className="text-center pt-2">
                   <button
                     type="button"
                     onClick={() => {
@@ -1739,16 +1756,6 @@ export default function AgencyNetworkPage() {
                       ? 'Already have an agency account? Sign In'
                       : "Don't have an agency account yet? Register Here"}
                   </button>
-
-                  <div className="pt-2 border-t border-slate-100">
-                    <button
-                      type="button"
-                      onClick={handleInstantDemoLogin}
-                      className="w-full py-2.5 bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-[#064E3B] rounded-xl text-xs font-black transition-all cursor-pointer shadow-xs"
-                    >
-                      🚀 Instant Agency Demo Sign-In (Test Sandbox)
-                    </button>
-                  </div>
                 </div>
               </motion.div>
             </div>

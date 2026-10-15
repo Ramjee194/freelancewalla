@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShieldCheck, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { ShieldCheck, ArrowRight, CheckCircle2, PhoneCall, Headphones, Sparkles } from 'lucide-react';
 
 interface HeroSlide {
   image: string;
@@ -15,24 +15,27 @@ interface HeroSlide {
 const heroSlides: HeroSlide[] = [
   {
     image: '/images/hero_bpo_team.png',
-    title: 'Reliable Freelance & BPO Services for Growing Businesses',
-    subtitle: 'FreelanceWalla connects businesses with reliable support for sales, telecalling, customer service, chat, email, data entry and back-office operations.',
-    badge: 'Verified & Freelance Services',
-  },
-  {
-    image: '/images/bpo_workspace.png',
-    title: 'Dedicated Teams Trained on Your Business Process',
-    subtitle: 'Adherence to call scripts, response guidelines, and operational SLAs to maintain professional customer communication.',
+    title: 'Premier BPO Services & Verified Lead Generation',
+    subtitle: 'Scale your business with dedicated telecalling, 24/7 customer support, inbound/outbound sales, and 100% exclusive, verified B2B & B2C client leads.',
+    badge: 'Premier BPO & Lead Generation',
   },
   {
     image: '/images/bpo_support_call.png',
-    title: 'Empathetic Customer Support & Live Chat Management',
-    subtitle: 'Resolve inbound queries, reduce ticket response time, and increase customer satisfaction across call, chat, and email channels.',
+    title: '100% Exclusive, High-Intent Lead Generation',
+    subtitle: 'Acquire verified client requirements with guaranteed zero lead-sharing. Once allocated, no other company receives this lead.',
+    badge: 'Exclusive B2B & B2C Leads',
+  },
+  {
+    image: '/images/bpo_workspace.png',
+    title: 'Dedicated Inbound & Outbound Calling BPO Operations',
+    subtitle: 'Trained telecallers, lead qualification executives, and sales outreach teams working on your custom scripts and operational SLAs.',
+    badge: 'Telecalling & Outbound Sales',
   },
   {
     image: '/images/bpo_data_office.png',
-    title: 'Accurate Data Entry & Administrative Back-Office Support',
-    subtitle: 'Organize spreadsheets, update CRM records, handle document processing, and audit order records with high accuracy.',
+    title: '24/7 Omnichannel Customer Support & Back-Office BPO',
+    subtitle: 'Rapid query resolution, live chat desk, ticket handling, and meticulous data management to streamline your business operations.',
+    badge: '24/7 BPO Support',
   },
 ];
 
@@ -119,17 +122,17 @@ export default function HeroBackgroundSlider() {
           className="pt-4 flex flex-wrap items-center justify-center gap-4"
         >
           <Link
-            href="/contact"
+            href="/agency-network"
             className="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-base font-bold text-[#064E3B] bg-[#f8e7c9] hover:bg-[#edd4a6] transition-all shadow-xl hover:shadow-[#f8e7c9]/30 scale-100 hover:scale-105 border border-[#f8e7c9]"
           >
-            Get a Free Quote
+            <span>Explore Verified Leads</span>
             <ArrowRight className="w-5 h-5 text-[#064E3B]" />
           </Link>
           <Link
             href="/services"
             className="inline-flex items-center gap-2 px-7 py-4 rounded-xl text-base font-semibold text-[#f8e7c9] bg-[#064E3B]/80 hover:bg-[#064E3B] transition-colors border border-[#f8e7c9]/30 backdrop-blur-md"
           >
-            View Our Services
+            Explore BPO Services
           </Link>
         </motion.div>
 
@@ -142,15 +145,19 @@ export default function HeroBackgroundSlider() {
         >
           <div className="flex items-center gap-1.5 bg-[#064E3B]/70 px-3.5 py-1.5 rounded-lg border border-[#f8e7c9]/30 backdrop-blur-xs">
             <CheckCircle2 className="w-4 h-4 text-[#f8e7c9]" />
-            <span>Flexible teams</span>
+            <span>100% Exclusive Leads</span>
           </div>
           <div className="flex items-center gap-1.5 bg-[#064E3B]/70 px-3.5 py-1.5 rounded-lg border border-[#f8e7c9]/30 backdrop-blur-xs">
-            <CheckCircle2 className="w-4 h-4 text-[#f8e7c9]" />
-            <span>Remote support</span>
+            <PhoneCall className="w-4 h-4 text-[#f8e7c9]" />
+            <span>Inbound & Outbound Calling</span>
           </div>
           <div className="flex items-center gap-1.5 bg-[#064E3B]/70 px-3.5 py-1.5 rounded-lg border border-[#f8e7c9]/30 backdrop-blur-xs">
-            <CheckCircle2 className="w-4 h-4 text-[#f8e7c9]" />
-            <span>Business-focused service</span>
+            <Headphones className="w-4 h-4 text-[#f8e7c9]" />
+            <span>24/7 Customer Support Desk</span>
+          </div>
+          <div className="flex items-center gap-1.5 bg-[#064E3B]/70 px-3.5 py-1.5 rounded-lg border border-[#f8e7c9]/30 backdrop-blur-xs">
+            <ShieldCheck className="w-4 h-4 text-[#f8e7c9]" />
+            <span>Zero Lead Sharing Guarantee</span>
           </div>
         </motion.div>
 

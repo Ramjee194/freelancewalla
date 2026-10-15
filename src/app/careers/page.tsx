@@ -19,6 +19,14 @@ export const metadata: Metadata = {
   title: 'Careers & Remote Work Opportunities | FreelanceWalla Jobs',
   description:
     'Explore flexible part-time, full-time and work-from-home opportunities in telecalling, customer support, chat support, email handling, and data entry with FreelanceWalla in India.',
+  keywords: [
+    'FreelanceWalla Jobs',
+    'FreelanceWalla Careers',
+    'Work From Home Jobs India',
+    'Telecalling Jobs Remote',
+    'Customer Support Jobs',
+    'Apply FreelanceWalla',
+  ],
   alternates: {
     canonical: 'https://freelancewalla.in/careers',
   },

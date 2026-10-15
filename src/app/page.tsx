@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
   PhoneCall,
@@ -22,6 +23,22 @@ import { defaultJobRoles, defaultReviews } from '@/lib/constants';
 import HeroBackgroundSlider from '@/components/home/HeroBackgroundSlider';
 import FeedbackSlider from '@/components/home/FeedbackSlider';
 import { FadeIn, StaggerContainer, StaggerItem } from '@/components/common/MotionWrapper';
+
+export const metadata: Metadata = {
+  title: 'FreelanceWalla – #1 BPO & Lead Generation Company in India | Official Site',
+  description:
+    'FreelanceWalla (freelancewalla.in) is India\'s #1 BPO outsourcing and verified lead generation platform. Get dedicated outbound telecalling, 24/7 customer support, live chat assistance, 100% exclusive B2B/B2C client leads, and back-office management.',
+  alternates: {
+    canonical: 'https://freelancewalla.in',
+  },
+  openGraph: {
+    title: 'FreelanceWalla – #1 BPO & Lead Generation Company India',
+    description:
+      'Scale your business with dedicated BPO teams, telecalling, and 100% exclusive verified client leads on FreelanceWalla.',
+    url: 'https://freelancewalla.in',
+    siteName: 'FreelanceWalla',
+  },
+};
 
 export const revalidate = 0; // Fresh dynamic data on every request
 
@@ -159,35 +176,35 @@ export default async function HomePage() {
           <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
             <div className="space-y-4 max-w-2xl">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#f8e7c9]/15 border border-[#f8e7c9]/30 text-[#f8e7c9] text-xs font-bold uppercase tracking-wider">
-                <span>🚀 FreelanceWalla Agency Network</span>
+                <span>🚀 FreelanceWalla Partner Network</span>
                 <span className="text-white/40">•</span>
-                <span>B2B Client Leads</span>
+                <span>BPO & Lead Generation</span>
               </div>
 
               <h2 className="text-2xl sm:text-4xl font-black tracking-tight leading-tight">
-                Software Agency Struggling to <span className="text-[#f8e7c9]">Find Clients?</span>
+                Grow Your Business with <span className="text-[#f8e7c9]">BPO Operations & Verified Leads</span>
               </h2>
 
               <p className="text-emerald-100/90 text-sm sm:text-base leading-relaxed">
-                Connect directly with verified businesses seeking custom <strong>Mobile Apps</strong>, <strong>Web Development</strong>, <strong>SEO Growth</strong>, and <strong>AI & Automation</strong>. Every client lead is <strong>100% exclusive</strong>—once claimed, it is assigned only to your company.
+                Connect directly with verified client requirements across <strong>BPO Telecalling</strong>, <strong>24/7 Customer Support</strong>, <strong>B2B & B2C Lead Generation</strong>, and <strong>Back-Office Workflows</strong>. Every client lead is <strong>100% exclusive</strong>—once claimed, it is assigned only to your company.
               </p>
 
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
                 <div className="bg-white/10 backdrop-blur-md rounded-xl p-3 border border-white/10 text-center">
-                  <span className="text-[10px] text-[#f8e7c9] font-bold uppercase block">Mobile Apps</span>
-                  <span className="text-xs font-semibold text-white">Flutter & Native</span>
+                  <span className="text-[10px] text-[#f8e7c9] font-bold uppercase block">BPO Calling</span>
+                  <span className="text-xs font-semibold text-white">Inbound & Outbound</span>
                 </div>
                 <div className="bg-white/10 backdrop-blur-md rounded-xl p-3 border border-white/10 text-center">
-                  <span className="text-[10px] text-[#f8e7c9] font-bold uppercase block">Web Systems</span>
-                  <span className="text-xs font-semibold text-white">Next.js & MERN</span>
+                  <span className="text-[10px] text-[#f8e7c9] font-bold uppercase block">Customer Support</span>
+                  <span className="text-xs font-semibold text-white">24/7 Desk & Chat</span>
                 </div>
                 <div className="bg-white/10 backdrop-blur-md rounded-xl p-3 border border-white/10 text-center">
-                  <span className="text-[10px] text-[#f8e7c9] font-bold uppercase block">SEO Services</span>
-                  <span className="text-xs font-semibold text-white">Local GMB & Tech</span>
+                  <span className="text-[10px] text-[#f8e7c9] font-bold uppercase block">Lead Generation</span>
+                  <span className="text-xs font-semibold text-white">Verified B2B & B2C</span>
                 </div>
                 <div className="bg-white/10 backdrop-blur-md rounded-xl p-3 border border-white/10 text-center">
-                  <span className="text-[10px] text-[#f8e7c9] font-bold uppercase block">AI & Automation</span>
-                  <span className="text-xs font-semibold text-white">Bots & Workflows</span>
+                  <span className="text-[10px] text-[#f8e7c9] font-bold uppercase block">Back Office</span>
+                  <span className="text-xs font-semibold text-white">Data & Admin Ops</span>
                 </div>
               </div>
             </div>
