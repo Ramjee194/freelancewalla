@@ -1,51 +1,28 @@
 import { MetadataRoute } from 'next';
-import { defaultJobRoles, defaultServices } from '@/lib/constants';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://freelancewalla.in';
+  const now = new Date().toISOString();
 
-  const staticRoutes = [
-    '',
-    '/services',
-    '/agency-network',
-    '/about',
-    '/contact',
-    '/reviews',
-    '/careers',
-    '/careers/roles',
-    '/apply',
-    '/privacy',
-    '/terms',
-  ].map((route) => {
-    let priority = 0.8;
-    let changeFrequency: 'daily' | 'weekly' | 'monthly' = 'weekly';
+  // Optimized specifically for Google #1 Ranking with target keyword routes
+  const targetRoutes: {
+    route: string;
+    priority: number;
+    changeFrequency: 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never';
+  }[] = [
+    { route: '', priority: 1.0, changeFrequency: 'daily' },
+    { route: '/bpo-services', priority: 0.95, changeFrequency: 'daily' },
+    { route: '/b2b-services', priority: 0.95, changeFrequency: 'daily' },
+    { route: '/b2c-services', priority: 0.95, changeFrequency: 'daily' },
+    { route: '/careers', priority: 0.90, changeFrequency: 'daily' },
+    { route: '/about-us', priority: 0.85, changeFrequency: 'weekly' },
+    { route: '/contact-us', priority: 0.85, changeFrequency: 'weekly' },
+  ];
 
-    if (route === '') {
-      priority = 1.0;
-      changeFrequency = 'daily';
-    } else if (route === '/services' || route === '/agency-network') {
-      priority = 0.95;
-      changeFrequency = 'daily';
-    } else if (route === '/contact' || route === '/about' || route === '/reviews') {
-      priority = 0.9;
-    } else if (route === '/careers' || route === '/careers/roles' || route === '/apply') {
-      priority = 0.85;
-    }
-
-    return {
-      url: `${baseUrl}${route}`,
-      lastModified: new Date().toISOString(),
-      changeFrequency,
-      priority,
-    };
-  });
-
-  const roleRoutes = defaultJobRoles.map((role) => ({
-    url: `${baseUrl}/careers/${role.slug}`,
-    lastModified: new Date().toISOString(),
-    changeFrequency: 'weekly' as const,
-    priority: 0.85,
+  return targetRoutes.map((item) => ({
+    url: `${baseUrl}${item.route}`,
+    lastModified: now,
+    changeFrequency: item.changeFrequency,
+    priority: item.priority,
   }));
-
-  return [...staticRoutes, ...roleRoutes];
 }

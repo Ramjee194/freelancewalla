@@ -25,16 +25,33 @@ import FeedbackSlider from '@/components/home/FeedbackSlider';
 import { FadeIn, StaggerContainer, StaggerItem } from '@/components/common/MotionWrapper';
 
 export const metadata: Metadata = {
-  title: 'FreelanceWalla – #1 BPO & Lead Generation Company in India | Official Site',
+  title: 'FreelanceWalla – #1 BPO Company in Gurgaon & Business Services India',
   description:
-    'FreelanceWalla (freelancewalla.in) is India\'s #1 BPO outsourcing and verified lead generation platform. Get dedicated outbound telecalling, 24/7 customer support, live chat assistance, 100% exclusive B2B/B2C client leads, and back-office management.',
+    'FreelanceWalla BPO and business services: Leading BPO company in Gurgaon providing 24/7 customer support outsourcing services, data entry services in Gurgaon, B2B business services in India, B2C customer service solutions, and telemarketing sales support.',
+  keywords: [
+    'Freelancewalla BPO and business services',
+    'BPO services',
+    'BPO company in Gurgaon',
+    'Customer support',
+    'Customer support outsourcing services',
+    'Data entry',
+    'Data entry services in Gurgaon',
+    'B2B services',
+    'B2B business services in India',
+    'B2C services',
+    'B2C customer service solutions',
+    'Sales support',
+    'Telemarketing and sales support services',
+    'FreelanceWalla',
+    'freelancewalla.in',
+  ],
   alternates: {
     canonical: 'https://freelancewalla.in',
   },
   openGraph: {
-    title: 'FreelanceWalla – #1 BPO & Lead Generation Company India',
+    title: 'FreelanceWalla – BPO & Business Services in Gurgaon, India',
     description:
-      'Scale your business with dedicated BPO teams, telecalling, and 100% exclusive verified client leads on FreelanceWalla.',
+      'Scale your business with dedicated BPO teams, customer support outsourcing, data entry in Gurgaon, and enterprise B2B sales support.',
     url: 'https://freelancewalla.in',
     siteName: 'FreelanceWalla',
   },
@@ -79,45 +96,31 @@ export default async function HomePage() {
 
   const servicesList = [
     {
-      title: 'Sales & Telecalling',
-      desc: 'Outbound telecalling, lead follow-ups, appointment scheduling, and lead qualification for sales teams.',
+      title: 'BPO Services in Gurgaon',
+      desc: 'Top-tier BPO company operations in Cyber City Gurgaon with vetted telecallers, 24/7 coverage, and SLA guarantees.',
       icon: PhoneCall,
-      href: '/services#sales-telecalling',
-      tag: 'High Demand',
+      href: '/bpo-services',
+      tag: 'Gurgaon HQ',
     },
     {
-      title: 'Customer Support',
-      desc: 'Inbound customer inquiry handling, complaint resolution, order tracking, and helpdesk support.',
+      title: 'B2B Business Services & Sales',
+      desc: 'Dedicated outbound telemarketing and sales support services, pipeline acceleration, and corporate appointment setting.',
+      icon: Briefcase,
+      href: '/b2b-services',
+      tag: 'B2B Sales Support',
+    },
+    {
+      title: 'B2C Customer Service Solutions',
+      desc: 'Round-the-clock customer support outsourcing services across voice, live chat, WhatsApp, and email ticketing.',
       icon: Headphones,
-      href: '/services#customer-support',
-      tag: '24/7 Ready',
+      href: '/b2c-services',
+      tag: '24/7 CSAT Care',
     },
     {
-      title: 'Chat Support',
-      desc: 'Real-time live website chat assistance, pre-purchase inquiries, and instant lead engagement.',
-      icon: MessageSquare,
-      href: '/services#chat-support',
-      tag: 'Instant Web Chat',
-    },
-    {
-      title: 'Email Support',
-      desc: 'Structured email management, timely ticket resolution, complaint tracking, and SLA management.',
-      icon: Mail,
-      href: '/services#email-support',
-      tag: 'Ticket SLA',
-    },
-    {
-      title: 'Lead Generation',
-      desc: 'Targeted B2B database building, prospect research, contact verification, and lead lists.',
-      icon: Users,
-      href: '/services#lead-generation',
-      tag: 'B2B Lists',
-    },
-    {
-      title: 'Data Entry',
-      desc: 'Accurate spreadsheet entry, database cleanup, CRM record updates, and digitizing paper files.',
+      title: 'Data Entry Services in Gurgaon',
+      desc: 'High-speed, 99.8% accurate spreadsheet entry, database cleanup, CRM record updates, and digitizing paper files.',
       icon: FileSpreadsheet,
-      href: '/services#data-entry',
+      href: '/bpo-services#data-entry',
       tag: 'High Accuracy',
     },
     {

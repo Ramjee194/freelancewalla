@@ -8,18 +8,19 @@ import Logo from '@/components/common/Logo';
 
 const footerLinks = {
   company: [
-    { label: 'About Us', href: '/about' },
+    { label: 'About Us', href: '/about-us' },
+    { label: 'BPO Services Gurgaon', href: '/bpo-services' },
     { label: 'Careers', href: '/careers' },
     { label: 'Reviews', href: '/reviews' },
-    { label: 'Contact Us', href: '/contact' },
+    { label: 'Contact Us', href: '/contact-us' },
   ],
   services: [
-    { label: 'Sales & Telecalling', href: '/services#sales-telecalling' },
-    { label: 'Customer Support', href: '/services#customer-support' },
-    { label: 'Live Chat Support', href: '/services#chat-support' },
-    { label: 'Email Management', href: '/services#email-support' },
-    { label: 'Data Entry', href: '/services#data-entry' },
-    { label: 'Lead Generation', href: '/services#lead-generation' },
+    { label: 'BPO Services in Gurgaon', href: '/bpo-services' },
+    { label: 'B2B Business Services', href: '/b2b-services' },
+    { label: 'B2C Customer Solutions', href: '/b2c-services' },
+    { label: 'Customer Support Outsourcing', href: '/bpo-services#customer-support' },
+    { label: 'Data Entry Services', href: '/bpo-services#data-entry' },
+    { label: 'Telemarketing & Sales Support', href: '/b2b-services' },
   ],
   applicants: [
     { label: 'Available Roles', href: '/careers/roles' },
@@ -62,7 +63,7 @@ export default function Footer() {
           </div>
           <div className="flex flex-wrap gap-3 shrink-0">
             <Link
-              href="/contact"
+              href="/contact-us"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-[#064E3B] bg-[#f8e7c9] hover:bg-[#edd4a6] transition-all shadow-lg border border-[#f8e7c9]"
             >
               Hire a Team

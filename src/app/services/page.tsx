@@ -20,23 +20,30 @@ import { defaultServices } from '@/lib/constants';
 import { FadeIn, PageMotion } from '@/components/common/MotionWrapper';
 
 export const metadata: Metadata = {
-  title: 'BPO & Lead Generation Services | FreelanceWalla Telecalling & Support',
+  title: 'BPO & Business Services in India | FreelanceWalla Outsourcing',
   description:
-    'Explore FreelanceWalla BPO services including sales telecalling, 24/7 customer support, live chat management, verified lead generation, email helpdesk, data entry, and back-office operations across India.',
+    'Explore FreelanceWalla BPO and business services: BPO company in Gurgaon, B2B business services in India, B2C customer service solutions, customer support outsourcing, and data entry services in Gurgaon.',
   keywords: [
-    'FreelanceWalla Services',
-    'BPO Services India',
-    'Lead Generation Company India',
-    'Telecalling Outsourcing India',
-    'Customer Support BPO',
-    'Data Entry Services Gurgaon',
+    'Freelancewalla BPO and business services',
+    'BPO services',
+    'BPO company in Gurgaon',
+    'Customer support',
+    'Customer support outsourcing services',
+    'Data entry',
+    'Data entry services in Gurgaon',
+    'B2B services',
+    'B2B business services in India',
+    'B2C services',
+    'B2C customer service solutions',
+    'Sales support',
+    'Telemarketing and sales support services',
   ],
   alternates: {
     canonical: 'https://freelancewalla.in/services',
   },
   openGraph: {
-    title: 'BPO & Lead Generation Services | FreelanceWalla India',
-    description: 'Outsource sales telecalling, customer support, live chat, email management, data entry, and lead generation to trained remote teams.',
+    title: 'BPO & Business Services | FreelanceWalla India',
+    description: 'Outsource telemarketing, customer support outsourcing, live chat, and data entry to trained remote teams.',
     url: 'https://freelancewalla.in/services',
   },
 };
@@ -207,7 +214,7 @@ export default async function ServicesPage() {
                     ))}
                   </div>
                   <Link
-                    href={`/contact?service=${encodeURIComponent(service.title)}`}
+                    href={`/contact-us?service=${encodeURIComponent(service.title)}`}
                     className="text-xs font-bold text-[#064E3B] hover:text-[#04382a] underline underline-offset-4"
                   >
                     Get Quote for {service.title} →
@@ -229,7 +236,7 @@ export default async function ServicesPage() {
           </p>
           <div>
             <Link
-              href="/contact"
+              href="/contact-us"
               className="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg bg-[#f8e7c9] text-[#064E3B] font-bold hover:bg-[#edd4a6] transition-colors shadow-md border border-[#f8e7c9]"
             >
               Submit Your Requirement

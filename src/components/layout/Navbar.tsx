@@ -17,9 +17,10 @@ import NavbarProfile from '@/components/layout/NavbarProfile';
 
 const navLinks = [
   { name: 'Home', href: '/' },
-  { name: 'Services', href: '/services' },
-  { name: 'Agency Network', href: '/agency-network' },
-  { name: 'About', href: '/about' },
+  { name: 'BPO Services', href: '/bpo-services' },
+  { name: 'B2B Services', href: '/b2b-services' },
+  { name: 'B2C Services', href: '/b2c-services' },
+  { name: 'About Us', href: '/about-us' },
   {
     name: 'Careers',
     href: '/careers',
@@ -29,7 +30,7 @@ const navLinks = [
       { name: 'Apply Online', href: '/apply' },
     ],
   },
-  { name: 'Contact', href: '/contact' },
+  { name: 'Contact Us', href: '/contact-us' },
 ];
 
 export default function Navbar() {
@@ -180,7 +181,7 @@ export default function Navbar() {
                 <span>Apply for Work</span>
               </Link>
               <Link
-                href="/contact"
+                href="/contact-us"
                 className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-[#f8e7c9] bg-[#064E3B] hover:bg-[#04382a] transition-all shadow-sm hover:shadow-md border border-[#f8e7c9]/30 whitespace-nowrap shrink-0"
               >
                 <PhoneCall className="w-3.5 h-3.5 text-[#f8e7c9] shrink-0" />
@@ -280,7 +281,7 @@ export default function Navbar() {
                   Apply for Work
                 </Link>
                 <Link
-                  href="/contact"
+                  href="/contact-us"
                   onClick={() => setMobileOpen(false)}
                   className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-bold text-[#f8e7c9] bg-[#064E3B] shadow-md"
                 >

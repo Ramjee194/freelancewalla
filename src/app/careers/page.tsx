@@ -16,23 +16,29 @@ import { seedDatabase } from '@/lib/seed';
 import { FadeIn, StaggerContainer, StaggerItem, PageMotion } from '@/components/common/MotionWrapper';
 
 export const metadata: Metadata = {
-  title: 'Careers & Remote Work Opportunities | FreelanceWalla Jobs',
+  title: 'BPO Careers & Remote Jobs | FreelanceWalla Telecalling & Support',
   description:
-    'Explore flexible part-time, full-time and work-from-home opportunities in telecalling, customer support, chat support, email handling, and data entry with FreelanceWalla in India.',
+    'Join FreelanceWalla BPO and business services for rewarding remote and Gurgaon-based careers in telemarketing and sales support services, customer support, and data entry services.',
   keywords: [
-    'FreelanceWalla Jobs',
-    'FreelanceWalla Careers',
-    'Work From Home Jobs India',
-    'Telecalling Jobs Remote',
-    'Customer Support Jobs',
+    'Freelancewalla BPO and business services',
+    'BPO services',
+    'BPO company in Gurgaon',
+    'Customer support',
+    'Customer support outsourcing services',
+    'Data entry',
+    'Data entry services in Gurgaon',
+    'Sales support',
+    'Telemarketing and sales support services',
+    'Work From Home Telecalling Jobs',
+    'Remote BPO Jobs India',
     'Apply FreelanceWalla',
   ],
   alternates: {
     canonical: 'https://freelancewalla.in/careers',
   },
   openGraph: {
-    title: 'Careers & Work Opportunities | FreelanceWalla India',
-    description: 'Apply online for remote telecalling, customer support, and data entry jobs across India. Zero registration charges.',
+    title: 'BPO Careers & Work Opportunities | FreelanceWalla India',
+    description: 'Apply online for remote telecalling, customer support outsourcing, and data entry jobs across India. Zero registration charges.',
     url: 'https://freelancewalla.in/careers',
   },
 };
