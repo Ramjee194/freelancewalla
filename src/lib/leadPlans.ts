@@ -12,7 +12,7 @@ export const LEAD_PLANS: ILeadPlan[] = [
   {
     id: 'starter',
     name: 'Starter (5 Leads)',
-    price: 4,
+    price: 699,
     leadsCount: 5,
     pricePerLead: '₹140 / lead',
     features: [

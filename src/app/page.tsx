@@ -224,7 +224,7 @@ export default async function HomePage() {
                 href="/agency-network"
                 className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-xs transition-all duration-200 text-center"
               >
-                <span>Agency Plans (From ₹4)</span>
+                <span>Agency Plans (From ₹699)</span>
               </Link>
             </div>
           </div>
